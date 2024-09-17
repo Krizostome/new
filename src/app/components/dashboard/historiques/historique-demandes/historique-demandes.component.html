@@ -1,0 +1,288 @@
+<div class="row ml-2 mr-2">
+    <div class="col-xl-4 col-lg-4 col-md-4 col-4">
+        <div class="card bg-primary bg-lighten-3">
+            <div class="card-content pt-1 pb-1">
+                <div class="card-body py-0" [routerLink]="['/historique/demandes']" title="Voir les demandes ..."
+                    style="cursor: pointer;">
+                    <div class="media">
+                        <div class="media-body info text-left">
+                            <h3 class="font-large-1 info mb-0 text-white">{{demandesNouvelles}}</h3>
+                            <span class="h5 mt-4 text-white">Demandes</span>
+                        </div>
+                        <div class="media-right info text-right h5">
+                            <span class="h6"> <i class="fa fa-box-open fa-2x text-white"></i>
+                                Attente</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-4 col-4">
+        <div class="card bg-warning bg-lighten-3">
+            <div class="card-content  pt-1 pb-1">
+                <div class="card-body py-0" [routerLink]="['/historique/demandes']" title="Voir les voyages ..."
+                    style="cursor: pointer;">
+                    <div class="media">
+                        <div class="media-body warning text-left">
+                            <h3 class="font-large-1 warning mb-0 text-white">{{demandesEncours}}</h3>
+                            <span class="h5 warning mt-4 text-white">Courses</span>
+                        </div>
+                        <div class="media-right warning text-right h5">
+                            <span class="h6 warning"> <i class="fa fa-road fa-2x text-white"></i> En cours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-4 col-md-4 col-4">
+        <div class="card bg-success bg-lighten-3">
+            <div class="card-content pt-1 pb-1">
+                <div class="card-body py-0" [routerLink]="['/historique/demandes']" title="Voir les règlements ..."
+                    style="cursor: pointer;">
+                    <div class="media">
+                        <div class="media-body primary text-left">
+                            <h3 class="font-large-1 primary mb-0 text-white">{{demandesTerminees}}</h3>
+                            <span class="h5 primary mt-4 text-white">Courses</span>
+                        </div>
+                        <div class="media-right success text-right h5">
+                            <span class="h6 text-gray success"> <i class="fa fa-box fa-2x text-white"></i>
+                                Terminées</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-body mt-4">
+    <div class="table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
+        <form method="post" id="add-planing" (keyup.enter)="onSubmit()" [formGroup]="form">
+            <div class="card mx-auto rounded-lg bg-white mb-1">
+                <div class="card-header text-center bg-primary">
+                    <div class="mx-auto">Statistiques Demandes | Critères de recherche</div>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-2 form-group">
+                            <div class="text-left"><label for="date_debut">Date début</label> <span style="color:red">
+                                    *</span>
+                            </div>
+                            <div [class.has-success]="!form.get('date_debut')?.errors && formSubmitted"
+                                [class.has-danger]="form.get('date_debut')?.errors && formSubmitted">
+                                <input class="form-control form-control-sm" id="date_debut" name="date_debut"
+                                    type="date_debut" formControlName="date_debut" type="date"
+                                    [class.is-valid]="!form.get('date_debut')?.errors && formSubmitted"
+                                    [class.is-invalid]="form.get('date_debut')?.errors && formSubmitted">
+                            </div>
+                        </div>
+                        <div class="col-2 form-group">
+                            <div class="text-left"><label for="date_fin">Date fin</label> <span style="color:red">
+                                    *</span>
+                            </div>
+                            <div [class.has-success]="!form.get('date_fin')?.errors && formSubmitted"
+                                [class.has-danger]="form.get('date_fin')?.errors && formSubmitted">
+                                <input class="form-control form-control-sm" id="date_fin" name="date_fin" type="text"
+                                    formControlName="date_fin"
+                                    [class.is-valid]="!form.get('date_fin')?.errors && formSubmitted"
+                                    [class.is-invalid]="form.get('date_fin')?.errors && formSubmitted" type="date">
+                            </div>
+                        </div>
+                        <div class="col-2 form-group">
+                            <div class="text-left"><label for="point_destination">Destination</label> <span
+                                    style="color:red">
+                                    *</span>
+                            </div>
+                            <div [class.has-success]="!form.get('point_destination')?.errors && formSubmitted"
+                                [class.has-danger]="form.get('point_destination')?.errors && formSubmitted">
+                                <input class="form-control form-control-sm" id="point_destination"
+                                    name="point_destination" type="text" formControlName="point_destination"
+                                    placeholder="Point de destination"
+                                    [class.is-valid]="!form.get('point_destination')?.errors && formSubmitted"
+                                    [class.is-invalid]="form.get('point_destination')?.errors && formSubmitted"
+                                    type="text">
+                            </div>
+                        </div>
+                        <div class="col-3 form-group">
+                            <div class="text-left"><label for="chauffeur_id">Chauffeur<span style="color:red">
+                                    </span></label>
+                            </div>
+                            <div>
+                                <ng-select2 id="chauffeur_id" (valueChanged)="handleSelectChauffeurChange($event)"
+                                    [data]="dataChauffeurSelect2" [options]="optionSelect2"
+                                    [value]="elementChauffeurSelected !== undefined ? elementChauffeurSelected.id : ''"
+                                    [class.has-success]="!form.get('chauffeur_id')?.errors && formSubmitted"
+                                    [class.has-danger]="form.get('chauffeur_id')?.errors && formSubmitted"
+                                    [placeholder]="'Veuillez sélectionner un chauffeur'">
+                                </ng-select2>
+                            </div>
+                        </div>
+                        <div class="col-3 form-group">
+                            <div class="text-left"><label for="vehicule_id">Véhicule</label>
+                            </div>
+                            <div>
+                                <ng-select2 id="vehicule_id" (valueChanged)="handleSelectVehiculeChange($event)"
+                                    [data]="dataVehiculeSelect2" [options]="optionSelect2"
+                                    [value]="elementVehiculeSelected !== undefined ? elementVehiculeSelected.id : ''"
+                                    [class.has-success]="!form.get('vehicule_id')?.errors && formSubmitted"
+                                    [class.has-danger]="form.get('vehicule_id')?.errors && formSubmitted"
+                                    [placeholder]="'Veuillez sélectionner un vehicule'">
+                                </ng-select2>
+                            </div>
+                        </div>
+                        <!--div class="col-2 form-group">
+                            <div class="text-left"><label for="direction_id">Direction</label>
+                            </div>
+                            <div>
+                                <ng-select2 id="direction_id" (valueChanged)="handleSelectDirectionChange($event)"
+                                    [data]="dataDirectionSelect2" [options]="optionSelect2"
+                                    [value]="elementDirectionSelected !== undefined ? elementDirectionSelected.id : ''"
+                                    [class.has-success]="!form.get('direction_id')?.errors && formSubmitted"
+                                    [class.has-danger]="form.get('direction_id')?.errors && formSubmitted"
+                                    [placeholder]="'Veuillez sélectionner un direction'">
+                                </ng-select2>
+                            </div>
+                        </div-->
+                    </div>
+                    <div class="row ">
+                        <div class="col-12 form-group mt-3 text-right">
+                            <button type="button" class="btn btn-primary mt-2 mr-3" (click)="onSubmit()"
+                                title="Lancer la recherche"
+                                [disabled]="!form.get('date_debut').value || !form.get('date_fin').value || form.get('date_debut').value > form.get('date_fin').value">
+                                <i class="fa fa-search"></i> Rechercher
+                            </button>
+                            <button type="button" class="btn btn-success mt-2 "
+                                (click)="exportHistoriqueDemandesCourses()" title="Exporter les données vers excel"
+                                [disabled]="historiquesDemandes?.length == 0">
+                                <i class="fa fa-file-excel"></i> Exporter en Excel
+                            </button>
+                            <button class="btn btn-secondary mt-2 ml-3" (click)="refresh()" title="Rafraichir">
+                                <i class="fa fa-refresh"></i> Rafraichir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card-body">
+    <div class="table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
+        <!--form method="post" id="add-planing" (keyup.enter)="onSubmit()" [formGroup]="form"-->
+        <div class="card mx-auto rounded-lg bg-white mb-3">
+            <div class="card-header text-center  bg-primary">
+                <div class="mx-auto">Liste des demandes ({{historiquesDemandes?.length}})</div>
+            </div>
+
+            <div class="card-body">
+                <form>
+                    <div class="form-group form-inline float-left">
+                        <label for="data_par_page">Afficher : &nbsp;</label>
+                        <select id="data_par_page" name="data_par_page" [ngModel]="itemsPerPage"
+                            (ngModelChange)="onChangeDataPerPage($event)"
+                            class="float-left form-control form-control-sm" style="width: auto">
+                            <option [value]="5">5</option>
+                            <option [value]="10">10</option>
+                            <option [value]="25">25</option>
+                            <option [value]="50">50</option>
+                            <option [value]="100">100</option>
+                        </select>
+                        <label>&nbsp; par page</label>
+                    </div>
+                    <div class="form-group form-inline float-right">
+                        <label for="search">Rechercher:</label> <input (ngModelChange)="searchFilter($event.value)"
+                            style="font-size: 0.875rem;" id="search" class="form-control form-control-sm ml-2"
+                            type="text" [formControl]="filter" />
+                    </div>
+                </form>
+                <table id="bootstrap-data-table"
+                    class="table table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-striped table-bordered w-100">
+                    <thead class="bg-primary text-white">
+                        <tr>
+
+                            <th class="text-center" scope="col" sortable="id" (sort)="onSort($event)">N°</th>
+                            <th class="text-center" scope="col" sortable="date" (sort)="onSort($event)">Date</th>
+                            <th class="text-center" scope="col" sortable="user" (sort)="onSort($event)">Demandeur</th>
+                            <th class="text-center" scope="col" sortable="direction" (sort)="onSort($event)">Direction
+                            </th>
+                            <th class="text-center" scope="col" sortable="chauffeur" (sort)="onSort($event)">Chauffeur
+                            </th>
+                            <th class="text-center" scope="col" sortable="vehicule" (sort)="onSort($event)">Véhicule
+                            </th>
+                            <th class="text-center" scope="col" sortable="date_retour" (sort)="onSort($event)">Date Fin
+                            </th>
+                            <th class="text-center" scope="col" sortable="point_depart" (sort)="onSort($event)">Trafic
+                            </th>
+                            <th class="text-center" scope="col" sortable="objet" (sort)="onSort($event)">Objet</th>
+                            <th class="text-center" scope="col" sortable="statut" (sort)="onSort($event)">Statut</th>
+                            <th class="text-center" scope="col" sortable="id" (sort)="onSort($event)">Actions</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="historiquesDemandes?.length > 0">
+                            <tr
+                                *ngFor="let demande of historiquesDemandes  | paginationSlice:startPage:endPage; let index= index">
+
+                                <td class="text-center">{{index+1}}</td>
+                                <td class="text-center">{{demande.created_at | date:"dd/MM/yyyy HH:mm"}}</td>
+                                <td class="text-center">{{demande.user?.nom}} {{demande.user?.prenom}}</td>
+                                <td class="text-center">{{demande.user?.direction?.code}}</td>
+                                <td class="text-center">{{demande.chauffeur ? demande.chauffeur.user?.nom : '-'}}
+                                    {{demande.chauffeur ? demande.chauffeur.user?.prenom : ''}}</td>
+                                <td class="text-center">{{demande.vehicule ? demande.vehicule.immatr : '-'}}</td>
+                                <td class="text-center">{{demande.date_retour}} à {{demande.heure_retour}}</td>
+                                <td class="text-center">{{demande.point_depart}} - {{demande.point_destination}}</td>
+                                <td class="text-center">{{demande.objet}}</td>
+                                <td class="text-center">
+                                    <span *ngIf="demande.statut == 'CREEE'"
+                                        class="text-primary">{{demande.statut}}</span>
+                                    <span *ngIf="demande.statut == 'AFFECTEE'"
+                                        class="text-warning">{{demande.statut}}</span>
+                                    <span *ngIf="demande.statut == 'DEMARREE'"
+                                        class="text-info">{{demande.statut}}</span>
+                                    <span *ngIf="demande.statut == 'TERMINEE'"
+                                        class="text-success">{{demande.statut}}</span>
+                                </td>
+                                <td class="text-center">
+
+                                    <a class="cursor-pointer" (click)="jumpToDemandeCourseDetails(demande.id)">
+                                        <i class="fa fa-eye text-primary" placement="top"
+                                            ngbTooltip="Voir les détails"></i>
+                                    </a>
+
+                                </td>
+                            </tr>
+                        </ng-container>
+
+                        <tr *ngIf="historiquesDemandes?.length == 0">
+                            <td *ngIf="filter.value !== null && filter.value !== undefined && filter.value !== ''"
+                                colspan="11" class="text-center">Aucune demande de course ne correspond à votre
+                                recherche</td>
+                            <td *ngIf="filter.value === null || filter.value === undefined || filter.value === ''"
+                                colspan="11" class="text-center">Aucune demande de course n'est enregistrée pour le
+                                moment</td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="11">
+                                <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalItems"
+                                    [pageSize]="itemsPerPage" [(page)]="page" [maxSize]="10" [rotate]="true"
+                                    (pageChange)="loadPage($event)"></ngb-pagination>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!--/form-->
+    </div>
+</div>

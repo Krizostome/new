@@ -1,0 +1,108 @@
+<div class="col-md-6 mb-2 ml-5">
+    <div class="justify-content-lg-start ml-4">
+        <a routerLink="/chauffeurs" class="btn btn-sm btn-secondary add-infos text-white menu-font">
+            <i class="fas fa-backward"></i> Retour
+        </a>
+    </div>
+</div>  
+<div class="col-10 p-0 card mx-auto">
+    <div class="card-header text-center border-0 bg-primary text-white">
+        <h6 class="mx-auto">Chauffeur details</h6>
+    </div>
+    <div class="col-10 mx-auto card-body text-center">
+        <div class="col-10 mx-auto mb-2 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Nom:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{chauffeur?.user?.nom}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto mb-2 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Prénoms:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{chauffeur?.user?.prenom}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto mb-2 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Matricule:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{chauffeur?.matricule}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto mb-2 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Téléphone:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{chauffeur?.contact}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto mb-2 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Email:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{chauffeur?.email}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto mb-2 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Numéro Permis:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{chauffeur?.num_permis}}</p>
+            </div>
+        </div>
+        <div class="col-10 mx-auto mb-2 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Catégorie Permis:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{chauffeur?.permis.libelle}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Disponibilité:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{chauffeur?.disponibilite}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Date:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{chauffeur?.created_at |date:"dd/MM/yyyy HH:mm"}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Adresse:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{chauffeur?.adresse}}</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer">
+        <div class="d-inline mx-auto">
+            <button class="btn btn-primary" (click)="jumpToChauffeurEdit(chauffeur.id)" type="button">Modifier</button>
+        </div>
+    </div>
+</div>

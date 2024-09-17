@@ -1,0 +1,41 @@
+
+  <div class="style position-absolute">
+    <img class="img-logo" src="./assets/img/parc-logo.png" alt="">
+  </div>
+  <div class="login-content">
+    <div class="forms-container">
+      <div class="signin-signup">
+
+        <form action="" class="text-center" method="post" (keyup.enter)="submitForm()" [formGroup]="loginForm" (ngSubmit)="submitForm()">
+
+          <img src="./assets/architectui/images/icons8-connexion-50.png" alt="">
+          <h2 class="title">CONNEXION</h2>
+
+          <div class="col-7 mx-auto mb-3 form-group"
+               [class.has-success]="!loginForm.get('username')?.errors && formSubmitted"
+               [class.has-danger]="loginForm.get('username')?.errors && formSubmitted">
+
+            <!-- <i class="fa fa-user"></i> -->
+            <input class="form-control px-3 py-4 rounded-pill" type="text" name="username" autocomplete="username" placeholder="Email"
+                   formControlName="username"
+                   [class.is-valid]="!loginForm.get('username')?.errors && formSubmitted"
+                   [class.is-invalid]="loginForm.get('username')?.errors && formSubmitted">
+          </div>
+
+          <div class="col-7 mx-auto mb-3 form-group"
+               [class.has-success]="!loginForm.get('password')?.errors && formSubmitted"
+               [class.has-danger]="loginForm.get('password')?.errors && formSubmitted">
+
+            <!-- <i class="fa fa-lock"></i> -->
+            <input class="form-control px-3 py-4 rounded-pill" type="password" name="password" autocomplete="current-password" placeholder="Mot de passe" id="id_password"
+                   [class.is-valid]="!loginForm.get('password')?.errors && formSubmitted"
+                   [class.is-invalid]="loginForm.get('password')?.errors && formSubmitted"
+                   formControlName="password">
+          </div>
+
+          <input type="submit" value="Se connecter" [disabled]="this.loginForm.invalid" class="btn solid">
+
+        </form>
+      </div>
+    </div>
+  </div>

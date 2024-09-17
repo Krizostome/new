@@ -1,0 +1,21 @@
+export const environment = {
+  production: true,
+  APP_NAME: 'Plateforme de gestion du parc automobile du Port Autonome de Cotonou',
+  APP_DESCRIPTION: '',
+  TEXT_NAME_LOADING: 'Chargement en cours ...',
+  BASE_URL: 'https://srvparcauto.pac.bj/parcauto/service/public/api/',
+  MESSAGE_ERREUR_INTERNE: 'Une erreur interne est survenue',
+  paginationNbItemsPerPage: 10,
+  TIME_OUT_ERREUR_MESSAGE: 30000,
+  DISPONIBILITE_VEHICULE:[{'id':'DISPONIBLE', 'libelle':'DISPONIBLE'}, {'id':'PANNE', 'libelle':'PANNE'}, {'id':'COURSE', 'libelle':'COURSE'}],
+  DISPONIBILITE_CHAUFFEUR:[{'id':'DISPONIBLE', 'libelle':'DISPONIBLE'}, {'id':'CONGE', 'libelle':'CONGE'}, {'id':'COURSE', 'libelle':'COURSE'}, {'id':'REPOS', 'libelle':'REPOS'}, {'id':'ABSENT', 'libelle': 'ABSENT'}],
+  STATUT_DEMANDE_COURSE_CREEE: 'CREEE',
+  STATUT_DEMANDE_COURSE_AFFECTEE: 'AFFECTEE',
+  STATUT_DEMANDE_COURSE_DEMARREE: 'DEMARREE',
+  STATUT_DEMANDE_COURSE_TERMINEE: 'TERMINEE',
+  STATUT_CRITERE_ACTIF: "ACTIF",
+  STATUT_CRITERE_INACTIF: "INACTIF",
+  ROLE_ADMIN: "ADMIN",
+  ROLE_AGENT: "AGENT",
+  SECOND_TIME_LOGOUT: 60 * 10 // 10 minutes
+};

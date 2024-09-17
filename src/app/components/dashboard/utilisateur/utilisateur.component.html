@@ -1,0 +1,119 @@
+
+<!-- DataTables -->
+<div class="content mb-3">
+
+  <div class="animated fadeIn">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+
+          <!-- Sur la liste des utilisateurs -->
+          <div class="card-header justify-content-center">
+
+              <p class="card-title text-center">
+                Liste des utilisateurs ({{listeUser?.length}})
+              </p>
+
+          </div>
+
+          <div class="card-body">
+
+            <form>
+              <div class="form-group form-inline float-left">
+                <label for="data_par_page">Afficher : &nbsp;</label>
+                <select id="data_par_page" name="data_par_page" [ngModel]="itemsPerPage" (ngModelChange)="onChangeDataPerPage($event)" class="float-left form-control form-control-sm" style="width: auto">
+                  <option [value]="10">10</option>
+                  <option [value]="25">25</option>
+                  <option [value]="50">50</option>
+                  <option [value]="100">100</option>
+                </select>
+                <label>&nbsp; par page</label>
+              </div>
+              <div class="form-group form-inline float-right">
+                <label for="search">Rechercher:</label> <input (ngModelChange)="searchFilter($event.value)" style="font-size: 0.875rem;" id="search" class="form-control form-control-sm ml-2" type="text" [formControl]="filter"/>
+              </div>
+            </form>
+
+            <table id="bootstrap-data-table" class="table table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-striped table-bordered w-100">
+              <thead class="bg-primary text-white">
+              <tr>
+
+                <th class="text-center" scope="col" sortable="id" (sort)="onSort($event)">N°</th>
+                <th class="text-center" scope="col" sortable="nom" (sort)="onSort($event)">Nom</th>
+                <th class="text-center" scope="col" sortable="prenom" (sort)="onSort($event)">Prénom</th>
+                <th class="text-center" scope="col" sortable="email" (sort)="onSort($event)">Adresse Email</th>
+                <th class="text-center" scope="col" sortable="action" (sort)="onSort($event)">Action</th>
+
+
+              </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let liste of listeUser | paginationSlice:startPage:endPage; let index= index">
+
+                  <td class="text-center">{{index+1}}</td>
+                  <td class="text-center">{{liste?.nom}}</td>
+                  <td class="text-center">{{liste?.prenom}}</td>
+                  <td class="text-center">{{liste?.email}}</td>
+                  <td class="text-center">
+
+                    <a  class="cursor-pointer mx-2">
+                      <i class="fa fa-eye text-primary" placement="top" ngbTooltip="Voir les détails" (click) ="jumpToDetailUser(liste.id)"></i>
+                    </a>
+
+                    <a  class="cursor-pointer mx-2">
+                      <i class="fa fa-edit text-success" placement="top" ngbTooltip="Modifier" (click)="jumpToUpdateUser(liste.id)"></i>
+                    </a>
+
+                    <a class="cursor-pointer" (click)="launchDeleteUserModal(userDeleteModal, liste);">
+                      <i class="fas fa-trash text-danger" data-placement="top" placement="top" ngbTooltip="Supprimer l'utilisateur'"></i>
+                    </a>
+
+                  </td>
+
+
+                </tr>
+
+              <tr *ngIf="listeUser.length == 0">
+                <td *ngIf="filter.value !== null && filter.value !== undefined && filter.value !== ''" colspan="9" class="text-center">Aucun utiisateur ne correspond à votre recherche</td>
+                <td *ngIf="filter.value === null || filter.value === undefined || filter.value === ''" colspan="9" class="text-center">Aucun utilisateur n'est enregistrée pour le moment</td>
+              </tr>
+
+              </tbody>
+
+              <tfoot>
+              <tr>
+                <td colspan="9">
+                  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" [maxSize]="10" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+                </td>
+              </tr>
+              </tfoot>
+
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div><!-- .animated -->
+</div>
+
+
+<ng-template #userDeleteModal let-modal>
+  <form>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Confirmation de suppresion</h4>
+    </div>
+    <div class="modal-body text-center">
+      Voulez-vous vraiment supprimer l'utilisateur <br><b>{{user?.prenom +' ' +user?.nom}}</b> ?
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-default" (click)="modal.close('Save click')">Fermer</button>
+
+      <button type="button" class="btn btn-outline-danger" (click)="deleteUser();">Oui, supprimer</button>
+
+    </div>
+  </form>
+</ng-template>

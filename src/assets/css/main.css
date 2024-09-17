@@ -1,0 +1,363 @@
+@font-face {
+    font-family: GothamBold;
+    src: url(./assets/fonts/Gotham/GothamBoldRegular.ttf);
+    /* format("opentype");*/
+  }
+
+  @font-face {
+    font-family: GothamLight;
+    src: url(./assets/fonts/Gotham/GothamLightRegular.otf);
+    /* format("opentype");*/
+  }
+
+  @font-face {
+    font-family: GothamMedium;
+    src: url(./assets/fonts/Gotham/Gotham-Medium.otf);
+    /* format("opentype");*/
+  }
+
+  @font-face {
+    font-family: GothamBook;
+    src: url(./assets/fonts/Gotham/Gotham-Book.otf);
+    /* format("opentype");*/
+  }
+
+.header-section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+.mb-10 {
+    margin-bottom: 20px;
+}
+
+.demandeTable {
+    font-size: 0.85em;
+}
+
+.skyblue {
+    background-color: #4084C3;
+
+    color: #FAFAFA;
+}
+
+
+.progress {
+    height: 3rem;
+    font-size: 1rem;
+    margin-top: 20px;
+    text-align: center;
+   /** background-color: #e9ecef;*/
+}
+
+.progress-bar-striped {
+    border-right: 3px solid;
+    vertical-align: middle;
+}
+
+.p25 th, .p25 td {
+    padding: 0.25rem;
+}
+
+.welcome {
+	margin-top: 20px;
+	font-size: 3em;
+	text-align: center;
+}
+
+.container-fluid {
+	min-height: 94%;
+}
+body {
+	font-family: GothamBook, GothamMedium, GothamLight, sans-serif;
+	height: 100%;
+}
+
+.detailBasket {
+	background-color: #E0E0E0;
+}
+
+html,body,.container {
+    height:100%;
+}
+
+.fs10 {
+	font-size: 10px;
+}
+
+.img-responsive {
+	width:100%;
+}
+
+.btn-block {
+	margin: auto;
+	width: 96%;
+    text-align: center;
+/*     font-size: 2em; */
+	font-size: 1.3em;
+}
+
+.box-body{
+  margin-top: 10px;
+}
+
+.lighter {
+      background-color: #e6deda !important;
+}
+.prodz-block {
+    margin: 5px 30px;
+    padding: 20px 0;
+    background: #fff;
+}
+.btn-block-panier {
+   margin: 20px 30px;
+   padding: 20px;
+}
+.btn-block-panier a {
+	margin-bottom: 10px;
+}
+.brownize {
+ 	background-color: #FFCC00;
+ 	border-color: #000000;
+}
+
+.popin-btn-large {
+    padding: 15px 10px;
+}
+
+.modal-dialog, .modal-header {
+    margin: 0;
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.error {
+	color: red;
+/* 	font-size: 2em; */
+}
+
+.copyright {
+    position: absolute;
+    text-align: center;
+    background-color: lightgray;
+    margin-top: 20px;
+    font-size: 12px;
+    width: 100%;
+}
+
+input.error{
+    border: 3px solid red;
+}
+
+.dataTables_filter , .dataTables_paginate {
+	text-align: center;
+}
+
+.pagination>li>a {
+	background-color: #e6e6e6;
+	font-size: 1.7em;
+    border-color: #adadad;
+    font-weight: bold;
+    color: darkorange;
+}
+
+.centerDiv {
+  margin: 0 auto;
+}
+
+.cursorNone {
+  cursor: default;
+}
+
+.container {
+    display:table;
+    height:100%;
+   width: 100%;
+    margin-top: 0px;
+   /* padding: 0 0 0 0; */
+    box-sizing: border-box;
+}
+
+.mb30 {
+   margin-bottom: 30px;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 10px;
+}
+
+.login-box {
+    margin: 2% auto;
+  padding: 25px;
+    width: 35%;
+}
+
+.loginForm {
+    width: 100%;
+}
+
+.login-box-body, .register-box-body {
+    padding: 0px;
+}
+
+.login {
+	/*margin:0 auto;*/
+	text-align: center;
+}
+
+.connectRow {
+    display: block;
+    text-align: center;
+}
+
+.loginpage {
+    background-color: #ECF0F6;
+}
+
+.loginTitle {
+    font-size : 22px;
+    font-family: GothamLight, 'Open Sans';
+}
+
+.loginInput {
+    /* text-align: center; */
+    background-color: #F4F4F4;
+}
+
+.loginSubTitle {
+    color: #BDBDBD;
+    text-transform: uppercase;
+}
+
+.box {
+    border-top: 0px;
+    background: #FAFAFA;
+    box-shadow: 0 7px 7px rgba(0,0,0,0.1);
+  padding: 15px;
+}
+
+.btnSygoma {
+    border-color: #0A3764;
+    background-color: #0A3764;
+    color:#FAFAFA;
+    padding: 8px;
+    font-family: GothamMedium;
+    border-radius: 0px;
+}
+
+.btnSygomaSmall {
+    border-color: #0A3764;
+    background-color: #0A3764;
+    color:#FAFAFA;
+    font-family: GothamMedium;
+    border-radius: 0px;
+}
+
+.btnCancelSmall {
+    border-color: #0A3764;
+    background-color: #FAFAFA;
+    color:#0A3764;
+    font-family: GothamMedium;
+    border-radius: 0px;
+}
+
+.titlePage {
+    font-size: 1.2em;
+    border-top :1px solid;
+    border-color: #3E3E3E;
+    padding-top: 15px;
+}
+
+.header-section {
+    padding: 10px;
+
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-top: 1px solid #C5CED7;
+}
+
+.table > tbody > tr > td {
+   height: 40px;
+}
+
+
+.demandesList {
+    font-size : 0.8em;
+}
+
+.btnAction {
+    padding : 0px;
+    cursor: pointer;
+}
+
+.CSStatut {
+    background-color: #4084C3;
+    color: #FAFAFA;
+    margin-right: 5%;
+}
+
+.CMStatut {
+    background-color: #FF9314;
+    color: #FAFAFA;
+    margin-right: 5%;
+}
+
+.OMStatut {
+    background-color: #FF0000;
+    color: #FAFAFA;
+    margin-right: 5%;
+}
+
+.OSStatut {
+    background-color: #3CB105;
+    color: #FAFAFA;
+    margin-right: 5%;
+}
+
+.currentStep {
+    font-family: GothamMedium;
+    color : #0A3764;
+}
+
+.modal-header {
+    border-bottom : 0px;
+}
+
+.modal-dialog {
+    max-height: 80%;
+    overflow-y: initial !important;
+}
+
+.modal-fullscreen  .modal-content {
+    height: auto;
+    min-height: 100%;
+}
+
+/*.modal-body {
+    height: 350px;
+    overflow-y: auto;
+}*/

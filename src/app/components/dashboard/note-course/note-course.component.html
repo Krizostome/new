@@ -1,0 +1,167 @@
+<div class="col-10 p-0 mx-auto">
+
+  <div class="col-md-6 ml-0 mb-2">
+    <div class="justify-content-start">
+      <a routerLink="/demande/encours" class="btn btn-sm btn-secondary add-infos text-white menu-font">
+        <i class="fas fa-backward"></i> Retour
+      </a>
+    </div>
+  </div>
+
+</div>
+<div>
+  <div class="col-10 p-0 card mx-auto">
+    <div class="card-header text-center  bg-primary">
+      <h6 class="mx-auto text-white">Détails de la demande de course</h6>
+    </div>
+    <div class="col-8 mx-auto card-body text-center">
+
+      <div class="col mx-auto mb-3 d-flex justify-content-between">
+        <div class="col-6 text-right">
+          <h6 class="d-inline card-title">Auteur :</h6>
+        </div>
+        <div class="col-6 text-left">
+          <p class="d-inline card-text">{{demandeCourse?.user?.prenom +' ' +demandeCourse?.user?.nom}}</p>
+        </div>
+      </div>
+
+      <div class="col mx-auto mb-3 d-flex justify-content-between">
+        <div class="col-6 text-right">
+          <h6 class="d-inline card-title">Bénéficiaire :</h6>
+        </div>
+        <div class="col-6 text-left">
+          <p class="d-inline card-text" *ngIf="demandeCourse?.beneficiaire_id">{{demandeCourse?.beneficiaire?.prenom +' ' +demandeCourse?.beneficiaire?.nom}}</p>
+          <p class="d-inline card-text" *ngIf="demandeCourse?.beneficiaire_id == 0"> {{demandeCourse?.user?.prenom +' ' +demandeCourse?.user?.nom}} </p>
+        </div>
+      </div>
+
+      <div class="col mx-auto mb-3 d-flex justify-content-between">
+        <div class="col-6 text-right">
+          <h6 class="d-inline card-title">Point de départ :</h6>
+        </div>
+        <div class="col-6 text-left">
+          <p class="d-inline card-text">{{demandeCourse?.point_depart}}</p>
+        </div>
+      </div>
+
+      <div class="col mx-auto mb-3 d-flex justify-content-between">
+        <div class="col-6 text-right">
+          <h6 class="d-inline card-title">Destination :</h6>
+        </div>
+        <div class="col-6 text-left">
+          <p class="d-inline card-text">{{demandeCourse?.point_destination}}</p>
+        </div>
+      </div>
+
+      <div class="col mx-auto mb-3 d-flex justify-content-between">
+        <div class="col-6 text-right">
+          <h6 class="d-inline card-title">Date depart :</h6>
+        </div>
+        <div class="col-6 text-left">
+          <p class="d-inline card-text">{{demandeCourse?.date_depart | date:'dd/MM/yyyy'}} à {{demandeCourse?.heure_depart?.substring(0,5)}}</p>
+        </div>
+      </div>
+
+      <div class="col mx-auto mb-3 d-flex justify-content-between">
+        <div class="col-6 text-right">
+          <h6 class="d-inline card-title">Nombre de personne :</h6>
+        </div>
+        <div class="col-6 text-left">
+          <p class="d-inline card-text">{{demandeCourse?.nbre_personnes}}</p>
+        </div>
+      </div>
+
+      <div class="col mx-auto mb-3 d-flex justify-content-between">
+        <div class="col-6 text-right">
+          <h6 class="d-inline card-title">Escales :</h6>
+        </div>
+        <div class="col-6 text-left">
+          <p class="d-inline card-text">{{demandeCourse?.escales}}</p>
+        </div>
+      </div>
+
+      <div class="col mx-auto mb-3 d-flex justify-content-between">
+        <div class="col-6 text-right">
+          <h6 class="d-inline card-title">Type de véhicule :</h6>
+        </div>
+        <div class="col-6 text-left">
+          <p class="d-inline card-text">{{demandeCourse?.type_vehicule?.libelle}}</p>
+        </div>
+      </div>
+
+      <div class="col mx-auto mb-3 d-flex justify-content-between">
+        <div class="col-6 text-right">
+          <h6 class="d-inline card-title">Statut :</h6>
+        </div>
+        <div class="col-6 text-left">
+          <p class="d-inline card-text">{{demandeCourse?.statut}}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="mb-3">
+  <div class="col-10 p-0 card mx-auto">
+    <div class="card-header text-center bg-primary">
+      <h6 class="mx-auto">Critères de notation</h6>
+    </div>
+    <div class="card-body">
+      <div *ngFor="let criterDeNotation of critereDeNotations;let index=index" class="row justify-content-center">
+        <div class="col mx-auto d-flex justify-content-between" >
+          <div class="col-6 text-right" >
+            <div class="my-3">
+              <p class="d-inline card-title"> {{criterDeNotation.libelle}}</p>
+            </div>
+          </div>
+          <div class="col-6 text-left" *ngIf="!demandeCourse?.is_note">
+              <ngb-rating class="star" [formControl]="criterDeNotation.stars"></ngb-rating>
+          </div>
+          <div class="col-6 text-left" *ngIf="demandeCourse?.is_note">
+            <ngb-rating class="star" [rate]="ligneNotations[criterDeNotation.id]?.valeur" [formControl]="criterDeNotation.stars"></ngb-rating>
+        </div>
+        </div>
+      </div>
+      <hr>
+
+      <div>
+
+        <div class="col mx-auto" *ngIf="!demandeCourse?.is_note">
+          <div>
+            <label class="form-control-label" for="commentaire">Observations</label>
+          </div>
+          <textarea class="form-control"  name="commentaire" cols="8" rows="5" id="commentaire" [formControl]="commentaire"></textarea>
+        </div>
+
+        <div class="col d-flex justify-content-center mx-auto" *ngIf="demandeCourse?.is_note">
+          <div>
+            <label class="form-control-label" for="commentaire"> <strong>Observations :</strong> </label>
+          </div>
+        </div>
+
+        <div class="col-8 d-flex mx-auto justify-content-center">
+          <p>{{notation?.commentaire}}</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card-footer" *ngIf="!demandeCourse?.is_note">
+      <div class="d-inline mx-auto">
+        <button class="btn btn-primary" type="button" (click)="saveNote()">Valider</button>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="col-10 p-0 mx-auto">
+
+  <div class="col-md-6 ml-0 mb-2">
+    <div class="justify-content-start">
+      <a routerLink="/liste/utilisateur" class="btn btn-sm btn-secondary add-infos text-white menu-font">
+        <i class="fas fa-backward"></i> Retour
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<div>
+  <div class="col-10 p-0 card mx-auto">
+    <div class="card-header text-center bg-primary">
+      <h6 class="mx-auto">Détails de l'utilisateur</h6>
+    </div>
+    <div class="col-8 mx-auto card-body text-center">
+      <div class="col mx-auto mb-2 d-flex justify-content-between">
+        <div class="col-6 text-right">
+          <h6 class="d-inline card-title">Nom:</h6>
+        </div>
+        <div class="col-6 text-left">
+          <p class="d-inline card-text">{{user?.nom}}</p>
+        </div>
+      </div>
+
+      <div class="col mx-auto mb-2 d-flex justify-content-between">
+        <div class="col-6 text-right">
+          <h6 class="d-inline card-title">Prenom:</h6>
+        </div>
+        <div class="col-6 text-left">
+          <p class="d-inline card-text">{{user?.prenom}}</p>
+        </div>
+      </div>
+
+      <div class="col mx-auto mb-2 d-flex justify-content-between">
+        <div class="col-6 text-right">
+          <h6 class="d-inline card-title">Email:</h6>
+        </div>
+        <div class="col-6 text-left">
+          <p class="d-inline card-text">{{user?.email}}</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-footer">
+      <div class="d-inline mx-auto">
+        <button class="btn btn-primary" type="button" [routerLink]="['/modifier/utilisateur/'+user?.id]">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>

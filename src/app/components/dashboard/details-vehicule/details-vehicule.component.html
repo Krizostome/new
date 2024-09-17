@@ -1,0 +1,132 @@
+<div class="col-md-6 mb-2 ml-5">
+    <div class="justify-content-lg-start ml-4">
+        <a routerLink="/vehicules" class="btn btn-sm btn-secondary add-infos text-white menu-font">
+            <i class="fas fa-backward"></i> Retour
+        </a>
+    </div>
+</div>
+<div class="col-10 p-0 card mx-auto">
+    <div class="card-header text-center border-0 bg-primary texit-white">
+        <h6 class="mx-auto">Véhicule details</h6>
+    </div>
+    <div class="col-10 mx-auto card-body text-center">
+        <div class="col-10 mx-auto mb-2 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Immatriculation:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{vehicule?.immatr}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto mb-2 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Marque:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{vehicule?.marque}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto mb-2 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Capacité:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{vehicule?.capacite}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto mb-2 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Type:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{vehicule?.type?.libelle}}</p>
+            </div>
+        </div>
+        <div class="col-10 mx-auto mb-2 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Acquisition:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{vehicule?.date_mise_circulation}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline card-title">Disponibilité:</h6>
+            </div>
+            <div>
+                <p class="d-inline mr-auto card-text">{{vehicule?.disponibilite}}</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-12 mx-auto card-body text-center">
+        <div class="card-header text-center border-0 bg-primary texit-white">
+            <h6 style="width:100% !important" class="mx-auto mt-2">Permis associés ({{vehicule?.conduire?.length}})</h6>
+        </div>
+        <div class="col-10 mx-auto mt-3 d-flex justify-content-between">
+            <div>
+                <h6 class="d-inline">Catégorie de permis pouvant conduire</h6>
+            </div>
+            <div>
+                <span class="btn btn-primary btn-sm pull-right text-capitalize" title="Ajouter une catégorie de permis"
+                    (click)="open_lg(vehiculeSetConduire, vehicule)"><i class="fa fa-plus"></i></span>
+            </div>
+        </div>
+        <div class="col-10 mx-auto mt-3 d-flex justify-content-between" *ngFor="let conduite of vehicule?.conduire">
+            <div>
+                <h6 class="d-inline card-title">Catégorie : {{conduite.libelle}}</h6>
+            </div>
+            <div>
+                <span class="btn btn-danger btn-sm" title="Supprimer" (click)="deleteConduire(conduite?.pivot)"><i
+                        class="fa fa-trash"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="d-inline mx-auto">
+            <button class="btn btn-primary" (click)="jumpToVehiculeEdit(vehicule.id)" type="button">Modifier</button>
+        </div>
+    </div>
+</div>
+
+
+<!--Modal Mettre set Conduire-->
+<ng-template #vehiculeSetConduire let-modal>
+    <form #form="ngForm">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Catégorie Permis</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-6 form-group">
+                    <div class="text-left"><label for="immatr">Immatriculation:</label></div>
+                    <div>
+                        <input class="form-control form-control-sm" id="libelle" name="immatr" type="text" required
+                            value="{{vehicule.immatr}}" readonly>
+                    </div>
+                </div>
+                <div class="col-6 form-group">
+                    <div class="text-left"><label for="categorie_permis">Catégorie permis:</label>
+                    </div>
+                    <div>
+                        <select class="form-control form-control-sm" required id="categorie_permis"
+                            name="categorie_permis" [(ngModel)]="_conduire.categorie_permis_id">
+                            <option value="">Sélectionnez</option>
+                            <option value="{{c.id}}" *ngFor="let c of list_categorie_permis">{{c.libelle}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer center">
+            <button type="button" class="btn btn-secondary btn-sm" (click)="modal.close('Save click')">Annuler</button>
+            <button type="button" class="btn btn-primary btn-sm"
+                (click)="saveConduire(); modal.close('Save click')">Valider</button>
+        </div>
+    </form>
+</ng-template>

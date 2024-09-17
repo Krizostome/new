@@ -1,0 +1,51 @@
+:root {
+  --bg-color: #f5f5f5;
+  --bg-round-a: #4974a5;
+  --bg-round-b: #4974a5;
+  --panel-color: #fff;
+  --title: #444;
+  --bg-input: #e0e0e0;
+  --input-icon: #8a8a8a;
+  --input: #333;
+  --input-hover: #222;
+  --btn-color: #4974a5;
+  --btn-text: #fff;
+  --btn-hover: #4d84e2;
+  --social-text: #444;
+  --social-icon: #4481eb;
+  --icon-color: #333;
+  --check-text: #333;
+  --check-hover: #333;
+  --check-link: #4d84e2;
+  --pass-color: #444;
+  --key-color: #777;
+  --pass-hover-color: #4d84e2;
+  --keyboard-color: #e0e0e0;
+  --key-letter: #333;
+}
+
+:root[data-theme="dark"] {
+  --bg-color: #222;
+  --bg-round-a: #4a4a4a;
+  --bg-round-b: #2e2e2e;
+  --panel-color: #fff;
+  --title: #f2f2f2;
+  --bg-input: #444;
+  --input-icon: #ccc;
+  --input: #ccc;
+  --input-hover: #aaa;
+  --btn-color: #333;
+  --btn-text: #f2f2f2;
+  --btn-hover: #444;
+  --social-text: #ccc;
+  --social-icon: #fff;
+  --icon-color: #aaa;
+  --check-text: #fff;
+  --check-hover: #fff;
+  --check-link: #5995fd;
+  --pass-color: #fff;
+  --pass-hover-color: #5995fd;
+  --key-color: #f0f0f0;
+  --keyboard-color: #444;
+  --key-letter: #fff;
+}

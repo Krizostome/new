@@ -1,0 +1,466 @@
+<div class="row justify-content-center mb-5">
+    <div class="col-md-12">
+      <div class="card">
+
+        <div class="card-header couleur-application justify-content-center text-center">
+          Recherche des demandes de courses en cours
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
+
+            <form id="form-recherche-demandes-courses" action="" (keyup.enter)="submitSearchForm()" [formGroup]="searchForm" (submit)="submitSearchForm()" method="post">
+
+              <div class="form-group row mb-2 justify-content-center">
+
+                <div class="col-md-6 col-sm-6 col-lg-6">
+
+                  <label for="debut" class="col-md-3 col-sm-3 col-lg-3 col-form-label text-left">
+                    Début :
+                  </label>
+
+                  <div class="col-md-9 col-sm-9 col-lg-9 float-right text-right pt-1"
+                       [class.has-success]="!searchForm.get('debut')?.errors && searchFormSubmitted"
+                       [class.has-danger]="searchForm.get('debut')?.errors && searchFormSubmitted">
+
+                    <input id="debut" class="form-control" type="date" name="debut"
+                           formControlName="debut"
+                           [max]="formattedDate"
+                           [class.is-valid]="!searchForm.get('debut')?.errors && searchFormSubmitted"
+                           [class.is-invalid]="searchForm.get('debut')?.errors && searchFormSubmitted"/>
+
+                  </div>
+
+
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-lg-6">
+
+                  <label for="fin" class="col-md-3 col-sm-3 col-lg-3 col-form-label text-right">
+                    Fin :
+                  </label>
+
+                  <div class="col-md-9 col-sm-9 col-lg-9 float-right text-left pt-2"
+                       [class.has-success]="!searchForm.get('fin')?.errors && searchFormSubmitted"
+                       [class.has-danger]="searchForm.get('fin')?.errors && searchFormSubmitted">
+
+                    <input id="fin" class="form-control" type="date" name="fin"
+                            formControlName="fin"
+                           [max]="formattedDate"
+                           [class.is-valid]="!searchForm.get('fin')?.errors && searchFormSubmitted"
+                           [class.is-invalid]="searchForm.get('fin')?.errors && searchFormSubmitted"/>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="form-group row justify-content-center text-center btn-sm">
+                <button class="btn btn-sm btn-success" type="submit" [disabled]="this.searchForm.invalid">
+                  <i class="fas fa-search"></i> Rechercher
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="d-flex justify-content-end mb-2">
+    <div class="col-md-6 text-right">
+      <a class="btn btn-primary text-white add-infos" (click)="checkNotNotedCourseFromUser()">
+        <i class="fas fa-plus"></i> Ajouter une demande
+      </a>
+    </div>
+  </div>
+
+  <!-- DataTables -->
+  <div class="content mb-3">
+
+    <div class="animated fadeIn">
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+
+            <!-- Sur la liste des demandes de courses -->
+            <div class="card-header justify-content-center">
+
+                <p class="card-title text-center" *ngIf="isRecherche == false">
+                  Liste des demandes de courses en cours ({{listeDemandesDeCourses?.length}})
+                </p>
+
+                <p class="card-title text-center" *ngIf="isRecherche == true">
+                  Liste des demandes de courses en cours du {{this.debut +' au ' +this.fin}} ({{listeDemandesDeCourses?.length}})
+                </p>
+
+            </div>
+
+            <div class="card-body">
+
+              <form>
+                <div class="form-group form-inline float-left">
+                  <label for="data_par_page">Afficher : &nbsp;</label>
+                  <select id="data_par_page" name="data_par_page" [ngModel]="itemsPerPage" (ngModelChange)="onChangeDataPerPage($event)" class="float-left form-control form-control-sm" style="width: auto">
+                    <option [value]="10">10</option>
+                    <option [value]="25">25</option>
+                    <option [value]="50">50</option>
+                    <option [value]="100">100</option>
+                  </select>
+                  <label>&nbsp; par page</label>
+                </div>
+                <div class="form-group form-inline float-right">
+                  <label for="search">Rechercher:</label> <input (ngModelChange)="searchFilter($event.value)" style="font-size: 0.875rem;" id="search" class="form-control form-control-sm ml-2" type="text" [formControl]="filter"/>
+                </div>
+              </form>
+
+              <table id="bootstrap-data-table" class="table table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-striped table-bordered w-100">
+                <thead class="bg-primary text-white">
+                <tr>
+
+                  <th class="text-center" scope="col" sortable="date" (sort)="onSort($event)">Date</th>
+                  <th class="text-center" scope="col" sortable="user" (sort)="onSort($event)">Bénéficiaire</th>
+                  <th class="text-center" scope="col" sortable="type_vehicule" (sort)="onSort($event)">Catégorie</th>
+                  <th class="text-center" scope="col" sortable="point_depart" (sort)="onSort($event)">Point de départ</th>
+                  <th class="text-center" scope="col" sortable="point_destination" (sort)="onSort($event)">Destination</th>
+                  <th class="text-center" scope="col" sortable="date_depart" (sort)="onSort($event)">Date départ</th>
+                  <th class="text-center" scope="col" sortable="date_retour" (sort)="onSort($event)">Date retour</th>
+                  <th class="text-center" scope="col" sortable="statut" (sort)="onSort($event)">Statut</th>
+                  <th class="text-center" scope="col" sortable="vehicule" (sort)="onSort($event)">Véhicule</th>
+                  <th class="text-center" scope="col" sortable="chauffeur" (sort)="onSort($event)">Chauffeur</th>
+                  <th class="text-center" scope="col" sortable="id" (sort)="onSort($event)">Actions</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr *ngFor="let demande of listeDemandesDeCourses | paginationSlice:startPage:endPage; let index= index">
+
+                  <td class="text-center">{{demande?.date | date:'dd/MM/yyyy à HH:mm'}}</td>
+
+                  <ng-container>
+                    <td class="text-center" *ngIf="demande?.beneficiaire_id">{{demande?.beneficiaire?.prenom +' ' +demande?.beneficiaire?.nom}}</td>
+                    <td class="text-center" *ngIf="demande?.beneficiaire_id == null">{{demande?.user?.prenom +' ' +demande?.user?.nom}}</td>
+                  </ng-container>
+
+                  <td class="text-center">{{demande?.type_vehicule?.libelle}}</td>
+                  <td class="text-center">{{demande?.point_depart}}</td>
+                  <td class="text-center">{{demande?.point_destination}}</td>
+                  <td class="text-center">{{demande?.date_depart | date:'dd/MM/yyyy'}} à {{demande?.heure_depart?.substring(0,5)}}</td>
+                  <td class="text-center">{{demande?.date_retour | date:'dd/MM/yyyy'}} à {{demande?.heure_retour?.substring(0,5)}}</td>
+                  <td class="text-center">{{demande?.statut}}</td>
+                  <td class="text-center">{{demande?.affectation?.vehicule?.immatr}}</td>
+
+                  <td class="text-center" *ngIf="demande?.affectation?.chauffeur?.user">
+                    {{demande?.affectation?.chauffeur?.user?.prenom +' ' +demande?.affectation?.chauffeur?.user?.nom}}
+                  </td>
+
+                  <td class="text-center" *ngIf="!(demande?.affectation?.chauffeur?.user)">
+
+                  </td>
+
+                  <td class="text-center">
+
+                    <a  class="cursor-pointer">
+                      <i class="fa fa-eye text-primary" placement="top" ngbTooltip="Voir les détails" (click)="jumpToDemandeCourseDetails(demande.id)"></i>
+                    </a>
+                    &nbsp;
+
+                    <ng-container  *ngIf="demande.statut == environment.STATUT_DEMANDE_COURSE_TERMINEE && demande.is_note==false">
+                      <a class="cursor-pointer">
+                        <i class="fa fa-star text-warning" placement="top" ngbTooltip="Noter la course" (click)="jumpToNoteCourse(demande.id)"></i>
+                      </a>
+                      &nbsp;
+                    </ng-container>
+
+                    <ng-container *ngIf="demande.statut == environment.STATUT_DEMANDE_COURSE_CREEE && utilsService.isAdmin()">
+                      <a  class="cursor-pointer" >
+                        <i class="fa fa-car-side text-primary" placement="top" ngbTooltip="Affecter cette course à un chauffeur" (click)="isUpdatingNotAffect();openAffectationModal(affectationCourse, demande)"></i>
+                      </a>&nbsp;
+                    </ng-container>
+
+                    <ng-container *ngIf="demande.statut == environment.STATUT_DEMANDE_COURSE_AFFECTEE && utilsService.isAdmin()">
+                      <a  class="cursor-pointer" >
+                        <i class="fa fa-car-side text-warning" placement="top" ngbTooltip="Modifier l'affectation" (click)="isUpdatingAffect();openAffectationModal(affectationCourse, demande);"></i>
+                      </a>
+                      &nbsp;
+                    </ng-container>
+
+                    <ng-container *ngIf="demande.statut == environment.STATUT_DEMANDE_COURSE_CREEE || (demande.statut == environment.STATUT_DEMANDE_COURSE_AFFECTEE && utilsService.isAdmin())">
+                      <a  class="cursor-pointer">
+                        <i class="fa fa-edit text-success" placement="top" ngbTooltip="Modifier" (click)="jumpToDemandeCourseEdit(demande.id)"></i>
+                      </a>
+                      &nbsp;
+                    </ng-container>
+
+
+                    <ng-container *ngIf="demande.statut == environment.STATUT_DEMANDE_COURSE_AFFECTEE">
+                      <a class="cursor-pointer" data-placement="top" placement="top" ngbTooltip="Démarrer la course" (click)="openStartCourseModal(demarrageCourse, demande)">
+                        <i class="fas fa-play-circle text-green"></i>
+                      </a>
+                      &nbsp;
+                    </ng-container>
+
+
+                    <ng-container *ngIf="demande.statut == environment.STATUT_DEMANDE_COURSE_DEMARREE">
+                      <a class="cursor-pointer"  data-placement="top" placement="top" ngbTooltip="Terminer la course" (click)="openStopCourseModal(arretCourse, demande)">
+                        <i class="fas fa-stop-circle text-danger"></i>
+                      </a>
+                      &nbsp;
+                    </ng-container>
+
+
+                    <ng-container *ngIf="demande.statut == environment.STATUT_DEMANDE_COURSE_CREEE">
+                      <a class="cursor-pointer" >
+                        <i class="fas fa-trash text-danger" (click)="open_lg(suppressionDemande, demande)" data-placement="top" placement="top" ngbTooltip="Supprimer la demande"></i>
+                      </a>
+                      &nbsp;
+                    </ng-container>
+
+                  </td>
+
+
+                </tr>
+
+                <tr *ngIf="listeDemandesDeCourses.length == 0">
+                  <td *ngIf="filter.value !== null && filter.value !== undefined && filter.value !== ''" colspan="11" class="text-center">Aucune demande de course ne correspond à votre recherche</td>
+                  <td *ngIf="filter.value === null || filter.value === undefined || filter.value === ''" colspan="11" class="text-center">Aucune demande de course n'est enregistrée pour le moment</td>
+                </tr>
+
+                </tbody>
+
+                <tfoot>
+                <tr>
+                  <td colspan="10">
+                    <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" [maxSize]="10" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+                  </td>
+                </tr>
+                </tfoot>
+
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div><!-- .animated -->
+  </div>
+
+  <!-- Modal pour affecter une course à un chauffeur -->
+
+  <ng-template #affectationCourse let-modal>
+
+    <div class="modal-header">
+      <h4 class="modal-title" id="affectation-modal-basic-title">Affectation de course</h4>
+      <button type="button" (click)="this.utilsService.closeModal()" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="alert mx-auto col-10 alert-danger" *ngIf="warning == true" role="alert">
+        <p  class="my-auto text-danger">Attention, Ce chauffeur a été déjà affecté à une course</p>
+      </div>
+
+      <div class="alert mx-auto col-10 alert-danger" *ngIf="placeWarning == true" role="alert">
+        <p  class="my-auto text-danger">Attention, Le nombre maximum de place dans le véhicule est atteint</p>
+      </div>
+
+      <!--<p *ngIf="warning == true" class="mx-auto col-10 text-danger">Attention, Ce chauffeur a été déjà affecté à une course</p>-->
+
+      <form action="" method="" (keyup.enter)="onSubmit()" [formGroup]="form" (submit)="onSubmit()">
+
+        <div class="row">
+
+          <div class="col-6 form-group">
+
+            <div class="text-left"><label for="vehicule">Véhicule</label> <span style="color:red"> *</span>
+            </div>
+
+            <div>
+
+              <ng-select2
+                id="vehicule"
+                (valueChanged)="handleSelectVehiculeChange($event)"
+                [data]="dataVehiculeSelect2"
+                [options]="optionSelect2"
+                [value]="elementVehiculeSelected !== undefined ? elementVehiculeSelected.id : ''"
+                [placeholder]="'Veuillez sélectionner un véhicule'">
+
+              </ng-select2>
+
+            </div>
+
+          </div>
+
+          <div class="col-6 form-group">
+
+            <div class="text-left"><label for="chauffeur">Chauffeur</label> <span style="color:red"> *</span>
+            </div>
+
+            <div>
+
+              <ng-select2
+                id="chauffeur"
+                (valueChanged)="handleSelectChauffeurChange($event)"
+                [data]="dataChauffeurSelect2"
+                [options]="optionSelect2"
+                [value]="elementChauffeurSelected !== undefined ? elementChauffeurSelected.id : ''"
+                [placeholder]="'Veuillez sélectionner un chauffeur'">
+
+              </ng-select2>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <div class="mx-auto">
+            <button class="btn btn-secondary"  type="reset" (click)="modal.close('Save click')">Annuler</button>
+            <button class="btn btn-success ml-3" [disabled]="!this.form.valid" type="submit">Valider</button>
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </ng-template>
+
+  <!-- Modal pour supprimer la demande de course -->
+  <ng-template #suppressionDemande let-modal>
+
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+      <button type="button" (click)="this.utilsService.closeModal()" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+      <div class="modal-body">
+
+        <form action="" method="post" class="my-unique-form">
+
+          <div class="row mb-2 pl-2 pr-2" id="suppression-demande">
+            <p class="text-center">
+              Voulez-vous vraiment supprimer cette demande ?
+            </p>
+          </div>
+          <div class="text-center my-border-top-footer">
+
+            <button type="button" class="btn btn-sm btn-secondary mx-2 text-black" (click)="modal.close('Save click')">NON</button>
+            <button id="bouton-action-activer" type="submit" (click)="deleteDemandeCourse()" class="btn btn-sm btn-danger btn-submit-unique-form">OUI</button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+  </ng-template>
+
+<!-- Modal pour démarrer la demande de course -->
+  <ng-template #demarrageCourse let-modal>
+
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-demarrage">Confirmation</h4>
+      <button type="button" (click)="this.utilsService.closeModal()" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <form action="" method="post" class="my-unique-form">
+
+        <div class="row mb-2 pl-2 pr-2" id="demarrage-demande">
+          <p class="text-center">
+            Voulez-vous vraiment démarrer cette course ?
+          </p>
+        </div>
+        <div class="text-center my-border-top-footer">
+
+          <button type="button" class="btn btn-sm btn-secondary mx-2 text-black" (click)="modal.close('Save click')">NON</button>
+          <button id="bouton-action-demarrage" type="submit" (click)="demarrerCourse(this.demandeCourseSelected.id)" class="btn btn-sm btn-danger btn-submit-unique-form">OUI</button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </ng-template>
+
+<!-- Modal pour arrêter la demande de course -->
+<ng-template #arretCourse let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-stop">Confirmation</h4>
+    <button type="button" (click)="this.utilsService.closeModal()" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+
+    <form action="" method="post" class="my-unique-form">
+
+      <div class="row mb-2 pl-2 pr-2" id="stop-demande">
+        <p class="text-center">
+          Voulez-vous vraiment terminer cette course ?
+        </p>
+      </div>
+      <div class="text-center my-border-top-footer">
+
+        <button type="button" class="btn btn-sm btn-secondary mx-2 text-black" (click)="modal.close('Save click')">NON</button>
+        <button id="bouton-action-stop" type="submit" (click)="arreterCourse(this.demandeCourseSelected?.id)" class="btn btn-sm btn-danger btn-submit-unique-form">OUI</button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</ng-template>
+
+<!-- Modal pour confirmer l'affectation -->
+<ng-template #confirmAffectation let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="confirm-affectation-title">Confirmation</h4>
+    <button type="button" (click)="this.utilsService.closeModal()" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+
+    <form action="" method="post" class="my-unique-form">
+
+      <div class="row mb-2 pl-2 pr-2" id="confirm-affectation">
+        <p class="text-center">
+          Voulez-vous vraiment affecter cette course à ce chauffeur ?
+        </p>
+      </div>
+      <div class="text-center my-border-top-footer">
+
+        <button type="button" class="btn btn-sm btn-secondary mx-2 text-black" (click)="modal.close('Save click')">NON</button>
+        <button id="bouton-confirm-affectation" type="submit" class="btn btn-sm btn-danger btn-submit-unique-form">OUI</button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</ng-template>
