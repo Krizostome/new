@@ -10,7 +10,7 @@ Application Web du projet Parc Automobile PAC
 
 **Cloner le projet web :**
 ```bash
-git clone https://github.com/
+git clone https://github.com/bescportcotonou/parcautopacweb.git
 ```
 <br>
 
