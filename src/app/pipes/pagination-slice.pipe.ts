@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'paginationSlice'
+    standalone: false,
+    name: 'paginationSlice',
 })
 export class PaginationSlicePipe implements PipeTransform {
 

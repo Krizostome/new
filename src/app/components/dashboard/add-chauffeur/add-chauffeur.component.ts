@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Select2OptionData } from 'ng-select2';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { CategoriePermis } from 'src/app/models/categorie-permis';
@@ -14,24 +13,25 @@ import { VehiculesService } from 'src/app/services/vehicules.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-add-chauffeur',
-  templateUrl: './add-chauffeur.component.html',
-  styleUrls: ['./add-chauffeur.component.css']
+    standalone: false,
+    selector: 'app-add-chauffeur',
+    templateUrl: './add-chauffeur.component.html',
+    styleUrls: ['./add-chauffeur.component.css'],
 })
 export class AddChauffeurComponent implements OnInit {
 
   disponibilites: any = environment.DISPONIBILITE_CHAUFFEUR;  typePermis: any; user: any;  closeResult: string = "";
   chauffeur: Chauffeur = new Chauffeur; type_permis: CategoriePermis = new CategoriePermis;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
-  elementUserSelected: Select2OptionData = {id: '', text: '--'};
-  dataUserSelect2: Array<Select2OptionData> = [];
+  elementUserSelected: any = {id: '', text: '--'};
+  dataUserSelect2: any[] = [];
 
-  elementCategoriePermisSelected: Select2OptionData = {id: '', text: '--'};
-  dataCategoriePermisSelect2: Array<Select2OptionData> = [];
+  elementCategoriePermisSelected: any = {id: '', text: '--'};
+  dataCategoriePermisSelect2: any[] = [];
 
-  elementDisponibiliteSelected: Select2OptionData = {id: '', text: '--'};
-  dataDisponibiliteSelect2: Array<Select2OptionData> = [];
+  elementDisponibiliteSelected: any = {id: '', text: '--'};
+  dataDisponibiliteSelect2: any[] = [];
 
   optionSelect2 = {
     width: '100%',
@@ -47,7 +47,7 @@ export class AddChauffeurComponent implements OnInit {
 
   constructor(private ngxService: NgxUiLoaderService, private chauffeursService: ChauffeursService,
     private utilsService: UtilsService, private modalService: NgbModal, private router: Router,
-    private formBuilder: FormBuilder, private vehiculesService: VehiculesService, private activatedRoute: ActivatedRoute) {
+    private formBuilder: UntypedFormBuilder, private vehiculesService: VehiculesService, private activatedRoute: ActivatedRoute) {
       this.form = formBuilder.group(
         {
           matricule: ['',Validators.required],

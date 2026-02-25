@@ -1,146 +1,146 @@
 <div class="col-12 mx-auto">
-  <div class="col-md-6 mb-2">
-    <div class="justify-content-lg-start">
-      <a routerLink="/vehicules" class="btn btn-sm btn-secondary add-infos text-white menu-font">
-        <i class="fas fa-backward"></i> Retour
-      </a>
-    </div>
-  </div>
-  <form method="post" id="add-demande" (keyup.enter)="onSubmit()" [formGroup]="form" (submit)="onSubmit()">
-    <div class="card mx-auto rounded-lg bg-white mb-3">
-      <div class="card-header text-center bg-primary">
-        <div class="mx-auto">{{modalTitle}}</div>
-      </div>
+ <div class="col-md-6 mb-2">
+ <div class="justify-content-lg-start">
+ <a routerLink="/vehicules" class="btn btn-sm btn-secondary add-infos text-white menu-font">
+ <i class="fas fa-backward"></i> Retour
+ </a>
+ </div>
+ </div>
+ <form method="post" id="add-demande" (keyup.enter)="onSubmit()" [formGroup]="form" (submit)="onSubmit()">
+ <div class="card mx-auto rounded-lg bg-white mb-3">
+ <div class="card-header text-center bg-primary">
+ <div class="mx-auto">{{modalTitle}}</div>
+ </div>
 
-      <div class="card-body">
+ <div class="card-body">
 
-        <div class="row">
-          <div class="col-6 form-group">
-            <div class="text-left"><label for="immatr">Immatriculation</label> <span style="color:red"> *</span>
-            </div>
-            <div [class.has-success]="!form.get('immatr')?.errors && formSubmitted"
-              [class.has-danger]="form.get('immatr')?.errors && formSubmitted">
-              <input class="form-control form-control-sm" id="immatr" name="immatr" 
-                type="text" formControlName="immatr" (keyup)="trimImmatr();"
-                [class.is-valid]="!form.get('immatr')?.errors && formSubmitted"
-                [class.is-invalid]="form.get('immatr')?.errors && formSubmitted">
-            </div>
-          </div>
-          <div class="col-6 form-group">
-            <div class="text-left"><label for="date_mise_circulation">Date acquisition</label> <span style="color:red">
-                *</span>
-            </div>
-            <div [class.has-success]="!form.get('date_mise_circulation')?.errors && formSubmitted"
-              [class.has-danger]="form.get('date_mise_circulation')?.errors && formSubmitted">
-              <input class="form-control form-control-sm" id="date_mise_circulation" name="date_mise_circulation"
-                type="date" formControlName="date_mise_circulation"
-                [class.is-valid]="!form.get('date_mise_circulation')?.errors && formSubmitted"
-                [class.is-invalid]="form.get('date_mise_circulation')?.errors && formSubmitted">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-6 form-group">
-            <div class="text-left"><label for="marque">Marque</label> <span style="color:red"> *</span>
-            </div>
-            <div [class.has-success]="!form.get('marque')?.errors && formSubmitted"
-              [class.has-danger]="form.get('marque')?.errors && formSubmitted">
-              <input class="form-control form-control-sm" id="marque" name="marque" type="text" formControlName="marque"
-                [class.is-valid]="!form.get('marque')?.errors && formSubmitted"
-                [class.is-invalid]="form.get('marque')?.errors && formSubmitted">
-            </div>
-          </div>
-          <div class="col-6 form-group">
-            <div class="text-left"><label for="disponibilite">Disponibilite</label> <span style="color:red"> *</span>
-            </div>
-            <div>
-              <ng-select2 id="disponibilite" (valueChanged)="handleSelectDisponibiliteChange($event)"
-                [data]="dataDisponibiliteSelect2" [options]="optionSelect2"
-                [value]="elementDisponibiliteSelected !== undefined ? elementDisponibiliteSelected.id : ''"
-                [class.has-success]="!form.get('disponibilite')?.errors && formSubmitted"
-                [class.has-danger]="form.get('disponibilite')?.errors && formSubmitted"
-                [placeholder]="'Veuillez sélectionner une disponibilité'">
-              </ng-select2>
-            </div>
-          </div>
-        </div>
+ <div class="row">
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="immatr">Immatriculation</label> <span style="color:red"> *</span>
+ </div>
+ <div [class.has-success]="!form.get('immatr')?.errors && formSubmitted"
+ [class.has-danger]="form.get('immatr')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" id="immatr" name="immatr"
+ type="text" formControlName="immatr" (keyup)="trimImmatr();"
+ [class.is-valid]="!form.get('immatr')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('immatr')?.errors && formSubmitted">
+ </div>
+ </div>
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="date_mise_circulation">Date acquisition</label> <span style="color:red">
+ *</span>
+ </div>
+ <div [class.has-success]="!form.get('date_mise_circulation')?.errors && formSubmitted"
+ [class.has-danger]="form.get('date_mise_circulation')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" id="date_mise_circulation" name="date_mise_circulation"
+ type="date" formControlName="date_mise_circulation"
+ [class.is-valid]="!form.get('date_mise_circulation')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('date_mise_circulation')?.errors && formSubmitted">
+ </div>
+ </div>
+ </div>
+ <div class="row">
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="marque">Marque</label> <span style="color:red"> *</span>
+ </div>
+ <div [class.has-success]="!form.get('marque')?.errors && formSubmitted"
+ [class.has-danger]="form.get('marque')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" id="marque" name="marque" type="text" formControlName="marque"
+ [class.is-valid]="!form.get('marque')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('marque')?.errors && formSubmitted">
+ </div>
+ </div>
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="disponibilite">Disponibilite</label> <span style="color:red"> *</span>
+ </div>
+ <div>
+ <ng-select bindLabel="text" bindValue="id" id="disponibilite" (change)="handleSelectDisponibiliteChange($event)"
+ [items]="dataDisponibiliteSelect2"
 
-        <div class="row">
-          <div class="col-6 form-group">
-            <div class="text-left"><label for="capacite">Capacite</label> <span style="color:red"> *</span>
-            </div>
-            <div [class.has-success]="!form.get('capacite')?.errors && formSubmitted"
-              [class.has-danger]="form.get('capacite')?.errors && formSubmitted">
-              <input class="form-control form-control-sm" type="number" id="capacite" name="capacite"
-                formControlName="capacite" [class.is-valid]="!form.get('capacite')?.errors && formSubmitted"
-                [class.is-invalid]="form.get('capacite')?.errors && formSubmitted">
-            </div>
-          </div>
-          <div class="col-6 form-group">
-            <div class="text-left"><label for="type_vehicule_id">Type de véhicule <span style="color:red"> *</span>
-                <span class="cursor-pointer ml-5" title="Ajouter un nouveau type" (click)="open_lg(typevehiculemodal);">
-                  <i class="fa fa-plus text-info"></i></span></label>
-            </div>
-            <div>
+ [class.has-success]="!form.get('disponibilite')?.errors && formSubmitted"
+ [class.has-danger]="form.get('disponibilite')?.errors && formSubmitted"
+ [placeholder]="'Veuillez sélectionner une disponibilité'">
+ </ng-select>
+ </div>
+ </div>
+ </div>
 
-              <ng-select2 id="type_vehicule_id" (valueChanged)="handleSelectTypeVehiculeChange($event)"
-                [data]="dataTypeVehiculeSelect2" [options]="optionSelect2"
-                [value]="elementTypeVehiculeSelected !== undefined ? elementTypeVehiculeSelected.id : ''"
-                [class.has-success]="!form.get('type_vehicule_id')?.errors && formSubmitted"
-                [class.has-danger]="form.get('type_vehicule_id')?.errors && formSubmitted"
-                [placeholder]="'Veuillez sélectionner un type de véhicule'">
-              </ng-select2>
+ <div class="row">
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="capacite">Capacite</label> <span style="color:red"> *</span>
+ </div>
+ <div [class.has-success]="!form.get('capacite')?.errors && formSubmitted"
+ [class.has-danger]="form.get('capacite')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" type="number" id="capacite" name="capacite"
+ formControlName="capacite" [class.is-valid]="!form.get('capacite')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('capacite')?.errors && formSubmitted">
+ </div>
+ </div>
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="type_vehicule_id">Type de véhicule <span style="color:red"> *</span>
+ <span class="cursor-pointer ml-5" title="Ajouter un nouveau type" (click)="open_lg(typevehiculemodal);">
+ <i class="fa fa-plus text-info"></i></span></label>
+ </div>
+ <div>
 
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-footer">
-        <div class="mx-auto">
-          <button class="btn btn-secondary ml-3" (click)="reset()" type="reset">Annuler</button>
-          <button class="btn btn-primary ml-3" type="submit">Valider</button>
-        </div>
-      </div>
-    </div>
-  </form>
+ <ng-select bindLabel="text" bindValue="id" id="type_vehicule_id" (change)="handleSelectTypeVehiculeChange($event)"
+ [items]="dataTypeVehiculeSelect2"
+
+ [class.has-success]="!form.get('type_vehicule_id')?.errors && formSubmitted"
+ [class.has-danger]="form.get('type_vehicule_id')?.errors && formSubmitted"
+ [placeholder]="'Veuillez sélectionner un type de véhicule'">
+ </ng-select>
+
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="card-footer">
+ <div class="mx-auto">
+ <button class="btn btn-secondary ml-3" (click)="reset()" type="reset">Annuler</button>
+ <button class="btn btn-primary ml-3" type="submit">Valider</button>
+ </div>
+ </div>
+ </div>
+ </form>
 </div>
 
 
 <!--Modal Type Véhicule-->
 <ng-template #typevehiculemodal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Nouveau Type</h4>
-  </div>
-  <form #typevehiculeform="ngForm">
-    <div class="modal-body">
-      <div class="row">
-        <div class="col-6 form-group">
-          <div class="text-left"><label for="libelle">Libellé<span class="text-danger">*</span></label></div>
-          <div>
-            <input class="form-control form-control-sm" id="libelle" name="libelle" type="text" required
-              [(ngModel)]="type_vehicule.libelle">
-          </div>
-        </div>
-        <div class="col-3 form-group">
-          <div class="text-left"><label for="statut">Statut</label></div>
-          <div>
-            <select class="form-control form-control-sm" name="statut" id="statut" [(ngModel)]="type_vehicule.statut">
-              <option value="1">Activé</option>
-              <option value="0">Désactivé</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-2 form-group">
-          <div class="text-left"><label for="date_mise_circulation"></label></div>
-          <div>
-            <button type="button" class="btn btn-success mt-2" (click)="saveTypeVehicule()"
-              [disabled]="typevehiculeform.invalid">Valider</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Fermer</button>
-    </div>
-  </form>
+ <div class="modal-header">
+ <h4 class="modal-title" id="modal-basic-title">Nouveau Type</h4>
+ </div>
+ <form #typevehiculeform="ngForm">
+ <div class="modal-body">
+ <div class="row">
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="libelle">Libellé<span class="text-danger">*</span></label></div>
+ <div>
+ <input class="form-control form-control-sm" id="libelle" name="libelle" type="text" required
+ [(ngModel)]="type_vehicule.libelle">
+ </div>
+ </div>
+ <div class="col-3 form-group">
+ <div class="text-left"><label for="statut">Statut</label></div>
+ <div>
+ <select class="form-control form-control-sm" name="statut" id="statut" [(ngModel)]="type_vehicule.statut">
+ <option value="1">Activé</option>
+ <option value="0">Désactivé</option>
+ </select>
+ </div>
+ </div>
+ <div class="col-2 form-group">
+ <div class="text-left"><label for="date_mise_circulation"></label></div>
+ <div>
+ <button type="button" class="btn btn-success mt-2" (click)="saveTypeVehicule()"
+ [disabled]="typevehiculeform.invalid">Valider</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="modal-footer">
+ <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Fermer</button>
+ </div>
+ </form>
 </ng-template>

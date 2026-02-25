@@ -3,7 +3,7 @@ import {UtilsService} from "../../../services/utils.service";
 import {DemandeVehicule} from "../../../models/demande-vehicule";
 import {Vehicule} from "../../../models/vehicule";
 import {Chauffeur} from "../../../models/chauffeur";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {User} from "../../../models/user";
 import { environment } from 'src/environments/environment';
 import {DemandesCoursesService} from "../../../services/demandes-courses.service";
@@ -19,9 +19,10 @@ import {JournalSms} from "../../../models/journal-sms";
 import {JournalSmsService} from "../../../services/journal-sms.service";
 
 @Component({
-  selector: 'app-journal-sms',
-  templateUrl: './journal-sms.component.html',
-  styleUrls: ['./journal-sms.component.css']
+    standalone: false,
+    selector: 'app-journal-sms',
+    templateUrl: './journal-sms.component.html',
+    styleUrls: ['./journal-sms.component.css'],
 })
 export class JournalSmsComponent implements OnInit {
 
@@ -29,7 +30,7 @@ export class JournalSmsComponent implements OnInit {
   originalListeSms: Array<JournalSms> = [];
   closeResult: string = '';
   smsSelected: JournalSms = new JournalSms();
-  searchForm: FormGroup;
+  searchForm: UntypedFormGroup;
   formSubmitted = false;
   environment = environment;
   isRecherche: boolean = false;
@@ -43,7 +44,7 @@ export class JournalSmsComponent implements OnInit {
   user: User | null = new User();
 
   // datatable declaration
-  filter = new FormControl('');
+  filter = new UntypedFormControl('');
   itemsPerPage: number = 0;
   totalItems: number = 0;
   page: number = 0;
@@ -55,7 +56,7 @@ export class JournalSmsComponent implements OnInit {
   constructor(private demandesCoursesService: DemandesCoursesService, private ngxService: NgxUiLoaderService,
               private toastr: ToastrService, public utilsService: UtilsService, private datePipe: DatePipe,
               private modalService: NgbModal, private router: Router, private chauffeurService: ChauffeursService,
-              private formBuilder: FormBuilder, private smsService: JournalSmsService) {
+              private formBuilder: UntypedFormBuilder, private smsService: JournalSmsService) {
     this.formattedDate = this.datePipe.transform(this.maxDate, 'yyyy-MM-dd');
     this.searchForm = formBuilder.group( {
       debut: ['', Validators.required],

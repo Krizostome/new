@@ -1,6 +1,5 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
-import { Select2OptionData } from 'ng-select2';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subject } from 'rxjs';
 import { NgbdSortableHeader } from 'src/app/directives/ngbd-sortable-header.directive';
@@ -12,9 +11,10 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-historique-chauffeurs',
-  templateUrl: './historique-chauffeurs.component.html',
-  styleUrls: ['./historique-chauffeurs.component.css']
+    standalone: false,
+    selector: 'app-historique-chauffeurs',
+    templateUrl: './historique-chauffeurs.component.html',
+    styleUrls: ['./historique-chauffeurs.component.css'],
 })
 export class HistoriqueChauffeursComponent implements OnInit {
   chauffeurId: any = "";
@@ -22,8 +22,8 @@ export class HistoriqueChauffeursComponent implements OnInit {
   public dtTrigger: Subject<any> = new Subject<any>();
   chauffeurList: any; form: any; formSubmitted: boolean = false; historiquesChauffeurs: any;
 
-  elementChauffeurSelected: Select2OptionData = { id: '', text: '--' };
-  dataChauffeurSelect2: Array<Select2OptionData> = [];
+  elementChauffeurSelected: any = { id: '', text: '--' };
+  dataChauffeurSelect2: any[] = [];
 
   optionSelect2 = {
     width: '100%',
@@ -33,7 +33,7 @@ export class HistoriqueChauffeursComponent implements OnInit {
   };
   
   // datatable declaration
-  filter = new FormControl('');
+  filter = new UntypedFormControl('');
   itemsPerPage: number = 5;
   totalItems: number = 0;
   page: number = 0;
@@ -44,7 +44,7 @@ export class HistoriqueChauffeursComponent implements OnInit {
   originalHistoriquesChauffeurs: any;
 
   constructor(private historiquesService: HistoriquesService, private chauffeursService: ChauffeursService, private ngxService: NgxUiLoaderService,
-    private utilsService: UtilsService, private formBuilder: FormBuilder, private noteService: NoteService,) {
+    private utilsService: UtilsService, private formBuilder: UntypedFormBuilder, private noteService: NoteService,) {
     this.form = formBuilder.group(
       {
         date_debut: ['',],

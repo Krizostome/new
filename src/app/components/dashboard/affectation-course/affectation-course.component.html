@@ -1,62 +1,64 @@
 <!-- DataTables -->
 <div class="content mb-3">
 
-  <div class="animated fadeIn">
+ <div class="animated fadeIn">
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
+ <div class="row">
+ <div class="col-md-12">
+ <div class="card">
 
-          <!-- Sur la liste des demandes de courses -->
-          <div class="card-header justify-content-center">
+ <!-- Sur la liste des demandes de courses -->
+ <div class="card-header justify-content-center">
 
-              <p class="card-title text-center">
-                Liste des affectations de demande de courses.
-              </p>
+ <p class="card-title text-center">
+ Liste des affectations de demande de courses.
+ </p>
 
-          </div>
+ </div>
 
-          <div class="card-body">
-            <table id="bootstrap-data-table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-striped table-bordered w-100">
-              <thead class="bg-primary text-white">
-              <tr>
+ <div class="card-body">
+ <table id="bootstrap-data-table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-striped table-bordered w-100">
+ <thead class="bg-primary text-white">
+ <tr>
 
-                <th class="text-center">N°</th>
-                <th class="text-center">Catégorie de véhicule</th>
-                <th class="text-center">Point de départ</th>
-                <th class="text-center">Point de destination</th>
-                <th class="text-center">Nombre de personnes</th>
-                <th class="text-center">Date</th>
-                <th class="text-center">Vehicule</th>
-                <th class="text-center">Chauffeur</th>
+ <th class="text-center">N°</th>
+ <th class="text-center">Catégorie de véhicule</th>
+ <th class="text-center">Point de départ</th>
+ <th class="text-center">Point de destination</th>
+ <th class="text-center">Nombre de personnes</th>
+ <th class="text-center">Date</th>
+ <th class="text-center">Vehicule</th>
+ <th class="text-center">Chauffeur</th>
 
-              </tr>
-              </thead>
-              <tbody>
+ </tr>
+ </thead>
+ <tbody>
 
-              <tr *ngFor="let liste of demandeAffecter; let index= index">
+ @for (liste of demandeAffecter; track liste; let index = $index) {
+ <tr>
+ <td class="text-center">{{index+1}}</td>
+ <td class="text-center">{{liste.type_vehicule.libelle}}</td>
+ <td class="text-center">{{liste.point_depart}}</td>
+ <td class="text-center">{{liste.point_destination}}</td>
+ <td class="text-center">{{liste.nbre_personnes}}</td>
+ <td class="text-center">{{liste.date | date:'dd/MM/yyyy à HH:mm'}}</td>
+ <td class="text-center">{{liste?.demande_vehicule?.reference}}</td>
+ <td class="text-center">{{liste?.chauffeur?.user?.libelle}}</td>
+ </tr>
+ }
+ @if (demandeAffecter?.length == 0) {
+ <tr colspan="8">
+ <td>Aucune demande de course affecter.</td>
+ </tr>
+ }
 
-                <td class="text-center">{{index+1}}</td>
-                <td class="text-center">{{liste.type_vehicule.libelle}}</td>
-                <td class="text-center">{{liste.point_depart}}</td>
-                <td class="text-center">{{liste.point_destination}}</td>
-                <td class="text-center">{{liste.nbre_personnes}}</td>
-                <td class="text-center">{{liste.date | date:'dd/MM/yyyy à HH:mm'}}</td>
-                <td class="text-center">{{liste?.demande_vehicule?.reference}}</td>
-                <td class="text-center">{{liste?.chauffeur?.user?.libelle}}</td>
-
-              </tr>
-              <tr *ngIf="demandeAffecter?.length == 0" colspan="8">
-                  <td>Aucune demande de course affecter.</td>
-              </tr>
-
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
 
 
-    </div>
-  </div><!-- .animated -->
+ </div>
+ </div><!-- .animated -->
 </div>

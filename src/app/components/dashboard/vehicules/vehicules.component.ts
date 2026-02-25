@@ -11,9 +11,10 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-vehicules',
-  templateUrl: './vehicules.component.html',
-  styleUrls: ['./vehicules.component.css']
+    standalone: false,
+    selector: 'app-vehicules',
+    templateUrl: './vehicules.component.html',
+    styleUrls: ['./vehicules.component.css'],
 })
 export class VehiculesComponent implements OnInit {
 

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute,  Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Select2OptionData } from 'ng-select2';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { TypeVehicule } from 'src/app/models/type-vehicule';
 import { Vehicule } from 'src/app/models/vehicule';
@@ -11,21 +10,22 @@ import { VehiculesService } from 'src/app/services/vehicules.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-add-vehicule',
-  templateUrl: './add-vehicule.component.html',
-  styleUrls: ['./add-vehicule.component.css']
+    standalone: false,
+    selector: 'app-add-vehicule',
+    templateUrl: './add-vehicule.component.html',
+    styleUrls: ['./add-vehicule.component.css'],
 })
 export class AddVehiculeComponent implements OnInit {
 
   disponibilites: any = environment.DISPONIBILITE_VEHICULE;  types_vehicules: any; closeResult: string = ""; 
   type_vehicule: TypeVehicule = new TypeVehicule;
   vehicule: Vehicule = new Vehicule;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
-  elementTypeVehiculeSelected: Select2OptionData = {id: '', text: '--'};
-  dataTypeVehiculeSelect2: Array<Select2OptionData> = [];
-  elementDisponibiliteSelected: Select2OptionData = {id: '', text: '--'};
-  dataDisponibiliteSelect2: Array<Select2OptionData> = [];
+  elementTypeVehiculeSelected: any = {id: '', text: '--'};
+  dataTypeVehiculeSelect2: any[] = [];
+  elementDisponibiliteSelected: any = {id: '', text: '--'};
+  dataDisponibiliteSelect2: any[] = [];
 
   optionSelect2 = {
     width: '100%',
@@ -40,7 +40,7 @@ export class AddVehiculeComponent implements OnInit {
 
   constructor(private ngxService: NgxUiLoaderService, private vehiculesService: VehiculesService, 
     private utilsService: UtilsService, private modalService: NgbModal, private router: Router, 
-    private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) {
+    private formBuilder: UntypedFormBuilder, private activatedRoute: ActivatedRoute) {
       this.form = formBuilder.group(
         {
           immatr: ['',Validators.required],

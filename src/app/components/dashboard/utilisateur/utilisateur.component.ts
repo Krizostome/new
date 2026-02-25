@@ -11,12 +11,13 @@ import { UtilsService } from 'src/app/services/utils.service';
 import {NgbdSortableHeader} from "../../../directives/ngbd-sortable-header.directive";
 import {compare, SortEvent} from "../../../interfaces/sort-event";
 import { environment } from 'src/environments/environment';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-utilisateur',
-  templateUrl: './utilisateur.component.html',
-  styleUrls: ['./utilisateur.component.css']
+    standalone: false,
+    selector: 'app-utilisateur',
+    templateUrl: './utilisateur.component.html',
+    styleUrls: ['./utilisateur.component.css'],
 })
 export class UtilisateurComponent implements OnInit {
 
@@ -27,7 +28,7 @@ export class UtilisateurComponent implements OnInit {
   environment = environment;
 
   // datatable declaration
-  filter = new FormControl('');
+  filter = new UntypedFormControl('');
   itemsPerPage: number = 0;
   totalItems: number = 0;
   page: number = 0;

@@ -6,9 +6,10 @@ import {environment} from "../../../../environments/environment";
 import {BnNgIdleService} from "bn-ng-idle";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    standalone: false,
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
 

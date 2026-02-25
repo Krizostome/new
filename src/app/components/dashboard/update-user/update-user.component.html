@@ -1,76 +1,76 @@
 
 <div class="col-7 mx-auto">
 
-    <div class="col-md-6 mb-2">
-      <div class="justify-content-lg-start">
-        <a routerLink="/liste/utilisateur" class="btn btn-sm btn-secondary add-infos text-white menu-font">
-          <i class="fas fa-backward"></i> Retour
-        </a>
-      </div>
-    </div>
+ <div class="col-md-6 mb-2">
+ <div class="justify-content-lg-start">
+ <a routerLink="/liste/utilisateur" class="btn btn-sm btn-secondary add-infos text-white menu-font">
+ <i class="fas fa-backward"></i> Retour
+ </a>
+ </div>
+ </div>
 
-    <div class="card mx-auto rounded-lg bg-white mb-3">
-      <div class="card-header text-center bg-primary">
-        <div class="mx-auto text-white">Modification des informations de l'utilisateur</div>
-      </div>
+ <div class="card mx-auto rounded-lg bg-white mb-3">
+ <div class="card-header text-center bg-primary">
+ <div class="mx-auto text-white">Modification des informations de l'utilisateur</div>
+ </div>
 
-      <div class="card-body">
-        <!-- <div class="card-title">
+ <div class="card-body">
+ <!-- <div class="card-title">
 
-        </div> -->
-        <form action="" method="post" id="update-user" (keyup.enter)="onSubmit()" [formGroup]="form" (submit)="onSubmit()">
+ </div> -->
+ <form action="" method="post" id="update-user" (keyup.enter)="onSubmit()" [formGroup]="form" (submit)="onSubmit()">
 
 
 
-        <div class="col form-group">
-            <div class="text-left"><label for="nom">Nom</label> <span style="color:red"> *</span>
-            </div>
-            <div [class.has-success]="!form.get('nom')?.errors && formSubmitted"
-                [class.has-danger]="form.get('nom')?.errors && formSubmitted">
-            <input class="form-control form-control-sm" id="nom" name="nom" type="text"
-                    formControlName="nom"
-                    [class.is-valid]="!form.get('nom')?.errors && formSubmitted"
-                    [class.is-invalid]="form.get('nom')?.errors && formSubmitted">
-            </div>
-        </div>
+ <div class="col form-group">
+ <div class="text-left"><label for="nom">Nom</label> <span style="color:red"> *</span>
+ </div>
+ <div [class.has-success]="!form.get('nom')?.errors && formSubmitted"
+ [class.has-danger]="form.get('nom')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" id="nom" name="nom" type="text"
+ formControlName="nom"
+ [class.is-valid]="!form.get('nom')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('nom')?.errors && formSubmitted">
+ </div>
+ </div>
 
-        <div class="col form-group">
+ <div class="col form-group">
 
-            <div class="text-left"><label for="prenom">Prenom</label> <span style="color:red"> *</span>
-            </div>
-            <div [class.has-success]="!form.get('prenom')?.errors && formSubmitted"
-                [class.has-danger]="form.get('prenom')?.errors && formSubmitted">
-            <input class="form-control form-control-sm" type="text" id="prenom" name="prenom"
-                    formControlName="prenom"
-                    [class.is-valid]="!form.get('prenom')?.errors && formSubmitted"
-                    [class.is-invalid]="form.get('prenom')?.errors && formSubmitted">
-            </div>
+ <div class="text-left"><label for="prenom">Prenom</label> <span style="color:red"> *</span>
+ </div>
+ <div [class.has-success]="!form.get('prenom')?.errors && formSubmitted"
+ [class.has-danger]="form.get('prenom')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" type="text" id="prenom" name="prenom"
+ formControlName="prenom"
+ [class.is-valid]="!form.get('prenom')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('prenom')?.errors && formSubmitted">
+ </div>
 
-        </div>
+ </div>
 
-            <div class="col form-group">
-              <div class="text-left"><label for="email">Email</label> <span style="color:red"> *</span>
-              </div>
-              <div>
+ <div class="col form-group">
+ <div class="text-left"><label for="email">Email</label> <span style="color:red"> *</span>
+ </div>
+ <div>
 
-                <div [class.has-success]="!form.get('email')?.errors && formSubmitted"
-                [class.has-danger]="form.get('email')?.errors && formSubmitted">
-            <input class="form-control form-control-sm" id="email" name="email" type="text"
-                    formControlName="email"
-                    [class.is-valid]="!form.get('email')?.errors && formSubmitted"
-                    [class.is-invalid]="form.get('email')?.errors && formSubmitted">
-            </div>
+ <div [class.has-success]="!form.get('email')?.errors && formSubmitted"
+ [class.has-danger]="form.get('email')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" id="email" name="email" type="text"
+ formControlName="email"
+ [class.is-valid]="!form.get('email')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('email')?.errors && formSubmitted">
+ </div>
 
-              </div>
-            </div>
+ </div>
+ </div>
 
-        </form>
-      </div>
-      <div class="card-footer">
-        <div class="mx-auto">
-          <button class="btn btn-secondary" form="update-user" type="reset">Annuler</button>
-          <button class="btn btn-success ml-3" form="update-user" type="submit">Modifier</button>
-        </div>
-      </div>
-    </div>
-  </div>
+ </form>
+ </div>
+ <div class="card-footer">
+ <div class="mx-auto">
+ <button class="btn btn-secondary" form="update-user" type="reset">Annuler</button>
+ <button class="btn btn-success ml-3" form="update-user" type="submit">Modifier</button>
+ </div>
+ </div>
+ </div>
+ </div>

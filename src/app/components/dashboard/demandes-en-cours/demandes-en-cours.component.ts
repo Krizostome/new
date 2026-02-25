@@ -18,10 +18,9 @@ import {DemandeVehicule} from "../../../models/demande-vehicule";
 import {DatePipe} from "@angular/common";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
-import {Select2OptionData} from "ng-select2";
 import {TypeVehicule} from "../../../models/type-vehicule";
 import {Chauffeur} from "../../../models/chauffeur";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import { environment } from 'src/environments/environment';
 import {ChauffeursService} from "../../../services/chauffeurs.service";
 import {Vehicule} from "../../../models/vehicule";
@@ -31,9 +30,10 @@ import {compare, SortEvent} from "../../../interfaces/sort-event";
 import {User} from "../../../models/user";
 
 @Component({
-  selector: 'app-demandes-en-cours',
-  templateUrl: './demandes-en-cours.component.html',
-  styleUrls: ['./demandes-en-cours.component.css']
+    standalone: false,
+    selector: 'app-demandes-en-cours',
+    templateUrl: './demandes-en-cours.component.html',
+    styleUrls: ['./demandes-en-cours.component.css'],
 })
 export class DemandesEnCoursComponent implements OnInit {
 
@@ -43,8 +43,8 @@ export class DemandesEnCoursComponent implements OnInit {
   demandeCourseSelected: DemandeVehicule = new DemandeVehicule();
   listeVehicules: Array<Vehicule> = [];
   listeChauffeurs: Array<Chauffeur> = [];
-  form: FormGroup;
-  searchForm: FormGroup;
+  form: UntypedFormGroup;
+  searchForm: UntypedFormGroup;
   formSubmitted = false;
   searchFormSubmitted = false;
   environment = environment;
@@ -60,11 +60,11 @@ export class DemandesEnCoursComponent implements OnInit {
   warning: boolean = false;
   placeWarning: boolean = false;
 
-  elementVehiculeSelected: Select2OptionData = {id: '', text: '--'};
-  dataVehiculeSelect2: Array<Select2OptionData> = [];
+  elementVehiculeSelected: any = {id: '', text: '--'};
+  dataVehiculeSelect2: any[] = [];
 
-  elementChauffeurSelected: Select2OptionData = {id: '', text: '--'};
-  dataChauffeurSelect2: Array<Select2OptionData> = [];
+  elementChauffeurSelected: any = {id: '', text: '--'};
+  dataChauffeurSelect2: any[] = [];
 
   optionSelect2 = {
     width: '250px',
@@ -74,7 +74,7 @@ export class DemandesEnCoursComponent implements OnInit {
   };
 
   // datatable declaration
-  filter = new FormControl('');
+  filter = new UntypedFormControl('');
   itemsPerPage: number = 0;
   totalItems: number = 0;
   page: number = 0;
@@ -86,7 +86,7 @@ export class DemandesEnCoursComponent implements OnInit {
   constructor(private demandesCoursesService: DemandesCoursesService, private ngxService: NgxUiLoaderService,
               private toastr: ToastrService, public utilsService: UtilsService, private datePipe: DatePipe,
               private modalService: NgbModal, private router: Router, private chauffeurService: ChauffeursService,
-              private formBuilder: FormBuilder, private changeDetectorRef: ChangeDetectorRef) {
+              private formBuilder: UntypedFormBuilder, private changeDetectorRef: ChangeDetectorRef) {
     this.formattedDate = this.datePipe.transform(this.maxDate, 'yyyy-MM-dd');
     this.form = formBuilder.group(
       {

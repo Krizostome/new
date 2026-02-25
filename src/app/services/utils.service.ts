@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {User} from "../models/user";
-import {HttpHeaders} from "@angular/common/http";
+import { HttpHeaders } from "@angular/common/http";
 import {ToastrService} from 'ngx-toastr';
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";

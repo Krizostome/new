@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Select2OptionData } from 'ng-select2';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subject } from 'rxjs';
 import { CategoriePermis } from 'src/app/models/categorie-permis';
@@ -14,9 +13,10 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-add-palnning-garde',
-  templateUrl: './add-palnning-garde.component.html',
-  styleUrls: ['./add-palnning-garde.component.css']
+    standalone: false,
+    selector: 'app-add-palnning-garde',
+    templateUrl: './add-palnning-garde.component.html',
+    styleUrls: ['./add-palnning-garde.component.css'],
 })
 export class AddPalnningGardeComponent implements OnInit {
   public dtOptions: DataTables.Settings = {};
@@ -24,10 +24,10 @@ export class AddPalnningGardeComponent implements OnInit {
 
   disponibilites: any = environment.DISPONIBILITE_CHAUFFEUR;  typePermis: any; user: any;  closeResult: string = "";
   planningGarde: PlannigGarde = new PlannigGarde; type_permis: CategoriePermis = new CategoriePermis;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
-  elementChauffeurSelected: Select2OptionData = {id: '', text: '--'};
-  dataChauffeurSelect2: Array<Select2OptionData> = [];
+  elementChauffeurSelected: any = {id: '', text: '--'};
+  dataChauffeurSelect2: any[] = [];
 
   optionSelect2 = {
     width: '100%',
@@ -47,7 +47,7 @@ export class AddPalnningGardeComponent implements OnInit {
 
   constructor(private ngxService: NgxUiLoaderService, private chauffeursService: ChauffeursService,
     private utilsService: UtilsService, private modalService: NgbModal, private router: Router,
-    private formBuilder: FormBuilder, private planningGardeService: PlanningGardeService, private activatedRoute: ActivatedRoute) {
+    private formBuilder: UntypedFormBuilder, private planningGardeService: PlanningGardeService, private activatedRoute: ActivatedRoute) {
       this.form = formBuilder.group(
         {
           date_debut: ['',Validators.required],
