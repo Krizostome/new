@@ -42,7 +42,7 @@ export class PalnningGardeComponent implements OnInit {
       next: value => {
         if (value !== null && value.data !== null) {
           this.listePlanningGardes = value.data;
-          this.dtTrigger.next();
+          this.dtTrigger.next(undefined);
         } else {
           this.listeChauffeurs = [];
         }
@@ -118,7 +118,7 @@ export class PalnningGardeComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   

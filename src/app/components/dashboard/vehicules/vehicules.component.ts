@@ -38,7 +38,7 @@ export class VehiculesComponent implements OnInit {
       next: value => {
         if (value && value.data) {
           this.listeVehicules = value.data;
-          this.dtTrigger.next();
+          this.dtTrigger.next(undefined);
         } else {
           this.listeVehicules = [];
         }
@@ -146,7 +146,7 @@ export class VehiculesComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   

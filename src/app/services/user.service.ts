@@ -15,7 +15,7 @@ export class UserService {
     const searchUserForm: any = {
       email: mail
     };
-    return this.http.post(environment.BASE_URL + 'user/load-by-email', JSON.stringify(searchUserForm), this.utilsService.getHttpPostHeaderForResource());
+    return this.http.post(environment.BASE_URL + 'user/load-by-email', searchUserForm);
   }
 
   getUserById(userId: any):Observable<any>{

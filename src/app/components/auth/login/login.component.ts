@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
           // save user
           this.utilsService.saveDataInStorage('user', JSON.stringify(value.user));
           // get user by username
+          this.ngxService.stop();
           this.getUserConnectedByUsername(loginForm.email);
         }
       },

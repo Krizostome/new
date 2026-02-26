@@ -23,8 +23,8 @@ import { MapsComponent } from './components/dashboard/maps/maps.component';
 import {DemandesEnCoursComponent} from "./components/dashboard/demandes-en-cours/demandes-en-cours.component";
 import { HistoriqueDemandesComponent } from './components/dashboard/historiques/historique-demandes/historique-demandes.component';
 import { HistoriqueChauffeursComponent } from './components/dashboard/historiques/historique-chauffeurs/historique-chauffeurs.component';
-import {AuthGuard} from "./guards/auth.guard";
-import {AdministrationGuard} from "./guards/administration.guard";
+import {authGuard} from "./guards/auth.guard";
+import {administrationGuard} from "./guards/administration.guard";
 import {JournalSmsComponent} from "./components/dashboard/journal-sms/journal-sms.component";
 
 const routes: Routes = [
@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   {
-    path: '', canActivate: [AuthGuard], component: MainComponent, children: [
+    path: '', canActivate: [authGuard], component: MainComponent, children: [
 
 
       {path:'demande/notation/:demandeId',component:NoteCourseComponent},
@@ -45,15 +45,15 @@ const routes: Routes = [
       { path: 'list/course-affecter', component: AffectationCourseComponent },
       { path: 'maps', component: MapsComponent },
       { path: 'demande/encours', component: DemandesEnCoursComponent },
-      { path: 'liste/utilisateur', canActivate: [AdministrationGuard], component: UtilisateurComponent },
-      { path: 'modifier/utilisateur/:userId', canActivate: [AdministrationGuard], component: UpdateUserComponent },
-      { path: 'detail/utilisateur/:userId', canActivate: [AdministrationGuard], component: DetailUtilisateurComponent },
+      { path: 'liste/utilisateur', canActivate: [administrationGuard], component: UtilisateurComponent },
+      { path: 'modifier/utilisateur/:userId', canActivate: [administrationGuard], component: UpdateUserComponent },
+      { path: 'detail/utilisateur/:userId', canActivate: [administrationGuard], component: DetailUtilisateurComponent },
 
     ]
   },
 
   {
-    path: '',canActivate: [AuthGuard,AdministrationGuard], component: MainComponent, children: [
+    path: '',canActivate: [authGuard,administrationGuard], component: MainComponent, children: [
 
       { path: 'vehicules', component: VehiculesComponent },
       { path: 'vehicule/ajouter', component: AddVehiculeComponent },
@@ -64,7 +64,7 @@ const routes: Routes = [
   },
 
   {
-    path: '',canActivate: [AuthGuard,AdministrationGuard], component: MainComponent, children: [
+    path: '',canActivate: [authGuard,administrationGuard], component: MainComponent, children: [
 
       { path: 'chauffeurs', component: ChauffeursComponent },
       { path: 'chauffeur/ajouter', component: AddChauffeurComponent },
@@ -75,7 +75,7 @@ const routes: Routes = [
   },
 
   {
-    path: '',canActivate: [AuthGuard,AdministrationGuard], component: MainComponent, children: [
+    path: '',canActivate: [authGuard,administrationGuard], component: MainComponent, children: [
 
       { path: 'planning-gardes', component: PalnningGardeComponent },
       { path: 'planning-garde/ajouter', component: AddPalnningGardeComponent },
@@ -85,7 +85,7 @@ const routes: Routes = [
   },
 
   {
-    path: '',canActivate: [AuthGuard,AdministrationGuard], component: MainComponent, children: [
+    path: '',canActivate: [authGuard,administrationGuard], component: MainComponent, children: [
 
       { path: 'historique/demandes', component: HistoriqueDemandesComponent },
       { path: 'historique/chauffeurs', component: HistoriqueChauffeursComponent },

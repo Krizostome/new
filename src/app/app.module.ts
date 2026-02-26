@@ -71,7 +71,7 @@ import { JournalSmsComponent } from './components/dashboard/journal-sms/journal-
     DataTablesModule,
     NgbModule,
     NgSelectModule,
-    NgxUiLoaderModule,
+    NgxUiLoaderModule.forRoot({}),
     NgbPaginationModule,
     ToastrModule.forRoot({
       preventDuplicates: true
