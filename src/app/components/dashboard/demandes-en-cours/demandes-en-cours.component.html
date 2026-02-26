@@ -92,13 +92,13 @@
 
  @if (isRecherche == false) {
  <p class="card-title text-center">
- Liste des demandes de courses en cours ({{listeDemandesDeCourses?.length}})
+ Liste des demandes de courses en cours ({{listeDemandesDeCourses.length}})
  </p>
  }
 
  @if (isRecherche == true) {
  <p class="card-title text-center">
- Liste des demandes de courses en cours du {{this.debut +' au ' +this.fin}} ({{listeDemandesDeCourses?.length}})
+ Liste des demandes de courses en cours du {{this.debut +' au ' +this.fin}} ({{listeDemandesDeCourses.length}})
  </p>
  }
 
@@ -150,7 +150,7 @@
  <td class="text-center">{{demande?.beneficiaire?.prenom +' ' +demande?.beneficiaire?.nom}}</td>
  }
  @if (demande?.beneficiaire_id == null) {
- <td class="text-center">{{demande?.user?.prenom +' ' +demande?.user?.nom}}</td>
+ <td class="text-center">{{demande?.user.prenom +' ' +demande?.user.nom}}</td>
  }
  </ng-container>
  <td class="text-center">{{demande?.type_vehicule?.libelle}}</td>
@@ -162,7 +162,7 @@
  <td class="text-center">{{demande?.affectation?.vehicule?.immatr}}</td>
  @if (demande?.affectation?.chauffeur?.user) {
  <td class="text-center">
- {{demande?.affectation?.chauffeur?.user?.prenom +' ' +demande?.affectation?.chauffeur?.user?.nom}}
+ {{demande?.affectation?.chauffeur?.user.prenom +' ' +demande?.affectation?.chauffeur?.user.nom}}
  </td>
  }
  @if (!(demande?.affectation?.chauffeur?.user)) {
@@ -426,7 +426,7 @@
  <div class="text-center my-border-top-footer">
 
  <button type="button" class="btn btn-sm btn-secondary mx-2 text-black" (click)="modal.close('Save click')">NON</button>
- <button id="bouton-action-stop" type="submit" (click)="arreterCourse(this.demandeCourseSelected?.id)" class="btn btn-sm btn-danger btn-submit-unique-form">OUI</button>
+ <button id="bouton-action-stop" type="submit" (click)="arreterCourse(this.demandeCourseSelected.id)" class="btn btn-sm btn-danger btn-submit-unique-form">OUI</button>
 
  </div>
 

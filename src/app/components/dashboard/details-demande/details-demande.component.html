@@ -22,7 +22,7 @@
  <h6 class="d-inline card-title">Auteur :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse?.user?.prenom +' ' +demandeCourse?.user?.nom}}</p>
+ <p class="d-inline card-text">{{demandeCourse.user.prenom +' ' +demandeCourse.user.nom}}</p>
  </div>
  </div>
 
@@ -31,11 +31,11 @@
  <h6 class="d-inline card-title">Bénéficiaire :</h6>
  </div>
  <div class="col-6 text-left">
- @if (demandeCourse?.beneficiaire_id) {
- <p class="d-inline card-text">{{demandeCourse?.beneficiaire?.prenom +' ' +demandeCourse?.beneficiaire?.nom}}</p>
+ @if (demandeCourse.beneficiaire_id) {
+ <p class="d-inline card-text">{{demandeCourse.beneficiaire?.prenom +' ' +demandeCourse.beneficiaire?.nom}}</p>
  }
- @if (demandeCourse?.beneficiaire_id == null) {
- <p class="d-inline card-text"> {{demandeCourse?.user?.prenom +' ' +demandeCourse?.user?.nom}} </p>
+ @if (demandeCourse.beneficiaire_id == null) {
+ <p class="d-inline card-text"> {{demandeCourse.user.prenom +' ' +demandeCourse.user.nom}} </p>
  }
  </div>
  </div>
@@ -45,7 +45,7 @@
  <h6 class="d-inline card-title">Point de départ :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse?.point_depart}}</p>
+ <p class="d-inline card-text">{{demandeCourse.point_depart}}</p>
  </div>
  </div>
 
@@ -54,7 +54,7 @@
  <h6 class="d-inline card-title">Destination :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse?.point_destination}}</p>
+ <p class="d-inline card-text">{{demandeCourse.point_destination}}</p>
  </div>
  </div>
 
@@ -63,7 +63,7 @@
  <h6 class="d-inline card-title">Date depart :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse?.date_depart | date:'dd/MM/yyyy'}} à {{demandeCourse?.heure_depart?.substring(0,5)}}</p>
+ <p class="d-inline card-text">{{demandeCourse.date_depart | date:'dd/MM/yyyy'}} à {{demandeCourse.heure_depart?.substring(0,5)}}</p>
  </div>
  </div>
 
@@ -72,7 +72,7 @@
  <h6 class="d-inline card-title">Date retour :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse?.date_retour | date:'dd/MM/yyyy'}} à {{demandeCourse?.heure_retour?.substring(0,5)}}</p>
+ <p class="d-inline card-text">{{demandeCourse.date_retour | date:'dd/MM/yyyy'}} à {{demandeCourse.heure_retour?.substring(0,5)}}</p>
  </div>
  </div>
 
@@ -81,7 +81,7 @@
  <h6 class="d-inline card-title">Nombre de personnes :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse?.nbre_personnes}}</p>
+ <p class="d-inline card-text">{{demandeCourse.nbre_personnes}}</p>
  </div>
  </div>
 
@@ -90,7 +90,7 @@
  <h6 class="d-inline card-title">Escales :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse?.escales}}</p>
+ <p class="d-inline card-text">{{demandeCourse.escales}}</p>
  </div>
  </div>
 
@@ -99,7 +99,7 @@
  <h6 class="d-inline card-title">Type de véhicule :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse?.type_vehicule?.libelle}}</p>
+ <p class="d-inline card-text">{{demandeCourse.type_vehicule?.libelle}}</p>
  </div>
  </div>
 
@@ -108,7 +108,7 @@
  <h6 class="d-inline card-title">Motif :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse?.motif?.libelle}}</p>
+ <p class="d-inline card-text">{{demandeCourse.motif?.libelle}}</p>
  </div>
  </div>
 
@@ -117,7 +117,7 @@
  <h6 class="d-inline card-title">Objet :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse?.objet}}</p>
+ <p class="d-inline card-text">{{demandeCourse.objet}}</p>
  </div>
  </div>
 
@@ -126,7 +126,7 @@
  <h6 class="d-inline card-title">Statut :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse?.statut}}</p>
+ <p class="d-inline card-text">{{demandeCourse.statut}}</p>
  </div>
  </div>
 
@@ -134,14 +134,14 @@
  <div class="card-footer d-flex justify-content-center">
 
  <div class="d-inline mx-2">
- @if (demandeCourse?.statut == environment.STATUT_DEMANDE_COURSE_TERMINEE && demandeCourse.is_note == false) {
+ @if (demandeCourse.statut == environment.STATUT_DEMANDE_COURSE_TERMINEE && demandeCourse.is_note == false) {
  <button class="btn btn-warning" type="button" [routerLink]="['/demande/notation/'+demandeId]">
  <i class="fa fa-star" placement="top" ngbTooltip="Noter la course"> </i> Noter
  </button>
  }
  </div>
 
- @if (demandeCourse?.statut == environment.STATUT_DEMANDE_COURSE_CREEE && utilsService.isAdmin()) {
+ @if (demandeCourse.statut == environment.STATUT_DEMANDE_COURSE_CREEE && utilsService.isAdmin()) {
  <div class="d-inline mx-2">
  <button class="btn btn-success" type="button" (click)="isUpdatingNotAffect();openAffectationModal(affectationCourse, demandeCourse)">
  <i class="fa fa-car-side"> </i> Affecter
@@ -149,7 +149,7 @@
  </div>
  }
 
- @if (demandeCourse?.statut == environment.STATUT_DEMANDE_COURSE_AFFECTEE && utilsService.isAdmin()) {
+ @if (demandeCourse.statut == environment.STATUT_DEMANDE_COURSE_AFFECTEE && utilsService.isAdmin()) {
  <div class="d-inline mx-2">
  <button class="btn btn-success" type="button" (click)="isUpdatingAffect();openAffectationModal(affectationCourse, demandeCourse);">
  <i class="fa fa-car-side"> </i> Modifier l'affectation
@@ -158,7 +158,7 @@
  }
 
  <div class="d-inline mx-2">
- @if (demandeCourse?.statut == environment.STATUT_DEMANDE_COURSE_CREEE) {
+ @if (demandeCourse.statut == environment.STATUT_DEMANDE_COURSE_CREEE) {
  <button class="btn btn-danger" type="button" (click)="open_lg(suppressionDemande, demandeCourse)">
  <i class="fa fa-trash" placement="top" ngbTooltip="Affecter cette course a un chauffeur"> </i> Supprimer
  </button>
@@ -233,7 +233,7 @@
 
  <div class="mx-auto">
  <button class="btn btn-secondary" type="reset">Annuler</button>
- <button class="btn btn-success ml-3" [disabled]="!this.form?.valid" type="submit">Valider</button>
+ <button class="btn btn-success ml-3" [disabled]="!this.form.valid" type="submit">Valider</button>
  </div>
 
  </div>
