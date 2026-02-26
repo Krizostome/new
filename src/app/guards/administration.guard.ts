@@ -1,28 +1,17 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import {UtilsService} from "../services/utils.service";
-import {ToastrService} from "ngx-toastr";
+import { inject } from '@angular/core';
+import { Router, CanActivateFn } from '@angular/router';
+import { UtilsService } from '../services/utils.service';
+import { ToastrService } from 'ngx-toastr';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AdministrationGuard  {
+export const administrationGuard: CanActivateFn = (route, state) => {
+  const utilsService = inject(UtilsService);
+  const toastrService = inject(ToastrService);
+  const router = inject(Router);
 
-  constructor(private utilsService: UtilsService, private toastrService: ToastrService, private router: Router) {
-
+  if (utilsService.isConnected() && !utilsService.isAdmin()) {
+    toastrService.warning('Vous n\'êtes pas autorisé à accéder à cette page');
+    router.navigate(['accueil']);
+    return false;
   }
-
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.utilsService.isConnected() && !this.utilsService.isAdmin()) {
-      // this.utilsService.logout();
-      this.toastrService.warning('Vous n\'êtes pas autorisé à accéder à cette page');
-      this.router.navigate(['accueil']);
-      return false;
-    }
-    return true;
-  }
-
-}
+  return true;
+};

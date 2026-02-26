@@ -38,7 +38,7 @@ export class ChauffeursComponent implements OnInit {
       next: value => {
         if (value && value.data) {
           this.listeChauffeurs = value.data;
-          this.dtTrigger.next();
+          this.dtTrigger.next(undefined);
         } else {
           this.listeChauffeurs = [];
         }
@@ -129,7 +129,7 @@ export class ChauffeursComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   

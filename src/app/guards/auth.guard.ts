@@ -1,23 +1,12 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import {UtilsService} from "../services/utils.service";
+import { inject } from '@angular/core';
+import { CanActivateFn } from '@angular/router';
+import { UtilsService } from '../services/utils.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthGuard  {
-  constructor(private utilsService: UtilsService) {
-
+export const authGuard: CanActivateFn = (route, state) => {
+  const utilsService = inject(UtilsService);
+  if (!utilsService.isConnected()) {
+    utilsService.logout();
+    return false;
   }
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.utilsService.isConnected()) {
-      this.utilsService.logout();
-      return false;
-    }
-    return true;
-  }
-
-}
+  return true;
+};

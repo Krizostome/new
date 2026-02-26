@@ -20,7 +20,7 @@ export class ApiInterceptor implements HttpInterceptor {
       this.userId = this.utilsService.getUserConnected()?.id;
     }
 
-    if (accesToken) {
+    if (accesToken && !req.url.includes('login')) {
       let clone: HttpRequest<any>;
 
       if(req.headers.has('enctype')) {

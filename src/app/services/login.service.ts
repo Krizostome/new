@@ -12,8 +12,7 @@ export class LoginService {
   constructor(private http: HttpClient, private utilsService: UtilsService) { }
 
   authenticate(item: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'login', JSON.stringify(item), this.utilsService.getHttpPostHeaderForResource());
-
+    return this.http.post(environment.BASE_URL + 'login', item);
   }
 
 }
