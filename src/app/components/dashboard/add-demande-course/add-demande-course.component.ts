@@ -5,25 +5,25 @@ import {ToastrService} from "ngx-toastr";
 import {UtilsService} from "../../../services/utils.service";
 import {DemandeVehicule} from "../../../models/demande-vehicule";
 import {TypeVehicule} from "../../../models/type-vehicule";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import { environment } from 'src/environments/environment';
 import {ActivatedRoute, Router} from "@angular/router";
-import {Select2OptionData} from "ng-select2";
 import {Motif} from "../../../models/motif";
 import {DatePipe} from "@angular/common";
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user.service";
 
 @Component({
-  selector: 'app-add-demande-course',
-  templateUrl: './add-demande-course.component.html',
-  styleUrls: ['./add-demande-course.component.css']
+    standalone: false,
+    selector: 'app-add-demande-course',
+    templateUrl: './add-demande-course.component.html',
+    styleUrls: ['./add-demande-course.component.css'],
 })
 export class AddDemandeCourseComponent implements OnInit {
 
   listeTypesVehicules: Array<TypeVehicule> = [];
   listeMotifs: Array<Motif> = [];
-  form: FormGroup;
+  form: UntypedFormGroup;
   formSubmitted = false;
   environment = environment;
   demandeId: any;
@@ -37,14 +37,14 @@ export class AddDemandeCourseComponent implements OnInit {
   listUsers: Array<User> = [];
   isForAnotherAgent: boolean = false;
 
-  elementTypeVehiculeSelected: Select2OptionData = {id: '', text: '--'};
-  dataTypeVehiculeSelect2: Array<Select2OptionData> = [];
+  elementTypeVehiculeSelected: any = {id: '', text: '--'};
+  dataTypeVehiculeSelect2: any[] = [];
 
-  elementMotifSelected: Select2OptionData = {id: '', text: '--'};
-  dataMotifSelect2: Array<Select2OptionData> = [];
+  elementMotifSelected: any = {id: '', text: '--'};
+  dataMotifSelect2: any[] = [];
 
-  elementAgentSelected: Select2OptionData = {id: '', text: '--'};
-  dataAgentSelect2: Array<Select2OptionData> = [];
+  elementAgentSelected: any = {id: '', text: '--'};
+  dataAgentSelect2: any[] = [];
 
   optionSelect2 = {
     width: '100%',
@@ -54,7 +54,7 @@ export class AddDemandeCourseComponent implements OnInit {
   };
 
   constructor(private demandesCoursesService: DemandesCoursesService, private ngxService: NgxUiLoaderService,
-              private toastr: ToastrService, private utilsService: UtilsService,private formBuilder: FormBuilder,
+              private toastr: ToastrService, private utilsService: UtilsService,private formBuilder: UntypedFormBuilder,
               private router: Router, private activatedRoute: ActivatedRoute,private datePipe: DatePipe, private userService: UserService) {
     this.formattedDate = this.datePipe.transform(this.minDate, 'yyyy-MM-dd');
     this.minTime = new Date().toString().split(' ')[4];

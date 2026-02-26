@@ -12,9 +12,10 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-chauffeurs',
-  templateUrl: './chauffeurs.component.html',
-  styleUrls: ['./chauffeurs.component.css']
+    standalone: false,
+    selector: 'app-chauffeurs',
+    templateUrl: './chauffeurs.component.html',
+    styleUrls: ['./chauffeurs.component.css'],
 })
 export class ChauffeursComponent implements OnInit {
 

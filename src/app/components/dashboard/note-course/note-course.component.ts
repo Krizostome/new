@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl,Validators } from '@angular/forms';
+import { UntypedFormControl,Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -14,16 +14,17 @@ import { environment } from 'src/environments/environment';
 import {User} from "../../../models/user";
 
 @Component({
-  selector: 'app-note-course',
-  templateUrl: './note-course.component.html',
-  styleUrls: ['./note-course.component.css']
+    standalone: false,
+    selector: 'app-note-course',
+    templateUrl: './note-course.component.html',
+    styleUrls: ['./note-course.component.css'],
 })
 export class NoteCourseComponent implements OnInit {
 
   critereDeNotations= new Array<CritereNotation>();
   demandeId:number=0;
   demandeCourse: DemandeVehicule = new DemandeVehicule();
-  commentaire=new FormControl(' ');
+  commentaire=new UntypedFormControl(' ');
   notation=new Notation();
   ligneNotations:any ={};
   config:NgbRatingConfig;
@@ -104,7 +105,7 @@ export class NoteCourseComponent implements OnInit {
       }
       var i:number;
       for(i=0;i<this.critereDeNotations.length;i++){
-        this.critereDeNotations[i].stars=new FormControl(0);
+        this.critereDeNotations[i].stars=new UntypedFormControl(0);
       }
 
       this.ngxService.stop();

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import {UtilsService} from "../services/utils.service";
 import {ToastrService} from "ngx-toastr";
@@ -7,7 +7,7 @@ import {ToastrService} from "ngx-toastr";
 @Injectable({
   providedIn: 'root'
 })
-export class AdministrationGuard implements CanActivate {
+export class AdministrationGuard  {
 
   constructor(private utilsService: UtilsService, private toastrService: ToastrService, private router: Router) {
 

@@ -5,9 +5,10 @@ import { DemandesCoursesService } from 'src/app/services/demandes-courses.servic
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
-  selector: 'app-affectation-course',
-  templateUrl: './affectation-course.component.html',
-  styleUrls: ['./affectation-course.component.css']
+    standalone: false,
+    selector: 'app-affectation-course',
+    templateUrl: './affectation-course.component.html',
+    styleUrls: ['./affectation-course.component.css'],
 })
 export class AffectationCourseComponent implements OnInit {
 

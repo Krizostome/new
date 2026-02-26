@@ -1,147 +1,148 @@
 <div class="d-flex justify-content-end mb-3">
-    <div class="col-md-6 text-right">
-      <a class="btn btn-primary text-white add-infos" routerLink="/chauffeur/ajouter">
-        <i class="fas fa-plus"></i> Ajouter un chauffeur
-      </a>
-    </div>
-  </div>
-  
-  <!-- DataTables -->
-  <div class="content">
-  
-    <div class="animated fadeIn">
-  
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-  
-            <!-- Sur la liste des chauffeurs -->
-            <div class="card-header justify-content-center">
-  
-              <p class="card-title text-center">
-                Liste des chauffeurs ({{listeChauffeurs?.length}})
-              </p>
-  
-            </div>
-  
-            <div class="card-body">
-              <table id="bootstrap-data-table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
-                class="table table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-striped table-bordered w-100">
-                <thead class=" bg-primary text-white">
-                  <tr>
-  
-                    <th class="text-center">N°</th>
-                    <th class="text-center">Matricule</th>
-                    <th class="text-center">Nom</th>
-                    <th class="text-center">Prénoms</th>
-                    <th class="text-center">Permis</th>
-                    <th class="text-center">Email</th>
-                    <th class="text-center">Téléphone</th>
-                    <th class="text-center">Disponibilité</th>
-                    <th class="text-center">Actions</th>
-  
-                  </tr>
-                </thead>
-                <tbody>
-  
-                  <tr *ngFor="let chauffeur of listeChauffeurs; let index= index">
-  
-                    <td class="text-center">{{index+1}}</td>
-                    <td class="text-center">{{chauffeur.matricule}}</td>
-                    <td class="text-center">{{chauffeur.user.nom}}</td>
-                    <td class="text-center">{{chauffeur.user.prenom}}</td>
-                    <td class="text-center">{{chauffeur.num_permis}} <span class="text-danger">({{chauffeur.permis.libelle}})</span></td>
-                    <td class="text-center">{{chauffeur.email}}</td>
-                    <td class="text-center">{{chauffeur.contact}}</td>
-                    <td class="text-center">
-                      <span *ngIf="chauffeur.disponibilite == 'DISPONIBLE'" class="text-success">{{chauffeur.disponibilite}}</span>
-                      <span *ngIf="chauffeur.disponibilite != 'DISPONIBLE'" class="text-danger">{{chauffeur.disponibilite}}</span>
-                    </td>
-                    <td class="text-center">
-  
-                      <a class="cursor-pointer" (click)="jumpToChauffeurDetails(chauffeur.id)">
-                        <i class="fa fa-eye text-primary" placement="top" ngbTooltip="Voir les détails"></i>
-                      </a>
-  
-                      <a class="cursor-pointer ml-2"  (click)="jumpToChauffeurEdit(chauffeur.id)">
-                        <i class="fa fa-edit text-success" placement="top" ngbTooltip="Modifier"></i>
-                      </a>
+ <div class="col-md-6 text-right">
+ <a class="btn btn-primary text-white add-infos" routerLink="/chauffeur/ajouter">
+ <i class="fas fa-plus"></i> Ajouter un chauffeur
+ </a>
+ </div>
+</div>
 
-                      <a class="btn" title="Mettre à jour" (click)="open_lg(chauffeurSetDisponibilite, chauffeur)">
-                        <i class="fa fa-ellipsis-h text-info"></i>
-                      </a>
+<!-- DataTables -->
+<div class="content">
 
-  
-                      <a class="cursor-pointer ml-2" (click)="open_lg(chauffeurdeletemodal, chauffeur);">
-                        <i class="fas fa-trash text-danger" data-placement="top" placement="top"
-                          ngbTooltip="Supprimer le chauffeur"></i>
-                      </a>
-  
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-  
-  
-      </div>
-    </div><!-- .animated -->
-  </div>
-  
-  <!-- Modal pour supprimer la demande de course -->
-  <ng-template #chauffeurdeletemodal let-modal>
-  
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
-    </div>
-      <div class="modal-body">
-        <form action="" method="post" class="my-unique-form">
-          <div class="row mb-2 pl-2 pr-2" id="suppression-demande">
-            <p class="text-center">
-              Voulez-vous vraiment supprimer ce chauffeur ?
-            </p>
-          </div>
-          <div class="text-center my-border-top-footer">
-            <button type="button" class="btn btn-sm btn-secondary mx-2 text-black" (click)="modal.close('Save click')">NON</button>
-            <button id="bouton-action-activer" type="submit" (click)="deleteChauffeur(chauffeur); modal.close('Save click')" class="btn btn-sm btn-danger btn-submit-unique-form">OUI</button>
-          </div>
-        </form>
-      </div>
-  
-  </ng-template>
-  
-  <!--Modal Mettre à jour Disponibilité-->
-  <ng-template #chauffeurSetDisponibilite let-modal>
-    <form #form="ngForm">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Disponibilité</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-6 form-group">
-            <div class="text-left"><label for="chauffeur">Chauffeur: </label></div>
-            <div>
-              <input class="form-control form-control-sm" id="libelle" name="chauffeur" type="text" required
-              [(ngModel)]='chauffeur.matricule' readonly>
-            </div>
-          </div>
-          <div class="col-6 form-group">
-            <div class="text-left"><label for="disponibilite">Disponibilité:</label>
-            </div>
-            <div>
-              <select class="form-control form-control-sm" required id="disponibilite" name="disponibilite"
-              [(ngModel)]='chauffeur.disponibilite'>
-                <option value="{{d.libelle}}" *ngFor="let d of disponibilites">{{d.libelle}}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>      
-      <div class="text-center my-border-top-footer mb-2">
-        <button type="button" class="btn btn-sm btn-secondary mx-2 text-black" (click)="modal.close('Save click')">Annuler</button>
-        <button id="bouton-action-activer" type="submit" (click)="setDisponobiliteChauffeur(); modal.close('Save click')" class="btn btn-sm btn-success btn-submit-unique-form">Valider</button>
-      </div>
-    </form>
-  </ng-template>
+ <div class="animated fadeIn">
+
+ <div class="row">
+ <div class="col-md-12">
+ <div class="card">
+
+ <!-- Sur la liste des chauffeurs -->
+ <div class="card-header justify-content-center">
+
+ <p class="card-title text-center">
+ Liste des chauffeurs ({{listeChauffeurs?.length}})
+ </p>
+
+ </div>
+
+ <div class="card-body">
+ <table id="bootstrap-data-table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+ class="table table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-striped table-bordered w-100">
+ <thead class=" bg-primary text-white">
+ <tr>
+
+ <th class="text-center">N°</th>
+ <th class="text-center">Matricule</th>
+ <th class="text-center">Nom</th>
+ <th class="text-center">Prénoms</th>
+ <th class="text-center">Permis</th>
+ <th class="text-center">Email</th>
+ <th class="text-center">Téléphone</th>
+ <th class="text-center">Disponibilité</th>
+ <th class="text-center">Actions</th>
+
+ </tr>
+ </thead>
+ <tbody>
+
+ @for (chauffeur of listeChauffeurs; track chauffeur; let index = $index) {
+ <tr>
+ <td class="text-center">{{index+1}}</td>
+ <td class="text-center">{{chauffeur.matricule}}</td>
+ <td class="text-center">{{chauffeur.user.nom}}</td>
+ <td class="text-center">{{chauffeur.user.prenom}}</td>
+ <td class="text-center">{{chauffeur.num_permis}} <span class="text-danger">({{chauffeur.permis.libelle}})</span></td>
+ <td class="text-center">{{chauffeur.email}}</td>
+ <td class="text-center">{{chauffeur.contact}}</td>
+ <td class="text-center">
+ @if (chauffeur.disponibilite == 'DISPONIBLE') {
+ <span class="text-success">{{chauffeur.disponibilite}}</span>
+ }
+ @if (chauffeur.disponibilite != 'DISPONIBLE') {
+ <span class="text-danger">{{chauffeur.disponibilite}}</span>
+ }
+ </td>
+ <td class="text-center">
+ <a class="cursor-pointer" (click)="jumpToChauffeurDetails(chauffeur.id)">
+ <i class="fa fa-eye text-primary" placement="top" ngbTooltip="Voir les détails"></i>
+ </a>
+ <a class="cursor-pointer ml-2" (click)="jumpToChauffeurEdit(chauffeur.id)">
+ <i class="fa fa-edit text-success" placement="top" ngbTooltip="Modifier"></i>
+ </a>
+ <a class="btn" title="Mettre à jour" (click)="open_lg(chauffeurSetDisponibilite, chauffeur)">
+ <i class="fa fa-ellipsis-h text-info"></i>
+ </a>
+ <a class="cursor-pointer ml-2" (click)="open_lg(chauffeurdeletemodal, chauffeur);">
+ <i class="fas fa-trash text-danger" data-placement="top" placement="top"
+ ngbTooltip="Supprimer le chauffeur"></i>
+ </a>
+ </td>
+ </tr>
+ }
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
+
+
+ </div>
+ </div><!-- .animated -->
+</div>
+
+<!-- Modal pour supprimer la demande de course -->
+<ng-template #chauffeurdeletemodal let-modal>
+
+ <div class="modal-header">
+ <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+ </div>
+ <div class="modal-body">
+ <form action="" method="post" class="my-unique-form">
+ <div class="row mb-2 pl-2 pr-2" id="suppression-demande">
+ <p class="text-center">
+ Voulez-vous vraiment supprimer ce chauffeur ?
+ </p>
+ </div>
+ <div class="text-center my-border-top-footer">
+ <button type="button" class="btn btn-sm btn-secondary mx-2 text-black" (click)="modal.close('Save click')">NON</button>
+ <button id="bouton-action-activer" type="submit" (click)="deleteChauffeur(chauffeur); modal.close('Save click')" class="btn btn-sm btn-danger btn-submit-unique-form">OUI</button>
+ </div>
+ </form>
+ </div>
+
+</ng-template>
+
+<!--Modal Mettre à jour Disponibilité-->
+<ng-template #chauffeurSetDisponibilite let-modal>
+ <form #form="ngForm">
+ <div class="modal-header">
+ <h4 class="modal-title" id="modal-basic-title">Disponibilité</h4>
+ </div>
+ <div class="modal-body">
+ <div class="row">
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="chauffeur">Chauffeur: </label></div>
+ <div>
+ <input class="form-control form-control-sm" id="libelle" name="chauffeur" type="text" required
+ [(ngModel)]='chauffeur.matricule' readonly>
+ </div>
+ </div>
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="disponibilite">Disponibilité:</label>
+ </div>
+ <div>
+ <select class="form-control form-control-sm" required id="disponibilite" name="disponibilite"
+ [(ngModel)]='chauffeur.disponibilite'>
+ @for (d of disponibilites; track d) {
+ <option value="{{d.libelle}}">{{d.libelle}}</option>
+ }
+ </select>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="text-center my-border-top-footer mb-2">
+ <button type="button" class="btn btn-sm btn-secondary mx-2 text-black" (click)="modal.close('Save click')">Annuler</button>
+ <button id="bouton-action-activer" type="submit" (click)="setDisponobiliteChauffeur(); modal.close('Save click')" class="btn btn-sm btn-success btn-submit-unique-form">Valider</button>
+ </div>
+</form>
+</ng-template>

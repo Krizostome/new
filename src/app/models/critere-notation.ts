@@ -1,7 +1,7 @@
-import { FormControl, Validators } from "@angular/forms";
+import { UntypedFormControl, Validators } from "@angular/forms";
 
 export class CritereNotation {
   id: number = 0;
   libelle: string = '';
-  stars:FormControl = new FormControl(0);
+  stars:UntypedFormControl = new UntypedFormControl(0);
 }

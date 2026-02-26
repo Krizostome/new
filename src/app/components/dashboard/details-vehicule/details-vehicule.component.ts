@@ -6,9 +6,10 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { VehiculesService } from 'src/app/services/vehicules.service';
 
 @Component({
-  selector: 'app-details-vehicule',
-  templateUrl: './details-vehicule.component.html',
-  styleUrls: ['./details-vehicule.component.css']
+    standalone: false,
+    selector: 'app-details-vehicule',
+    templateUrl: './details-vehicule.component.html',
+    styleUrls: ['./details-vehicule.component.css'],
 })
 export class DetailsVehiculeComponent implements OnInit {
   vehiculeId: any;

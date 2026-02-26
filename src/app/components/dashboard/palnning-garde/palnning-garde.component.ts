@@ -11,9 +11,10 @@ import { environment } from 'src/environments/environment';
 import { PlanningGardeService } from 'src/app/services/planning.garde.service';
 
 @Component({
-  selector: 'app-palnning-garde',
-  templateUrl: './palnning-garde.component.html',
-  styleUrls: ['./palnning-garde.component.css']
+    standalone: false,
+    selector: 'app-palnning-garde',
+    templateUrl: './palnning-garde.component.html',
+    styleUrls: ['./palnning-garde.component.css'],
 })
 export class PalnningGardeComponent implements OnInit {
   listeChauffeurs: any;  closeResult: any; chauffeur: Chauffeur = new Chauffeur; disponibilites: any = environment.DISPONIBILITE_CHAUFFEUR;

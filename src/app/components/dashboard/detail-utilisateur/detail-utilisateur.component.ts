@@ -6,9 +6,10 @@ import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
-  selector: 'app-detail-utilisateur',
-  templateUrl: './detail-utilisateur.component.html',
-  styleUrls: ['./detail-utilisateur.component.css']
+    standalone: false,
+    selector: 'app-detail-utilisateur',
+    templateUrl: './detail-utilisateur.component.html',
+    styleUrls: ['./detail-utilisateur.component.css'],
 })
 export class DetailUtilisateurComponent implements OnInit {
 

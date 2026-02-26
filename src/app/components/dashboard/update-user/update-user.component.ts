@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { User } from 'src/app/models/user';
@@ -7,18 +7,19 @@ import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
-  selector: 'app-update-user',
-  templateUrl: './update-user.component.html',
-  styleUrls: ['./update-user.component.css']
+    standalone: false,
+    selector: 'app-update-user',
+    templateUrl: './update-user.component.html',
+    styleUrls: ['./update-user.component.css'],
 })
 export class UpdateUserComponent implements OnInit {
 
 	formSubmitted =false;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
 	user!: User;
   userId!: number;
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
 	private ngxService: NgxUiLoaderService,
 	private userService: UserService,
 	private utilsService: UtilsService,

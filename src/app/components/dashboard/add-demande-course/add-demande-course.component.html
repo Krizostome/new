@@ -1,251 +1,251 @@
 
 <div class="col-12 mx-auto">
 
-  <div class="col-md-6 mb-2">
-    <div class="justify-content-lg-start">
-      <a routerLink="/demande/encours" class="btn btn-sm btn-secondary add-infos text-white menu-font">
-        <i class="fas fa-backward"></i> Retour
-      </a>
-    </div>
-  </div>
+ <div class="col-md-6 mb-2">
+ <div class="justify-content-lg-start">
+ <a routerLink="/demande/encours" class="btn btn-sm btn-secondary add-infos text-white menu-font">
+ <i class="fas fa-backward"></i> Retour
+ </a>
+ </div>
+ </div>
 
-  <div class="card mx-auto rounded-lg bg-white mb-3">
-    <div class="card-header text-center bg-primary text-white">
-      <div class="mx-auto">{{modalTitle}}</div>
-    </div>
+ <div class="card mx-auto rounded-lg bg-white mb-3">
+ <div class="card-header text-center bg-primary text-white">
+ <div class="mx-auto">{{modalTitle}}</div>
+ </div>
 
-    <div class="card-body">
-
-
-
-      <form action="" method="post" id="add-demande" (keyup.enter)="onSubmit()" [formGroup]="form" (submit)="onSubmit()">
-
-        <div class="row">
-
-          <div class="col-6 form-group">
-            <div class="text-left"><label for="point_depart">Point de départ</label> <span style="color:red"> *</span>
-            </div>
-            <div [class.has-success]="!form.get('point_depart')?.errors && formSubmitted"
-                 [class.has-danger]="form.get('point_depart')?.errors && formSubmitted">
-              <input class="form-control form-control-sm" id="point_depart" name="point_depart" type="text"
-                     formControlName="point_depart"
-                     [class.is-valid]="!form.get('point_depart')?.errors && formSubmitted"
-                     [class.is-invalid]="form.get('point_depart')?.errors && formSubmitted">
-            </div>
-          </div>
-
-          <div class="col-6 form-group">
-
-            <div class="text-left"><label for="point_destination">Point de destination</label> <span style="color:red"> *</span>
-            </div>
-            <div [class.has-success]="!form.get('point_destination')?.errors && formSubmitted"
-                 [class.has-danger]="form.get('point_destination')?.errors && formSubmitted">
-              <input class="form-control form-control-sm" type="text" id="point_destination" name="point_destination"
-                     formControlName="point_destination"
-                     [class.is-valid]="!form.get('point_destination')?.errors && formSubmitted"
-                     [class.is-invalid]="form.get('point_destination')?.errors && formSubmitted">
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="row">
-
-          <div class="col-6 form-group">
-            <div class="text-left"><label for="type_vehicule">Catégorie de véhicules</label> <span style="color:red"> *</span>
-            </div>
-            <div>
-
-              <ng-select2
-                id="type_vehicule"
-                (valueChanged)="handleSelectTypeVehiculeChange($event)"
-                [data]="dataTypeVehiculeSelect2"
-                [options]="optionSelect2"
-                [value]="elementTypeVehiculeSelected !== undefined ? elementTypeVehiculeSelected.id : ''"
-                [class.has-success]="!form.get('type_vehicule')?.errors && formSubmitted"
-                [class.has-danger]="form.get('type_vehicule')?.errors && formSubmitted"
-                [placeholder]="'Veuillez sélectionner un type de véhicule'">
-              </ng-select2>
-
-            </div>
-          </div>
-
-          <div class="col-6 form-group">
-            <div class="text-left"><label for="motif">Motif</label>  <span style="color:red"> *</span>
-            </div>
-            <div>
-
-              <ng-select2
-                id="motif"
-                (valueChanged)="handleSelectMotifChange($event)"
-                [data]="dataMotifSelect2"
-                [options]="optionSelect2"
-                [value]="elementMotifSelected !== undefined ? elementMotifSelected.id : ''"
-                [class.has-success]="!form.get('motif')?.errors && formSubmitted"
-                [class.has-danger]="form.get('motif')?.errors && formSubmitted"
-                [placeholder]="'Veuillez sélectionner un motif'">
-              </ng-select2>
-
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row">
-
-          <div class="col-6 form-group">
-
-            <div class="text-left"><label for="nbr_personne">Nombre de personnes</label> <span style="color:red"> *</span>
-            </div>
-            <div [class.has-success]="!form.get('nbr_personnes')?.errors && formSubmitted"
-                 [class.has-danger]="form.get('nbr_personnes')?.errors && formSubmitted">
-              <input class="form-control form-control-sm" type="number" id="nbr_personne" name="nbr_personne"
-                     formControlName="nbr_personnes"
-                     [class.is-valid]="!form.get('nbr_personnes')?.errors && formSubmitted"
-                     [class.is-invalid]="form.get('nbr_personnes')?.errors && formSubmitted">
-            </div>
-
-          </div>
-
-          <div class="col-6 form-group">
-
-            <div class="text-left"><label for="escales">Escales</label></div>
-            <div [class.has-success]="!form.get('escales')?.errors && formSubmitted"
-                 [class.has-danger]="form.get('escales')?.errors && formSubmitted">
-              <input class="form-control form-control-sm" type="text" id="escales" name="escales"
-                     formControlName="escales"
-                     [class.is-valid]="!form.get('escales')?.errors && formSubmitted"
-                     [class.is-invalid]="form.get('escales')?.errors && formSubmitted">
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="row">
-
-          <div class="col-6 form-group">
-
-            <div class="text-left"><label for="date_depart">Date et heure de départ</label> <span style="color:red"> *</span>
-            </div>
-
-            <div class="row">
-
-              <div class="col-6" [class.has-success]="!form.get('date_depart')?.errors && formSubmitted"
-                   [class.has-danger]="form.get('date_depart')?.errors && formSubmitted">
-                <input class="form-control form-control-sm" type="date" id="date_depart" name="date_depart"
-                       formControlName="date_depart"
-                       [min]="formattedDate"
-                       [class.is-valid]="!form.get('date_depart')?.errors && formSubmitted"
-                       [class.is-invalid]="form.get('date_depart')?.errors && formSubmitted">
-              </div>
-
-              <span class="col-1 py-1">à</span>
-
-              <div class="col-5" [class.has-success]="!form.get('heure_depart')?.errors && formSubmitted"
-                   [class.has-danger]="form.get('heure_depart')?.errors && formSubmitted">
-                <input class="form-control form-control-sm" type="time" id="heure_depart" name="heure_depart"
-                       formControlName="heure_depart"
-                       [class.is-valid]="!form.get('heure_depart')?.errors && formSubmitted"
-                       [class.is-invalid]="form.get('heure_depart')?.errors && formSubmitted">
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="col-6 form-group">
-
-            <div class="text-left"><label for="date_retour">Date et heure de retour</label> <span style="color:red"> *</span>
-            </div>
-
-            <div class="row">
-
-              <div class="col-6" [class.has-success]="!form.get('date_retour')?.errors && formSubmitted"
-                   [class.has-danger]="form.get('date_retour')?.errors && formSubmitted">
-                <input class="form-control form-control-sm" type="date" id="date_retour" name="date_retour"
-                       formControlName="date_retour"
-                       [min]="formattedDate"
-                       [class.is-valid]="!form.get('date_retour')?.errors && formSubmitted"
-                       [class.is-invalid]="form.get('date_retour')?.errors && formSubmitted">
-              </div>
-
-              <span class="col-1 py-1">à</span>
-
-              <div class="col-5" [class.has-success]="!form.get('heure_retour')?.errors && formSubmitted"
-                   [class.has-danger]="form.get('heure_retour')?.errors && formSubmitted">
-                <input class="form-control form-control-sm" type="time" id="heure_retour" name="heure_retour"
-                       formControlName="heure_retour"
-                       [class.is-valid]="!form.get('heure_retour')?.errors && formSubmitted"
-                       [class.is-invalid]="form.get('heure_retour')?.errors && formSubmitted">
-              </div>
-
-            </div>
+ <div class="card-body">
 
 
 
-          </div>
+ <form action="" method="post" id="add-demande" (keyup.enter)="onSubmit()" [formGroup]="form" (submit)="onSubmit()">
 
-        </div>
+ <div class="row">
 
-        <div class="row">
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="point_depart">Point de départ</label> <span style="color:red"> *</span>
+ </div>
+ <div [class.has-success]="!form.get('point_depart')?.errors && formSubmitted"
+ [class.has-danger]="form.get('point_depart')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" id="point_depart" name="point_depart" type="text"
+ formControlName="point_depart"
+ [class.is-valid]="!form.get('point_depart')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('point_depart')?.errors && formSubmitted">
+ </div>
+ </div>
 
-          <div class="col-6 form-group">
+ <div class="col-6 form-group">
 
-            <div class="text-left">
-              <label for="agent">Créer au profit d'un tiers ? <span style="color: red">*</span>  </label>
-            </div>
-            <div class="text-left">
-              <label for="demande_myself_oui" class="mr-2">Oui</label>
-              <input (change)="changeAgentOwner($event, 'OUI')"  id="demande_myself_oui" class="mr-4" type="radio" value="OUI" formControlName="demande_myself">
+ <div class="text-left"><label for="point_destination">Point de destination</label> <span style="color:red"> *</span>
+ </div>
+ <div [class.has-success]="!form.get('point_destination')?.errors && formSubmitted"
+ [class.has-danger]="form.get('point_destination')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" type="text" id="point_destination" name="point_destination"
+ formControlName="point_destination"
+ [class.is-valid]="!form.get('point_destination')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('point_destination')?.errors && formSubmitted">
+ </div>
 
-              <label for="demande_myself_non" class="mr-2">Non</label>
-              <input (change)="changeAgentOwner($event, 'NON')"  id="demande_myself_non" class="mr-4" type="radio" value="NON" formControlName="demande_myself">
-            </div>
+ </div>
 
-          </div>
+ </div>
 
-          <div class="col-6 form-group" *ngIf="isForAnotherAgent === true">
-            <div class="text-left"><label for="agent">Sélectionner le bénéficiaire</label> <span style="color:red"> *</span>
-            </div>
-            <div>
+ <div class="row">
 
-              <ng-select2
-                id="agent"
-                (valueChanged)="handleSelectAgentChange($event)"
-                [data]="dataAgentSelect2"
-                [options]="optionSelect2"
-                [value]="elementAgentSelected !== undefined ? elementAgentSelected.id : ''"
-                [class.has-success]="!form.get('user')?.errors && formSubmitted"
-                [class.has-danger]="form.get('user')?.errors && formSubmitted"
-                [placeholder]="'Veuillez sélectionner le bénéficiaire'">
-              </ng-select2>
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="type_vehicule">Catégorie de véhicules</label> <span style="color:red"> *</span>
+ </div>
+ <div>
 
-            </div>
-          </div>
+ <ng-select
+ id="type_vehicule"
+ (change)="handleSelectTypeVehiculeChange($event)"
+ [items]="dataTypeVehiculeSelect2"
 
-        </div>
 
-        <div class="form-group">
-          <div class="text-left"><label for="objet">Objet</label> <span style="color:red"> *</span></div>
-          <div [class.has-success]="!form.get('objet')?.errors && formSubmitted"
-               [class.has-danger]="form.get('objet')?.errors && formSubmitted">
-            <textarea class="form-control form-control-sm" name="objet" id="objet" cols="30" rows="3"
-                      formControlName="objet"
-                      [class.is-valid]="!form.get('objet')?.errors && formSubmitted"
-                      [class.is-invalid]="form.get('objet')?.errors && formSubmitted"></textarea>
-          </div>
-        </div>
+ [class.has-success]="!form.get('type_vehicule')?.errors && formSubmitted"
+ [class.has-danger]="form.get('type_vehicule')?.errors && formSubmitted"
+ [placeholder]="'Veuillez sélectionner un type de véhicule'">
+ </ng-select>
 
-      </form>
-    </div>
+ </div>
+ </div>
 
-    <div class="card-footer">
-      <div class="mx-auto">
-        <button class="btn btn-secondary" form="add-demande" type="reset">Annuler</button>
-        <button class="btn btn-success ml-3" form="add-demande" [disabled]="!this.form.valid" type="submit">Valider</button>
-      </div>
-    </div>
-  </div>
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="motif">Motif</label> <span style="color:red"> *</span>
+ </div>
+ <div>
+
+ <ng-select
+ id="motif"
+ (change)="handleSelectMotifChange($event)"
+ [items]="dataMotifSelect2"
+
+
+ [class.has-success]="!form.get('motif')?.errors && formSubmitted"
+ [class.has-danger]="form.get('motif')?.errors && formSubmitted"
+ [placeholder]="'Veuillez sélectionner un motif'">
+ </ng-select>
+
+ </div>
+ </div>
+
+</div>
+
+<div class="row">
+
+ <div class="col-6 form-group">
+
+ <div class="text-left"><label for="nbr_personne">Nombre de personnes</label> <span style="color:red"> *</span>
+ </div>
+ <div [class.has-success]="!form.get('nbr_personnes')?.errors && formSubmitted"
+ [class.has-danger]="form.get('nbr_personnes')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" type="number" id="nbr_personne" name="nbr_personne"
+ formControlName="nbr_personnes"
+ [class.is-valid]="!form.get('nbr_personnes')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('nbr_personnes')?.errors && formSubmitted">
+ </div>
+
+</div>
+
+<div class="col-6 form-group">
+
+ <div class="text-left"><label for="escales">Escales</label></div>
+ <div [class.has-success]="!form.get('escales')?.errors && formSubmitted"
+ [class.has-danger]="form.get('escales')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" type="text" id="escales" name="escales"
+ formControlName="escales"
+ [class.is-valid]="!form.get('escales')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('escales')?.errors && formSubmitted">
+ </div>
+
+</div>
+
+</div>
+
+<div class="row">
+
+ <div class="col-6 form-group">
+
+ <div class="text-left"><label for="date_depart">Date et heure de départ</label> <span style="color:red"> *</span>
+ </div>
+
+ <div class="row">
+
+ <div class="col-6" [class.has-success]="!form.get('date_depart')?.errors && formSubmitted"
+ [class.has-danger]="form.get('date_depart')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" type="date" id="date_depart" name="date_depart"
+ formControlName="date_depart"
+ [min]="formattedDate"
+ [class.is-valid]="!form.get('date_depart')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('date_depart')?.errors && formSubmitted">
+ </div>
+
+ <span class="col-1 py-1">à</span>
+
+ <div class="col-5" [class.has-success]="!form.get('heure_depart')?.errors && formSubmitted"
+ [class.has-danger]="form.get('heure_depart')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" type="time" id="heure_depart" name="heure_depart"
+ formControlName="heure_depart"
+ [class.is-valid]="!form.get('heure_depart')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('heure_depart')?.errors && formSubmitted">
+ </div>
+
+ </div>
+
+</div>
+
+<div class="col-6 form-group">
+
+ <div class="text-left"><label for="date_retour">Date et heure de retour</label> <span style="color:red"> *</span>
+</div>
+
+<div class="row">
+
+ <div class="col-6" [class.has-success]="!form.get('date_retour')?.errors && formSubmitted"
+ [class.has-danger]="form.get('date_retour')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" type="date" id="date_retour" name="date_retour"
+ formControlName="date_retour"
+ [min]="formattedDate"
+ [class.is-valid]="!form.get('date_retour')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('date_retour')?.errors && formSubmitted">
+ </div>
+
+ <span class="col-1 py-1">à</span>
+
+ <div class="col-5" [class.has-success]="!form.get('heure_retour')?.errors && formSubmitted"
+ [class.has-danger]="form.get('heure_retour')?.errors && formSubmitted">
+ <input class="form-control form-control-sm" type="time" id="heure_retour" name="heure_retour"
+ formControlName="heure_retour"
+ [class.is-valid]="!form.get('heure_retour')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('heure_retour')?.errors && formSubmitted">
+ </div>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+<div class="row">
+
+ <div class="col-6 form-group">
+
+ <div class="text-left">
+ <label for="agent">Créer au profit d'un tiers ? <span style="color: red">*</span> </label>
+ </div>
+ <div class="text-left">
+ <label for="demande_myself_oui" class="mr-2">Oui</label>
+ <input (change)="changeAgentOwner($event, 'OUI')" id="demande_myself_oui" class="mr-4" type="radio" value="OUI" formControlName="demande_myself">
+
+ <label for="demande_myself_non" class="mr-2">Non</label>
+ <input (change)="changeAgentOwner($event, 'NON')" id="demande_myself_non" class="mr-4" type="radio" value="NON" formControlName="demande_myself">
+ </div>
+
+ </div>
+
+ @if (isForAnotherAgent === true) {
+ <div class="col-6 form-group">
+ <div class="text-left"><label for="agent">Sélectionner le bénéficiaire</label> <span style="color:red"> *</span>
+ </div>
+ <div>
+ <ng-select
+ id="agent"
+ (change)="handleSelectAgentChange($event)"
+ [items]="dataAgentSelect2"
+
+
+ [class.has-success]="!form.get('user')?.errors && formSubmitted"
+ [class.has-danger]="form.get('user')?.errors && formSubmitted"
+ [placeholder]="'Veuillez sélectionner le bénéficiaire'">
+ </ng-select>
+ </div>
+ </div>
+}
+
+</div>
+
+<div class="form-group">
+ <div class="text-left"><label for="objet">Objet</label> <span style="color:red"> *</span></div>
+ <div [class.has-success]="!form.get('objet')?.errors && formSubmitted"
+ [class.has-danger]="form.get('objet')?.errors && formSubmitted">
+ <textarea class="form-control form-control-sm" name="objet" id="objet" cols="30" rows="3"
+ formControlName="objet"
+ [class.is-valid]="!form.get('objet')?.errors && formSubmitted"
+ [class.is-invalid]="form.get('objet')?.errors && formSubmitted"></textarea>
+ </div>
+</div>
+
+</form>
+</div>
+
+<div class="card-footer">
+ <div class="mx-auto">
+ <button class="btn btn-secondary" form="add-demande" type="reset">Annuler</button>
+ <button class="btn btn-success ml-3" form="add-demande" [disabled]="!this.form.valid" type="submit">Valider</button>
+ </div>
+</div>
+</div>
 </div>

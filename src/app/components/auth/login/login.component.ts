@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {UtilsService} from "../../../services/utils.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import {LoginService} from "../../../services/login.service";
 import {UserService} from "../../../services/user.service";
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    standalone: false,
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
 
   environment = environment;
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   formSubmitted = false;
 
   constructor(private router: Router, private loginService: LoginService,
               public utilsService: UtilsService, private ngxService: NgxUiLoaderService,
-              private formBuilder: FormBuilder, private userService: UserService) {
+              private formBuilder: UntypedFormBuilder, private userService: UserService) {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['',  Validators.required]

@@ -2,6 +2,7 @@ import {Directive, EventEmitter, Input, Output} from '@angular/core';
 import {SortDirection, SortEvent} from "../interfaces/sort-event";
 
 /*@Directive({
+    standalone: false,
   selector: '[appNgbdSortableHeader]'
 })
 export class NgbdSortableHeaderDirective {
@@ -13,12 +14,13 @@ export class NgbdSortableHeaderDirective {
 const rotate: {[key: string]: SortDirection} = { asc: 'desc', desc: '', '': 'asc' };
 
 @Directive({
-  selector: 'th[sortable]',
-  host: {
-    '[class.asc]': 'direction === "asc"',
-    '[class.desc]': 'direction === "desc"',
-    '(click)': 'rotate()'
-  }
+    standalone: false,
+    selector: 'th[sortable]',
+    host: {
+        '[class.asc]': 'direction === "asc"',
+        '[class.desc]': 'direction === "desc"',
+        '(click)': 'rotate()'
+    },
 })
 
 

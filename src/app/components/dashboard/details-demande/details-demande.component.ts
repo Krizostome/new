@@ -3,19 +3,19 @@ import {DemandesCoursesService} from "../../../services/demandes-courses.service
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import {ToastrService} from "ngx-toastr";
 import {UtilsService} from "../../../services/utils.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DemandeVehicule} from "../../../models/demande-vehicule";
 import { environment } from 'src/environments/environment';
-import { Select2OptionData } from 'ng-select2';
 import { Chauffeur } from 'src/app/models/chauffeur';
 import { Vehicule } from 'src/app/models/vehicule';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-details-demande',
-  templateUrl: './details-demande.component.html',
-  styleUrls: ['./details-demande.component.css']
+    standalone: false,
+    selector: 'app-details-demande',
+    templateUrl: './details-demande.component.html',
+    styleUrls: ['./details-demande.component.css'],
 })
 export class DetailsDemandeComponent implements OnInit {
 
@@ -26,16 +26,16 @@ export class DetailsDemandeComponent implements OnInit {
   closeResult: string = '';
   listeVehicules: Array<Vehicule> = [];
   listeChauffeurs: Array<Chauffeur> = [];
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
   formSubmitted = false;
 
 
-  elementVehiculeSelected: Select2OptionData = {id: '', text: '--'};
-  dataVehiculeSelect2: Array<Select2OptionData> = [];
+  elementVehiculeSelected: any = {id: '', text: '--'};
+  dataVehiculeSelect2: any[] = [];
 
-  elementChauffeurSelected: Select2OptionData = {id: '', text: '--'};
-  dataChauffeurSelect2: Array<Select2OptionData> = [];
+  elementChauffeurSelected: any = {id: '', text: '--'};
+  dataChauffeurSelect2: any[] = [];
 
   optionSelect2 = {
     width: '250px',
@@ -46,7 +46,7 @@ export class DetailsDemandeComponent implements OnInit {
 
 
   constructor(private demandesCoursesService: DemandesCoursesService, private ngxService: NgxUiLoaderService,
-              private toastr: ToastrService, public utilsService: UtilsService,private formBuilder: FormBuilder,
+              private toastr: ToastrService, public utilsService: UtilsService,private formBuilder: UntypedFormBuilder,
               private router: Router,private modalService: NgbModal, private activatedRoute: ActivatedRoute) {
       this.form = formBuilder.group(
       {

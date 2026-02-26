@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UtilsService } from './utils.service';
 import { CritereNotation} from '../models/critere-notation';
-import { env } from 'process';
 
 @Injectable({
   providedIn: 'root'

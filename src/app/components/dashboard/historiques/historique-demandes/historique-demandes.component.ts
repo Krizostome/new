@@ -1,10 +1,9 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
-import { Select2OptionData } from 'ng-select2';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subject } from 'rxjs';
 import { ChauffeursService } from 'src/app/services/chauffeurs.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators } from "@angular/forms";
 import { HistoriquesService } from 'src/app/services/historiques.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { VehiculesService } from 'src/app/services/vehicules.service';
@@ -13,23 +12,24 @@ import { environment } from 'src/environments/environment';
 import { compare, SortEvent } from 'src/app/interfaces/sort-event';
 
 @Component({
-  selector: 'app-historique-demandes',
-  templateUrl: './historique-demandes.component.html',
-  styleUrls: ['./historique-demandes.component.css']
+    standalone: false,
+    selector: 'app-historique-demandes',
+    templateUrl: './historique-demandes.component.html',
+    styleUrls: ['./historique-demandes.component.css'],
 })
 export class HistoriqueDemandesComponent implements OnInit {
   public dtOptions: DataTables.Settings = {};
   public dtTrigger: Subject<any> = new Subject<any>();
   chauffeurList: any; vehiculeList: any; directionList: any;
 
-  elementChauffeurSelected: Select2OptionData = { id: '', text: '--' };
-  dataChauffeurSelect2: Array<Select2OptionData> = [];
+  elementChauffeurSelected: any = { id: '', text: '--' };
+  dataChauffeurSelect2: any[] = [];
 
-  elementVehiculeSelected: Select2OptionData = { id: '', text: '--' };
-  dataVehiculeSelect2: Array<Select2OptionData> = [];
+  elementVehiculeSelected: any = { id: '', text: '--' };
+  dataVehiculeSelect2: any[] = [];
 
-  elementDirectionSelected: Select2OptionData = { id: '', text: '--' };
-  dataDirectionSelect2: Array<Select2OptionData> = [];
+  elementDirectionSelected: any = { id: '', text: '--' };
+  dataDirectionSelect2: any[] = [];
 
   optionSelect2 = {
     width: '100%',
@@ -45,7 +45,7 @@ export class HistoriqueDemandesComponent implements OnInit {
 
 
   // datatable declaration
-  filter = new FormControl('');
+  filter = new UntypedFormControl('');
   itemsPerPage: number = 5;
   totalItems: number = 0;
   page: number = 0;
@@ -56,7 +56,7 @@ export class HistoriqueDemandesComponent implements OnInit {
   originalHistoriquesDemandes: any;
 
   constructor(private historiquesService: HistoriquesService, private chauffeursService: ChauffeursService, private ngxService: NgxUiLoaderService,
-    private utilsService: UtilsService, private router: Router, private formBuilder: FormBuilder, private vehiculesService: VehiculesService,) {
+    private utilsService: UtilsService, private router: Router, private formBuilder: UntypedFormBuilder, private vehiculesService: VehiculesService,) {
     this.form = formBuilder.group(
       {
         date_debut: ['', Validators.required],
