@@ -84,13 +84,13 @@
 
  @if (isRecherche == false) {
  <p class="card-title text-center">
- Historique des sms du {{(this.firstDayOfCurrentMonth | date:'dd/MM/yyyy') +' au ' +(this.maxDate | date:'dd/MM/yyyy')}} ({{listeSms?.length}})
+ Historique des sms du {{(this.firstDayOfCurrentMonth | date:'dd/MM/yyyy') +' au ' +(this.maxDate | date:'dd/MM/yyyy')}} ({{listeSms.length}})
  </p>
  }
 
  @if (isRecherche == true) {
  <p class="card-title text-center">
- Historique des sms du {{this.debut +' au ' +this.fin}} ({{listeSms?.length}})
+ Historique des sms du {{this.debut +' au ' +this.fin}} ({{listeSms.length}})
  </p>
  }
 
@@ -133,7 +133,7 @@
  @for (sms of listeSms | paginationSlice:startPage:endPage; track sms; let index = $index) {
  <tr>
  <td class="text-center">{{sms?.date_envoi | date:'dd/MM/yyyy à HH:mm'}}</td>
- <td class="text-center">{{sms?.user?.prenom +' ' +sms?.user?.nom}}</td>
+ <td class="text-center">{{sms?.user.prenom +' ' +sms?.user.nom}}</td>
  <td class="text-center">{{sms?.contact}}</td>
  <!--<td class="text-center">{{sms?.contenu}}</td>-->
  <td class="text-center">{{sms?.status_envoi}}</td>
@@ -194,7 +194,7 @@
 
  <div class="row mb-2 pl-2 pr-2" id="details-sms">
  <p class="text-center">
- {{smsSelected?.contenu}}
+ {{smsSelected.contenu}}
  </p>
  </div>
 

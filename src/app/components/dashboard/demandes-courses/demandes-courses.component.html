@@ -92,13 +92,13 @@
 
  @if (isRecherche == false) {
  <p class="card-title text-center">
- Historique des demandes de courses du {{this.actualDate | date:'dd/MM/yyyy'}} ({{listeDemandesDeCourses?.length}})
+ Historique des demandes de courses du {{this.actualDate | date:'dd/MM/yyyy'}} ({{listeDemandesDeCourses.length}})
  </p>
  }
 
  @if (isRecherche == true) {
  <p class="card-title text-center">
- Historique des demandes de courses du {{this.debut +' au ' +this.fin}} ({{listeDemandesDeCourses?.length}})
+ Historique des demandes de courses du {{this.debut +' au ' +this.fin}} ({{listeDemandesDeCourses.length}})
  </p>
  }
 
@@ -150,7 +150,7 @@
  <td class="text-center">{{demande?.beneficiaire?.prenom +' ' +demande?.beneficiaire?.nom}}</td>
  }
  @if (demande?.beneficiaire_id == null) {
- <td class="text-center">{{demande?.user?.prenom +' ' +demande?.user?.nom}}</td>
+ <td class="text-center">{{demande?.user.prenom +' ' +demande?.user.nom}}</td>
  }
  </ng-container>
  <td class="text-center">{{demande?.type_vehicule?.libelle}}</td>
@@ -162,7 +162,7 @@
  <td class="text-center">{{demande?.affectation?.vehicule?.immatr}}</td>
  @if (demande?.affectation?.chauffeur?.user) {
  <td class="text-center">
- {{demande?.affectation?.chauffeur?.user?.nom +' ' +demande?.affectation?.chauffeur?.user?.prenom}}
+ {{demande?.affectation?.chauffeur?.user.nom +' ' +demande?.affectation?.chauffeur?.user.prenom}}
  </td>
  }
  @if (!(demande?.affectation?.chauffeur?.user)) {
