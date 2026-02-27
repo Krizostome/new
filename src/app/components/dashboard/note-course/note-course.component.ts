@@ -54,7 +54,7 @@ export class NoteCourseComponent implements OnInit {
   }
 
   getDemandeById(demandeId: any){
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.demandesCoursesService.getDemandeCourseById(demandeId).subscribe({
       next: value =>{
         if(value.data !== null){
@@ -81,20 +81,20 @@ export class NoteCourseComponent implements OnInit {
             this.config.readonly=false;
           }
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err =>{
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   getCritereDeNotation():void{
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.noteService.getCritereDeNotation().subscribe({
       next: value => {
         if (value && value.data) {
@@ -108,20 +108,20 @@ export class NoteCourseComponent implements OnInit {
         this.critereDeNotations[i].stars=new UntypedFormControl(0);
       }
 
-      this.ngxService.stop();
+      setTimeout(() => this.ngxService.stop());
     },
     error: err => {
-      this.ngxService.stop();
+      setTimeout(() => this.ngxService.stop());
       this.utilsService.handleError(err);
     },
     complete: () => {
 
-      this.ngxService.stop();
+      setTimeout(() => this.ngxService.stop());
     }
   });
   }
   saveNote(){
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
 
     var data:any={};
 
@@ -135,18 +135,18 @@ export class NoteCourseComponent implements OnInit {
 
         this.utilsService.showSuccessMessage("La course a été notée avec succès");
 
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.router.navigate(['/demande/encours']);
 
       },
       error: err => {
 
         this.utilsService.showErreurMessage(err.status,err.error.message);
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     })
 

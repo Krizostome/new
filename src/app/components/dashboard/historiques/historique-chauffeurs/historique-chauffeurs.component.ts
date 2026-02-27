@@ -68,7 +68,7 @@ export class HistoriqueChauffeursComponent implements OnInit {
   //Exporter les Performances chauffeur to xls
   exportPerformancesChauffeur(): void {
     this.formSubmitted = true;
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     let body: any = {
       date_debut: this.form.get('date_debut')?.value,
       date_fin: this.form.get('date_fin')?.value,
@@ -76,7 +76,7 @@ export class HistoriqueChauffeursComponent implements OnInit {
     }
     
     this.historiquesService.exportPerformancesChauffeur(body).subscribe((response: any) => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         let blob = new Blob([response], { type: 'application/xls' });
         let downloadURL = window.URL.createObjectURL(response);
         let link = document.createElement('a');
@@ -85,7 +85,7 @@ export class HistoriqueChauffeursComponent implements OnInit {
         link.click();
       },
       error => {
-        this.ngxService.start();
+        setTimeout(() => this.ngxService.start());
         this.utilsService.handleError("Impossible de générer le document excel. Veuillez reprendre.");
       });
     }
@@ -100,7 +100,7 @@ export class HistoriqueChauffeursComponent implements OnInit {
 
   //Get Historique des performances chauffeurs
   getHistoriquesPerformancesChauffeurs(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     let body: any = {
       date_debut: this.form.get('date_debut')?.value,
       date_fin: this.form.get('date_fin')?.value,
@@ -118,15 +118,15 @@ export class HistoriqueChauffeursComponent implements OnInit {
           this.historiquesChauffeurs = [];
           this.originalHistoriquesChauffeurs = [];
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showErreurMessage('Erreur', err);
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -139,11 +139,11 @@ export class HistoriqueChauffeursComponent implements OnInit {
         this.binddataChauffeurSelect2();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }

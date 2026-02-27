@@ -96,31 +96,37 @@ export class UtilsService {
   }
 
   showErreurMessage(title: string, message: string) { // afficher message d'erreur
-    this.toastr.error(message, title, {
-      closeButton: true,
-      timeOut: environment.TIME_OUT_ERREUR_MESSAGE,
-      progressBar: true,
-      positionClass: 'toast-top-right',
+    setTimeout(() => {
+      this.toastr.error(message, title, {
+        closeButton: true,
+        timeOut: environment.TIME_OUT_ERREUR_MESSAGE,
+        progressBar: true,
+        positionClass: 'toast-top-right',
+      });
     });
   }
 
   showSuccessMessage(message: string): void { // afficher message de succès
-    this.toastr.success(message, '', {
-      closeButton: true,
-      timeOut: environment.TIME_OUT_ERREUR_MESSAGE,
-      progressBar: true,
-      tapToDismiss: false,
-      positionClass: 'toast-top-right'
+    setTimeout(() => {
+      this.toastr.success(message, '', {
+        closeButton: true,
+        timeOut: environment.TIME_OUT_ERREUR_MESSAGE,
+        progressBar: true,
+        tapToDismiss: false,
+        positionClass: 'toast-top-right'
+      });
     });
   }
 
   showWarningMessage(message: string, title: string): void { // afficher message de warning
-    this.toastr.warning(message, title, {
-      closeButton: true,
-      timeOut: environment.TIME_OUT_ERREUR_MESSAGE,
-      progressBar: true,
-      tapToDismiss: false,
-      positionClass: 'toast-top-right'
+    setTimeout(() => {
+      this.toastr.warning(message, title, {
+        closeButton: true,
+        timeOut: environment.TIME_OUT_ERREUR_MESSAGE,
+        progressBar: true,
+        tapToDismiss: false,
+        positionClass: 'toast-top-right'
+      });
     });
   }
 

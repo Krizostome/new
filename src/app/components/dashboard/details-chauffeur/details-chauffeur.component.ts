@@ -28,21 +28,21 @@ export class DetailsChauffeurComponent implements OnInit {
   }
 
   getChauffeurById(chauffeurId: any){
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this._conduire.chauffeur_id = chauffeurId;
     this.ChauffeursService.getChauffeurById(chauffeurId).subscribe({
       next: value =>{
         if(value.data !== null){
           this.chauffeur = value.data;
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err =>{
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }

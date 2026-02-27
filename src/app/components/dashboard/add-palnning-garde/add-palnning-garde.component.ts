@@ -76,11 +76,11 @@ export class AddPalnningGardeComponent implements OnInit {
         this.binddataChauffeurSelect2();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -168,37 +168,37 @@ export class AddPalnningGardeComponent implements OnInit {
   }
 
   editPlanningGarde(planninggarde: any) {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.planningGardeService.savePlanningGarde(planninggarde).subscribe({
       next: value => { // success
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showSuccessMessage(value.message);
         this.router.navigate(['/planning-gardes']);
       },
       error: err => { // erreur
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   savePlanningGarde(planninggarde: PlannigGarde) {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.planningGardeService.savePlanningGarde(planninggarde).subscribe({
       next: value => { // success
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showSuccessMessage(value.message);
         this.router.navigate(['/planning-gardes']);
       },
       error: err => { // erreur
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }

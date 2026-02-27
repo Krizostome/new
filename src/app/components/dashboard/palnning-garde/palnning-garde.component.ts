@@ -37,7 +37,7 @@ export class PalnningGardeComponent implements OnInit {
   }
 
   getListPlanningGardes(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.planninGardeService.getPlanningGardes().subscribe({
       next: value => {
         if (value !== null && value.data !== null) {
@@ -46,14 +46,14 @@ export class PalnningGardeComponent implements OnInit {
         } else {
           this.listeChauffeurs = [];
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -63,38 +63,38 @@ export class PalnningGardeComponent implements OnInit {
   }
 
   savePlanningGarde(): void {
-    this.ngxService.start();    
+    setTimeout(() => this.ngxService.start());
     this.planninGardeService.savePlanningGarde(this.chauffeur).subscribe({
       next: value => {
         this.utilsService.showSuccessMessage(value.message);        
         this.chauffeur = value.data;
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
     
   deletePlanningGarde(): void {
-    this.ngxService.start();    
+    setTimeout(() => this.ngxService.start());
     this.planninGardeService.deletePlanningGarde(this.planning.id).subscribe({
       next: value => {
         this.utilsService.showSuccessMessage(value.message);
-        this.ngxService.stop();    
+        setTimeout(() => this.ngxService.stop());
         $('#bootstrap-data-table1').DataTable().ajax.reload();
         this.ngOnInit();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -143,10 +143,10 @@ export class PalnningGardeComponent implements OnInit {
 
   
   downloadFacture(planning: any) {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.planninGardeService.downloadPlanning({'planning_garde_id':planning.id}).subscribe(
       (data: any) => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         let blob = new Blob([data], { type: 'application/pdf' });
         let downloadURL = window.URL.createObjectURL(data);
         let link = document.createElement('a');
@@ -155,18 +155,18 @@ export class PalnningGardeComponent implements OnInit {
         link.click();
       },
       (err: any) => {        
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       })
   }
 
   //Génération apercu facture  
   generateApercu(planning: any) {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     console.log(planning);
     this.planninGardeService.generatePlanning({'planning_garde_id':planning.id}).subscribe(
       (response: any) => { 
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         if (response.data['planning_garde_id']){
           this.displayApercu(response.data['planning_garde_id']);
         } else {
@@ -174,7 +174,7 @@ export class PalnningGardeComponent implements OnInit {
         }
       },
       (err: any) => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       })
   }

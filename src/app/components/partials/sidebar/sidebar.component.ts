@@ -27,7 +27,7 @@ export class SidebarComponent implements OnInit {
   }
 
   checkNotNotedCourseFromUser(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.demandesCoursesService.checkNotNotedCourseFromUser(this.user?.id).subscribe({
       next: value => {
         if (value.data) {
@@ -36,14 +36,14 @@ export class SidebarComponent implements OnInit {
         } else {
           this.router.navigate(['demande/nouveau']);
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }

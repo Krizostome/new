@@ -33,7 +33,7 @@ export class VehiculesComponent implements OnInit {
   }
 
   getListVehicules(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.getListVehicules().subscribe({
       next: value => {
         if (value && value.data) {
@@ -42,87 +42,87 @@ export class VehiculesComponent implements OnInit {
         } else {
           this.listeVehicules = [];
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   getTypesVehicules(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.getTypesVehicules().subscribe({
       next: value => {
         this.types_vehicules = value.data;
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   saveVehicule(): void {
-    this.ngxService.start();    
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.saveVehicule(this.vehicule).subscribe({
       next: value => {
         this.utilsService.showSuccessMessage(value.message);        
         this.vehicule = value.data;
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
   
   setDisponobiliteVehicule(): void {
-    this.ngxService.start();    
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.saveVehicule(this.vehicule).subscribe({
       next: value => {
         this.utilsService.showSuccessMessage(value.message);
-        this.ngxService.stop();    
+        setTimeout(() => this.ngxService.stop());
         $('#bootstrap-data-table1').DataTable().ajax.reload();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
   
   deleteVehicule(vehicule: Vehicule): void {
-    this.ngxService.start();    
+    setTimeout(() => this.ngxService.start());
     this.vehicule.statut = false;
     this.vehiculesService.saveVehicule(vehicule).subscribe({
       next: value => {
         this.utilsService.showSuccessMessage(value.message);
-        this.ngxService.stop();    
+        setTimeout(() => this.ngxService.stop());
         $('#bootstrap-data-table1').DataTable().ajax.reload();
         this.ngOnInit();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }

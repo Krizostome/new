@@ -63,39 +63,39 @@ export class AddVehiculeComponent implements OnInit {
   }
 
   getTypesVehicules(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.getTypesVehicules().subscribe({
       next: value => {
         this.types_vehicules = value.data;
         this.bindDataTypeVehiculeSelect2();
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   getVehiculeById(vehiculeId: any){
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.getVehiculeById(vehiculeId).subscribe({
       next: value =>{
         if(value.data !== null){
           this.vehicule = value.data;
           this.isEditingVehicule(this.vehicule);
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err =>{
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -132,55 +132,55 @@ export class AddVehiculeComponent implements OnInit {
   }
 
   editVehicule(vehicule: any) {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.saveVehicule(vehicule).subscribe({
       next: value => { // success
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showSuccessMessage(value.message);
         this.router.navigate(['/vehicules']);
       },
       error: err => { // erreur
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   saveVehicule(vehicule: any) {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.saveVehicule(vehicule).subscribe({
       next: value => { // success
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showSuccessMessage(value.message);
         this.router.navigate(['/vehicules']);
       },
       error: err => { // erreur
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   saveTypeVehicule(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.saveTypeVehicule(this.type_vehicule).subscribe({
       next: value => {
         this.ngOnInit();
         this.utilsService.showSuccessMessage(value.message);
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }

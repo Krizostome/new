@@ -28,18 +28,18 @@ export class DetailUtilisateurComponent implements OnInit {
   }
 
   getUserById(userId: number){
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.userService.getUserById(userId).subscribe({
       next: value => {
         this.user = value.data;
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
         this.utilsService.handleError(err);
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       complete: ()=>{
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }

@@ -25,18 +25,18 @@ export class AffectationCourseComponent implements OnInit {
   }
 
   getListCourseAffecter(){
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.demandeCourseService.getListDemandeAffecter().subscribe({
       next: value =>{
         this.demandeAffecter = value.data;
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err =>{
         this.utilsService.handleError(err);
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       complete: ()=>{
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     })
   }

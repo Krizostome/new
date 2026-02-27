@@ -74,19 +74,19 @@ export class AddChauffeurComponent implements OnInit {
   }
 
   getPermis(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.getCategoriePermis().subscribe({
       next: value => {
         this.typePermis = value.data;
         this.bindDataCategoriePermisSelect2();
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -98,31 +98,31 @@ export class AddChauffeurComponent implements OnInit {
         this.bindDataUserSelect2();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   getChauffeurById(chauffeurId: any){
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.chauffeursService.getChauffeurById(chauffeurId).subscribe({
       next: value =>{
         if(value.data !== null){
           this.chauffeur = value.data;
           this.isEditingChauffeur(this.chauffeur);
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err =>{
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -156,38 +156,38 @@ export class AddChauffeurComponent implements OnInit {
   }
 
   editChauffeur(chauffeur: any) {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.chauffeursService.saveChauffeur(chauffeur).subscribe({
       next: value => { // success
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showSuccessMessage(value.message);
         this.router.navigate(['/chauffeurs']);
       },
       error: err => { // erreur
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   saveChauffeur(chauffeur: Chauffeur) {
     this.chauffeur.id = this.chauffeurId;
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.chauffeursService.saveChauffeur(chauffeur).subscribe({
       next: value => { // success
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showSuccessMessage(value.message);
         this.router.navigate(['/chauffeurs']);
       },
       error: err => { // erreur
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }

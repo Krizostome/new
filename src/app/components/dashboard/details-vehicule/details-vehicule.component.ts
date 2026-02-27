@@ -29,7 +29,7 @@ export class DetailsVehiculeComponent implements OnInit {
   }
 
   getVehiculeById(vehiculeId: any){
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this._conduire.vehicule_id = vehiculeId;
     this.vehiculesService.getVehiculeById(vehiculeId).subscribe({
       next: value =>{
@@ -37,14 +37,14 @@ export class DetailsVehiculeComponent implements OnInit {
           this.vehicule = value.data;
           this.conduire = this.vehicule.conduire[0]?.pivot;
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err =>{
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -76,37 +76,37 @@ export class DetailsVehiculeComponent implements OnInit {
   }
   
   saveConduire(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.saveConduire(this._conduire).subscribe({
       next: value => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showSuccessMessage(value.message);
         this.ngOnInit();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
   
   deleteConduire(conduire: any): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.deleteConduire(conduire).subscribe({
       next: value => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showSuccessMessage(value.message);
         this.ngOnInit();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }

@@ -121,7 +121,7 @@ export class DemandesCoursesComponent implements OnInit {
     }
 
   launchSearch(data: any): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.demandesCoursesService.searchDemandeCourse(data).subscribe({
       next: (value : any) => {
         if (value && value.data) {
@@ -135,14 +135,14 @@ export class DemandesCoursesComponent implements OnInit {
           this.listeDemandesDeCourses = [];
           this.originalListeDemandesDeCourses = [];
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -172,26 +172,26 @@ export class DemandesCoursesComponent implements OnInit {
   }
 
   affecterCourse(affectation: any): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.demandesCoursesService.affecterCourse(affectation).subscribe({
       next: value => { // success
         this.utilsService.showSuccessMessage('Demande de course affectée avec succès');
         this.modalService.dismissAll();
         this.getAllDemandesDeCourses();
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => { // erreur
         this.utilsService.handleError(err);
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       complete: () => { // fin de la requete
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   getAllDemandesDeCourses(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.demandesCoursesService.getAllDemandesDeCourses(this.user?.id, this.user?.role?.libelle).subscribe({
       next: value => {
         if (value && value.data) {
@@ -202,20 +202,20 @@ export class DemandesCoursesComponent implements OnInit {
           this.listeDemandesDeCourses = [];
           this.originalListeDemandesDeCourses = [];
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   getAllChauffeurs(): void {
-    // this.ngxService.start();
+    // setTimeout(() => this.ngxService.start());
     this.demandesCoursesService.getVehiculesByType(this.demandeCourseSelected.type_vehicule.id, this.demandeCourseSelected.id).subscribe({
       next: value => {
         if (value && value.data) {
@@ -224,20 +224,20 @@ export class DemandesCoursesComponent implements OnInit {
         } else {
           this.listeChauffeurs = [];
         }
-        // this.ngxService.stop();
+        // setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        // this.ngxService.stop();
+        // setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   getAllVehiculeByType(typeVehicule: any): void {
-    // this.ngxService.start();
+    // setTimeout(() => this.ngxService.start());
     this.demandesCoursesService.getVehiculesByType(typeVehicule, this.demandeCourseSelected.id).subscribe({
       next: value => {
         if (value && value.data) {
@@ -246,14 +246,14 @@ export class DemandesCoursesComponent implements OnInit {
         } else {
           this.listeVehicules = [];
         }
-        // this.ngxService.stop();
+        // setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        // this.ngxService.stop();
+        // setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -271,20 +271,20 @@ export class DemandesCoursesComponent implements OnInit {
     const data = {
       demande_id: this.demandeCourseSelected.id
     };
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.demandesCoursesService.deleteDemandeCourse(data).subscribe( {
       next: value => {
         this.modalService.dismissAll();
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showSuccessMessage('Demande de course supprimée avec succès');
         this.getAllDemandesDeCourses();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -410,41 +410,41 @@ export class DemandesCoursesComponent implements OnInit {
   }
 
   demarrerCourse(idDemandeCourse:any){
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.demandesCoursesService.demarrerCourse(idDemandeCourse).subscribe({
       next: value => {
 
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showSuccessMessage('La course a été demarrée avec succès');
         this.getAllDemandesDeCourses();
 
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     })
   }
 
   arreterCourse(idDemandeCourse:any){
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.demandesCoursesService.arreterCourse(idDemandeCourse).subscribe({
       next: value => {
 
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showSuccessMessage('La course a été arretée avec succès');
         this.getAllDemandesDeCourses();
 
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     })
   }

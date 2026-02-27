@@ -40,7 +40,7 @@ export class UpdateUserComponent implements OnInit {
   }
 
   getUserById(userId: any){
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.userService.getUserById(userId).subscribe({
       next: value =>{
         if(value.data !== null){
@@ -48,14 +48,14 @@ export class UpdateUserComponent implements OnInit {
           this.user = value.data;
           this.isUpdatingUser(this.user);
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err =>{
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -83,19 +83,19 @@ export class UpdateUserComponent implements OnInit {
 	}
 
 	updateUser(data: any){
-		this.ngxService.start();
+		setTimeout(() => this.ngxService.start());
 		this.userService.updateUser(data).subscribe({
 			next: value => {
        this.utilsService.showSuccessMessage('Utilisateur mise a jour avec succes.');
        this.router.navigate(['/liste/utilisateur']);
-			 this.ngxService.stop();
+			 setTimeout(() => this.ngxService.stop());
 			},
 			error: err => {
        this.utilsService.handleError(err);
-			 this.ngxService.stop();
+			 setTimeout(() => this.ngxService.stop());
 			},
 			complete: ()=>{
-				this.ngxService.stop();
+				setTimeout(() => this.ngxService.stop());
 			}
 		})
 	}

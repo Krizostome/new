@@ -33,7 +33,7 @@ export class ChauffeursComponent implements OnInit {
   }
 
   getListchauffeurs(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.chauffeursService.getChauffeurs().subscribe({
       next: value => {
         if (value && value.data) {
@@ -42,70 +42,70 @@ export class ChauffeursComponent implements OnInit {
         } else {
           this.listeChauffeurs = [];
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
 
   saveChauffeur(): void {
-    this.ngxService.start();    
+    setTimeout(() => this.ngxService.start());
     this.chauffeursService.saveChauffeur(this.chauffeur).subscribe({
       next: value => {
         this.utilsService.showSuccessMessage(value.message);        
         this.chauffeur = value.data;
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
     
   deleteChauffeur(chauffeur: Chauffeur): void {
-    this.ngxService.start();    
+    setTimeout(() => this.ngxService.start());
     this.chauffeur.statut = false;
     this.chauffeursService.saveChauffeur(chauffeur).subscribe({
       next: value => {
         this.utilsService.showSuccessMessage(value.message);
-        this.ngxService.stop();    
+        setTimeout(() => this.ngxService.stop());
         $('#bootstrap-data-table1').DataTable().ajax.reload();
         this.ngOnInit();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
   
   setDisponobiliteChauffeur(): void {
-    this.ngxService.start();    
+    setTimeout(() => this.ngxService.start());
     this.chauffeursService.saveChauffeur(this.chauffeur).subscribe({
       next: value => {
         this.utilsService.showSuccessMessage(value.message);
-        this.ngxService.stop();    
+        setTimeout(() => this.ngxService.stop());
         $('#bootstrap-data-table1').DataTable().ajax.reload();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }

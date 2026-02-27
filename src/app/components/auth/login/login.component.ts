@@ -48,19 +48,19 @@ export class LoginComponent implements OnInit {
 
 
   login(loginForm: any): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.loginService.authenticate(loginForm).subscribe(  {
       next: value => {
         if ([null, undefined].includes(value)){
           this.utilsService.showErreurMessage('', 'Vos paramètres de connexion sont incorrects. Veuillez réessayer');
           this.loginForm.get('password')?.setValue(null);
-          this.ngxService.stop();
+          setTimeout(() => this.ngxService.stop());
           return;
         }
         if(value.status === "erreur"){
           this.utilsService.showErreurMessage('', 'Vos paramètres de connexion sont incorrects. Veuillez réessayer');
           this.loginForm.get('password')?.setValue(null);
-          this.ngxService.stop();
+          setTimeout(() => this.ngxService.stop());
           return;
         } else {
           // save token
@@ -68,13 +68,13 @@ export class LoginComponent implements OnInit {
           // save user
           this.utilsService.saveDataInStorage('user', JSON.stringify(value.user));
           // get user by username
-          this.ngxService.stop();
+          setTimeout(() => this.ngxService.stop());
           this.getUserConnectedByUsername(loginForm.email);
         }
       },
       error: err => {
 
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.showErreurMessage('', this.environment.MESSAGE_ERREUR_INTERNE);
         this.resetLoginForm();
       },
@@ -90,22 +90,22 @@ export class LoginComponent implements OnInit {
   }
 
   getUserConnectedByUsername(email: string) { // load user by username
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.userService.getUserByUsername(email).subscribe({
       next: value => { // success
         // save user
         this.utilsService.saveDataInStorage('user', JSON.stringify(value.data));
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         // this.utilsService.showSuccessMessage('Vous avez été connecté avec succès');
         this.router.navigate(['/demande/encours']);
       },
       error: err => { // erreur
         this.utilsService.showErreurMessage('Erreur interne', environment.MESSAGE_ERREUR_INTERNE);
         this.resetLoginForm();
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       complete: () => { // fin de la requete
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }

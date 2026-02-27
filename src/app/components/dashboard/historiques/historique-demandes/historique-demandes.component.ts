@@ -97,7 +97,7 @@ export class HistoriqueDemandesComponent implements OnInit {
   //Exporter les Hist Demande Courses to xls
   exportHistoriqueDemandesCourses(): void {
     this.formSubmitted = true;
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     let body: any = {
       date_debut: this.form.get('date_debut')?.value,
       date_fin: this.form.get('date_fin')?.value,
@@ -108,7 +108,7 @@ export class HistoriqueDemandesComponent implements OnInit {
     }
 
     this.historiquesService.exportHistoriquesDemandes(body).subscribe((response: any) => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         let blob = new Blob([response], { type: 'application/xls' });
         let downloadURL = window.URL.createObjectURL(response);
         let link = document.createElement('a');
@@ -117,7 +117,7 @@ export class HistoriqueDemandesComponent implements OnInit {
         link.click();
       },
       error => {
-        this.ngxService.start();
+        setTimeout(() => this.ngxService.start());
         this.utilsService.handleError("Impossible de joindre le serveur, contacter l'administrateur");
       });
     }
@@ -125,7 +125,7 @@ export class HistoriqueDemandesComponent implements OnInit {
 
   //Get Historique des demandes
   getHistoriquesDemandes(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     let body: any = {
       date_debut: this.form.get('date_debut')?.value,
       date_fin: this.form.get('date_fin')?.value,
@@ -151,14 +151,14 @@ export class HistoriqueDemandesComponent implements OnInit {
           this.historiquesDemandes = [];
           this.originalHistoriquesDemandes = [];
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -170,18 +170,18 @@ export class HistoriqueDemandesComponent implements OnInit {
 
   //Get list of chauffeurs
   getChauffeurs(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.chauffeursService.getChauffeurs().subscribe({
       next: value => {
         this.chauffeurList = value.data;
         this.binddataChauffeurSelect2();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -210,18 +210,18 @@ export class HistoriqueDemandesComponent implements OnInit {
 
   //Get list of Véhicule
   getVehicules(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.vehiculesService.getListVehicules().subscribe({
       next: value => {
         this.vehiculeList = value.data;
         this.binddataVehiculeSelect2();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -250,18 +250,18 @@ export class HistoriqueDemandesComponent implements OnInit {
 
   //Get list of Directions
   getDirections(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.historiquesService.getDirections().subscribe({
       next: value => {
         this.directionList = value.data;
         this.binddataDirectionSelect2();
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }

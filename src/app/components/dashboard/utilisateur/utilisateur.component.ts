@@ -49,7 +49,7 @@ export class UtilisateurComponent implements OnInit {
   }
 
   getUser(){
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.userService.getListUser().subscribe({
       next: value => {
         if (value && value.data) {
@@ -61,33 +61,33 @@ export class UtilisateurComponent implements OnInit {
           this.originalListeUser = [];
           this.totalItems = this.originalListeUser.length;
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err =>{
         this.utilsService.handleError(err);
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       complete: ()=>{
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     })
   }
 
   deleteUser():void{
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.userService.deleteUser(this.user.id).subscribe({
       next: value => {
         this.utilsService.showSuccessMessage("Utilisateur supprimé avec succès");
         this.getUser();
         this.modalService.dismissAll();
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
         this.utilsService.handleError(err);
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     })
 

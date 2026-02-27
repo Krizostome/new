@@ -72,7 +72,7 @@ export class JournalSmsComponent implements OnInit {
   }
 
   getAllSMS(): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.smsService.getAllSMS().subscribe({
       next: value => {
         if (value && value.data) {
@@ -83,14 +83,14 @@ export class JournalSmsComponent implements OnInit {
           this.listeSms = [];
           this.originalListeSms = [];
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
@@ -115,7 +115,7 @@ export class JournalSmsComponent implements OnInit {
   }
 
   launchSearch(data: any): void {
-    this.ngxService.start();
+    setTimeout(() => this.ngxService.start());
     this.smsService.searchSMS(data).subscribe({
       next: (value : any) => {
         if (value && value.data) {
@@ -129,14 +129,14 @@ export class JournalSmsComponent implements OnInit {
           this.listeSms = [];
           this.originalListeSms = [];
         }
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       },
       error: err => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
         this.utilsService.handleError(err);
       },
       complete: () => {
-        this.ngxService.stop();
+        setTimeout(() => this.ngxService.stop());
       }
     });
   }
