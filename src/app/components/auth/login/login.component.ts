@@ -57,25 +57,30 @@ export class LoginComponent implements OnInit {
           this.ngxService.stop();
           return;
         }
-        if(value.status === "erreur"){
+
+        // Handle both wrapped and unwrapped response structure
+        const accessToken = value.access_token || (value.data && value.data.access_token);
+        const user = value.user || (value.data && value.data.user);
+
+        if(value.status === "erreur" || (!accessToken && !user)){
           this.utilsService.showErreurMessage('', 'Vos paramètres de connexion sont incorrects. Veuillez réessayer');
           this.loginForm.get('password')?.setValue(null);
           this.ngxService.stop();
           return;
         } else {
           // save token
-          this.utilsService.saveUserToken(value.access_token);
+          this.utilsService.saveUserToken(accessToken);
           // save user
-          this.utilsService.saveDataInStorage('user', JSON.stringify(value.user));
+          this.utilsService.saveDataInStorage('user', JSON.stringify(user));
           // get user by username
           this.ngxService.stop();
           this.getUserConnectedByUsername(loginForm.email);
         }
       },
       error: err => {
-
         this.ngxService.stop();
-        this.utilsService.showErreurMessage('', this.environment.MESSAGE_ERREUR_INTERNE);
+        const errorMessage = err.error && err.error.message ? err.error.message : this.environment.MESSAGE_ERREUR_INTERNE;
+        this.utilsService.showErreurMessage('Erreur de connexion', errorMessage);
         this.resetLoginForm();
       },
       complete: () => {

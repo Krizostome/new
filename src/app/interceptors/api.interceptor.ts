@@ -11,7 +11,15 @@ export class ApiInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const defaultBaseUrl = req.clone({ url: `${req.url}` });
+    // Ensure Accept header is always application/json
+    let defaultHeaders: any = {
+      'Accept': 'application/json'
+    };
+
+    let defaultBaseUrl = req.clone({
+      url: `${req.url}`,
+      setHeaders: defaultHeaders
+    });
 
     // ajout du token bearer a lentete avant de poursuivre la requete
     let accesToken: any = this.utilsService.getUserToken() ;
@@ -26,17 +34,17 @@ export class ApiInterceptor implements HttpInterceptor {
       if(req.headers.has('enctype')) {
         clone = req.clone({
           setHeaders: {
-            Accept: `application/json`,
+            'Accept': `application/json`,
             'enctype': 'multipart/form-data',
-            Authorization: `Bearer ${accesToken}`
+            'Authorization': `Bearer ${accesToken}`
           }
         });
       } else {
         clone = req.clone({
           setHeaders: {
-            Accept: `application/json`,
+            'Accept': `application/json`,
             'Content-Type': `application/json`,
-            Authorization: `Bearer ${accesToken}`
+            'Authorization': `Bearer ${accesToken}`
           }
         });
       }

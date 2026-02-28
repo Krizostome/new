@@ -3,25 +3,23 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { DatePipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ToastrModule } from 'ngx-toastr';
 import { TestBed } from '@angular/core/testing';
 
-import { AdministrationGuard } from './administration.guard';
+import { administrationGuard } from './administration.guard';
 
-describe('AdministrationGuard', () => {
-  let guard: AdministrationGuard;
-
+describe('administrationGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [DatePipe],
-      imports: [ToastrModule.forRoot(), HttpClientTestingModule, RouterTestingModule, ToastrModule.forRoot(), HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule, NgbModule, GoogleMapsModule, NgSelectModule, DataTablesModule],});
-    guard = TestBed.inject(AdministrationGuard);
+      imports: [ToastrModule.forRoot(), HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule, NgbModule, GoogleMapsModule, NgSelectModule, DataTablesModule],
+    });
   });
 
   it('should be created', () => {
-    expect(guard).toBeTruthy();
+    expect(administrationGuard).toBeTruthy();
   });
 });
