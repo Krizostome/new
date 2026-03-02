@@ -78,8 +78,13 @@ export class UtilsService {
    */
   getUserConnected(): User | null {
     const user = localStorage.getItem('user');
-    if(user != null && user.length > 0){
-      return JSON.parse(user);
+    if(user != null && user.length > 0 && user !== 'undefined'){
+      try {
+        return JSON.parse(user);
+      } catch (e) {
+        console.error('Error parsing user data from storage', e);
+        return null;
+      }
     }
     return null;
   }
