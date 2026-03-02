@@ -99,15 +99,17 @@ export class LoginComponent implements OnInit {
     this.userService.getUserByUsername(email).subscribe({
       next: value => { // success
         // save user
-        this.utilsService.saveDataInStorage('user', JSON.stringify(value.data));
+        if (value && value.data) {
+          this.utilsService.saveDataInStorage('user', JSON.stringify(value.data));
+        }
         this.ngxService.stop();
         // this.utilsService.showSuccessMessage('Vous avez été connecté avec succès');
         this.router.navigate(['/demande/encours']);
       },
       error: err => { // erreur
-        this.utilsService.showErreurMessage('Erreur interne', environment.MESSAGE_ERREUR_INTERNE);
-        this.resetLoginForm();
+        // Even if secondary user fetch fails, we have the user from login
         this.ngxService.stop();
+        this.router.navigate(['/demande/encours']);
       },
       complete: () => { // fin de la requete
         this.ngxService.stop();
