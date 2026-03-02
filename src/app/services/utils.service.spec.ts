@@ -3,7 +3,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { DatePipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TestBed } from '@angular/core/testing';
 import { UtilsService } from './utils.service';
 import { ToastrModule } from 'ngx-toastr';

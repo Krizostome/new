@@ -31,7 +31,7 @@
  </div>
  <div class="col-6 text-left">
  @if (demandeCourse.beneficiaire_id) {
- <p class="d-inline card-text">{{demandeCourse.beneficiaire?.prenom +' ' +demandeCourse.beneficiaire?.nom}}</p>
+ <p class="d-inline card-text">{{demandeCourse.beneficiaire.prenom +' ' +demandeCourse.beneficiaire.nom}}</p>
  }
  @if (demandeCourse.beneficiaire_id == 0) {
  <p class="d-inline card-text"> {{demandeCourse.user.prenom +' ' +demandeCourse.user.nom}} </p>
@@ -62,7 +62,7 @@
  <h6 class="d-inline card-title">Date depart :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse.date_depart | date:'dd/MM/yyyy'}} à {{demandeCourse.heure_depart?.substring(0,5)}}</p>
+ <p class="d-inline card-text">{{demandeCourse.date_depart | date:'dd/MM/yyyy'}} à {{demandeCourse.heure_depart.substring(0,5)}}</p>
  </div>
  </div>
 
@@ -89,7 +89,7 @@
  <h6 class="d-inline card-title">Type de véhicule :</h6>
  </div>
  <div class="col-6 text-left">
- <p class="d-inline card-text">{{demandeCourse.type_vehicule?.libelle}}</p>
+ <p class="d-inline card-text">{{demandeCourse.type_vehicule.libelle}}</p>
  </div>
  </div>
 
