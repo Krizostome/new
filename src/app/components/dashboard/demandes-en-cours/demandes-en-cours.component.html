@@ -144,28 +144,28 @@
 
  @for (demande of listeDemandesDeCourses | paginationSlice:startPage:endPage; track demande; let index = $index) {
  <tr>
- <td class="text-center">{{demande?.date | date:'dd/MM/yyyy à HH:mm'}}</td>
+ <td class="text-center">{{demande.date | date:'dd/MM/yyyy à HH:mm'}}</td>
  <ng-container>
- @if (demande?.beneficiaire_id) {
- <td class="text-center">{{demande?.beneficiaire?.prenom +' ' +demande?.beneficiaire?.nom}}</td>
+ @if (demande.beneficiaire_id) {
+ <td class="text-center">{{demande.beneficiaire.prenom +' ' +demande.beneficiaire.nom}}</td>
  }
- @if (demande?.beneficiaire_id == null) {
- <td class="text-center">{{demande?.user.prenom +' ' +demande?.user.nom}}</td>
+ @if (demande.beneficiaire_id == null) {
+ <td class="text-center">{{demande.user.prenom +' ' +demande.user.nom}}</td>
  }
  </ng-container>
- <td class="text-center">{{demande?.type_vehicule?.libelle}}</td>
- <td class="text-center">{{demande?.point_depart}}</td>
- <td class="text-center">{{demande?.point_destination}}</td>
- <td class="text-center">{{demande?.date_depart | date:'dd/MM/yyyy'}} à {{demande?.heure_depart?.substring(0,5)}}</td>
- <td class="text-center">{{demande?.date_retour | date:'dd/MM/yyyy'}} à {{demande?.heure_retour?.substring(0,5)}}</td>
- <td class="text-center">{{demande?.statut}}</td>
- <td class="text-center">{{demande?.affectation?.vehicule?.immatr}}</td>
- @if (demande?.affectation?.chauffeur?.user) {
+ <td class="text-center">{{demande.type_vehicule.libelle}}</td>
+ <td class="text-center">{{demande.point_depart}}</td>
+ <td class="text-center">{{demande.point_destination}}</td>
+ <td class="text-center">{{demande.date_depart | date:'dd/MM/yyyy'}} à {{demande.heure_depart.substring(0,5)}}</td>
+ <td class="text-center">{{demande.date_retour | date:'dd/MM/yyyy'}} à {{demande.heure_retour.substring(0,5)}}</td>
+ <td class="text-center">{{demande.statut}}</td>
+ <td class="text-center">{{demande.affectation?.vehicule?.immatr}}</td>
+ @if (demande.affectation?.chauffeur?.user) {
  <td class="text-center">
- {{demande?.affectation?.chauffeur?.user.prenom +' ' +demande?.affectation?.chauffeur?.user.nom}}
+ {{demande.affectation?.chauffeur?.user.prenom +' ' +demande.affectation?.chauffeur?.user.nom}}
  </td>
  }
- @if (!(demande?.affectation?.chauffeur?.user)) {
+ @if (!(demande.affectation?.chauffeur?.user)) {
  <td class="text-center">
  </td>
  }
