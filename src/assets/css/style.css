@@ -6,25 +6,25 @@ general
 
 @font-face {
     font-family: GothamBold;
-    src: url(./assets/fonts/Gotham/GothamBoldRegular.ttf);
+    src: url(../fonts/Gotham/GothamBoldRegular.ttf);
     /* format("opentype");*/
   }
 
   @font-face {
     font-family: GothamLight;
-    src: url(./assets/fonts/Gotham/GothamLightRegular.otf);
+    src: url(../fonts/Gotham/GothamLightRegular.otf);
     /* format("opentype");*/
   }
 
   @font-face {
     font-family: GothamMedium;
-    src: url(./assets/fonts/Gotham/Gotham-Medium.otf);
+    src: url(../fonts/Gotham/Gotham-Medium.otf);
     /* format("opentype");*/
   }
 
   @font-face {
     font-family: GothamBook;
-    src: url(./assets/fonts/Gotham/Gotham-Book.otf);
+    src: url(../fonts/Gotham/Gotham-Book.otf);
     /* format("opentype");*/
   }
 
