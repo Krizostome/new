@@ -29,6 +29,7 @@
     "datatables.net-bs4": "^1.12.1",
     "jquery": "^3.6.0",
     "license-webpack-plugin": "^4.0.2",
+    "ngx-toastr": "^20.0.5",
     "rxjs": "^7.8.2",
     "select2": "^4.1.0-rc.0",
     "tslib": "^2.4.0",
@@ -51,7 +52,6 @@
     "karma-jasmine": "^4.0.2",
     "karma-jasmine-html-reporter": "^1.5.0",
     "ng-select2": "^1.4.1",
-    "ngx-toastr": "^17.0.2",
     "ngx-ui-loader": "^16.0.1",
     "typescript": "5.9.3"
   }

@@ -52,7 +52,9 @@ export class LoginComponent implements OnInit {
     this.loginService.authenticate(loginForm).subscribe(  {
       next: value => {
         if ([null, undefined].includes(value)){
-          this.utilsService.showErreurMessage('', 'Vos paramètres de connexion sont incorrects. Veuillez réessayer');
+          setTimeout(() => {
+  this.utilsService.showErreurMessage('', 'Vos paramètres...');
+});
           this.loginForm.get('password')?.setValue(null);
           this.ngxService.stop();
           return;
