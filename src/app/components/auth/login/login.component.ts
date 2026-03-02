@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
     this.ngxService.start();
     this.loginService.authenticate(loginForm).subscribe(  {
       next: value => {
+        console.log('Login Success Response:', value);
         if ([null, undefined].includes(value)){
           this.utilsService.showErreurMessage('', 'Vos paramètres de connexion sont incorrects. Veuillez réessayer');
           this.loginForm.get('password')?.setValue(null);
@@ -78,8 +79,18 @@ export class LoginComponent implements OnInit {
         }
       },
       error: err => {
+        console.error('Login Error Response:', err);
         this.ngxService.stop();
-        const errorMessage = err.error && err.error.message ? err.error.message : this.environment.MESSAGE_ERREUR_INTERNE;
+        let errorMessage = this.environment.MESSAGE_ERREUR_INTERNE;
+
+        if (err.status === 0) {
+          errorMessage = "Impossible de contacter le serveur. Vérifiez votre connexion internet ou la configuration CORS du backend.";
+        } else if (err.status === 401) {
+          errorMessage = "Identifiants invalides.";
+        } else if (err.error && err.error.message) {
+          errorMessage = err.error.message;
+        }
+
         this.utilsService.showErreurMessage('Erreur de connexion', errorMessage);
         this.resetLoginForm();
       },
