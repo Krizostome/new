@@ -145,7 +145,8 @@ export class DemandesEnCoursComponent implements OnInit {
       },
       error: err => {
         this.ngxService.stop();
-        this.utilsService.handleError(err);
+        // If the API for checking notations fails (e.g. 404), allow the user to proceed to add a demand anyway.
+        this.router.navigateByUrl('demande/nouveau');
       },
       complete: () => {
         this.ngxService.stop();
@@ -236,7 +237,7 @@ export class DemandesEnCoursComponent implements OnInit {
       },
       error: err => {
         this.ngxService.stop();
-        this.utilsService.handleError(err);
+        this.router.navigateByUrl('demande/nouveau');
       },
       complete: () => {
         this.ngxService.stop();
@@ -326,7 +327,7 @@ export class DemandesEnCoursComponent implements OnInit {
       },
       error: err => {
         this.ngxService.stop();
-        this.utilsService.handleError(err);
+        this.router.navigateByUrl('demande/nouveau');
       },
       complete: () => {
         this.ngxService.stop();
@@ -526,7 +527,7 @@ export class DemandesEnCoursComponent implements OnInit {
       },
       error: err => {
         this.ngxService.stop();
-        this.utilsService.handleError(err);
+        this.router.navigateByUrl('demande/nouveau');
       },
       complete: () => {
         this.ngxService.stop();
@@ -566,7 +567,7 @@ export class DemandesEnCoursComponent implements OnInit {
       },
       error: err => {
         this.ngxService.stop();
-        this.utilsService.handleError(err);
+        this.router.navigateByUrl('demande/nouveau');
       },
       complete: () => {
         this.ngxService.stop();
@@ -600,13 +601,13 @@ export class DemandesEnCoursComponent implements OnInit {
           this.utilsService.showWarningMessage('Vous avez une course terminée non notée','Attention');
           this.router.navigate(['/demande/notation/' +value.data.id]);
         } else {
-          this.router.navigate(['demande/nouveau']);
+          this.router.navigateByUrl('demande/nouveau');
         }
         this.ngxService.stop();
       },
       error: err => {
         this.ngxService.stop();
-        this.utilsService.handleError(err);
+        this.router.navigateByUrl("demande/nouveau");
       },
       complete: () => {
         this.ngxService.stop();
