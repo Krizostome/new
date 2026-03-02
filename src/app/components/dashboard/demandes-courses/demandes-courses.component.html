@@ -162,7 +162,7 @@
  <td class="text-center">{{demande.affectation?.vehicule?.immatr}}</td>
  @if (demande.affectation?.chauffeur?.user) {
  <td class="text-center">
- {{demande.affectation?.chauffeur?.user.nom +' ' +demande.affectation?.chauffeur?.user.prenom}}
+ {{demande.affectation.chauffeur.user.nom +' ' +demande.affectation.chauffeur.user.prenom}}
  </td>
  }
  @if (!(demande.affectation?.chauffeur?.user)) {
