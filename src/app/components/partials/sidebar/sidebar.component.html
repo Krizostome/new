@@ -70,12 +70,12 @@
 
  @if (utilsService.isAdmin()) {
  <li>
- <a class="cursor-pointer" id="up-1">
+ <a class="cursor-pointer" id="up-1" (click)="toggleAdministration()">
  <i class="metismenu-icon fa fa-user-shield"></i>
  Administration
- <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+ <i class="metismenu-state-icon pe-7s-angle-down caret-left" [class.pe-7s-angle-up]="isAdministrationOpen"></i>
  </a>
- <ul>
+ <ul [class.mm-show]="isAdministrationOpen" [style.display]="isAdministrationOpen ? 'block' : 'none'">
  <a routerLink="/liste/utilisateur" class="cursor-pointer">
  <i class="metismenu-icon fa fa-user-edit "></i>
  Utilisateurs
@@ -107,12 +107,12 @@
 
  @if (utilsService.isAdmin()) {
  <li>
- <a class="cursor-pointer" id="up-2">
+ <a class="cursor-pointer" id="up-2" (click)="toggleStatistiques()">
  <i class="metismenu-icon fa fa-stream"></i>
  Statistiques
- <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+ <i class="metismenu-state-icon pe-7s-angle-down caret-left" [class.pe-7s-angle-up]="isStatistiquesOpen"></i>
  </a>
- <ul>
+ <ul [class.mm-show]="isStatistiquesOpen" [style.display]="isStatistiquesOpen ? 'block' : 'none'">
  <a routerLink="historique/demandes" class="cursor-pointer">
  <i class="metismenu-icon fa fa-car-side"></i>
  Demande de courses
