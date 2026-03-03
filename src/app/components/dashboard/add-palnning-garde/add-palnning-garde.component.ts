@@ -148,22 +148,23 @@ export class AddPalnningGardeComponent implements OnInit {
 
     if (this.listeChauffeurs.length == 0) {
       this.utilsService.showErreurMessage('Erreur','Veuillez ajouter les chauffeurs au planning.');
+      return;
     }
 
     if (planninggarde.date_debut > planninggarde.date_fin) {
       this.utilsService.showErreurMessage('Erreur','Veuillez corriger les dates du planning.');
-    } else{
+      return;
+    }
 
-      if (this.form.valid) {
-        if(this.isEdit){
-          this.savePlanningGarde(planninggarde);
-        } else {
-          planninggarde.id = this.planningId;
-          this.editPlanningGarde(planninggarde);
-        }
+    if (this.form.valid) {
+      if (this.isEdit) {
+        this.savePlanningGarde(planninggarde);
       } else {
-        this.utilsService.showErreurMessage('Erreur','Veuillez renseigner tous les champs.');
+        planninggarde.id = this.planningId;
+        this.editPlanningGarde(planninggarde);
       }
+    } else {
+      this.utilsService.showErreurMessage('Erreur', 'Veuillez renseigner tous les champs.');
     }
   }
 

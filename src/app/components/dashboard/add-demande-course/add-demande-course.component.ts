@@ -178,6 +178,8 @@ export class AddDemandeCourseComponent implements OnInit {
           this.editDemandeVehicule(demandeCourse);
         }
 
+      } else {
+        this.utilsService.showErreurMessage('Erreur', 'Veuillez remplir tous les champs obligatoires');
       }
 
   }

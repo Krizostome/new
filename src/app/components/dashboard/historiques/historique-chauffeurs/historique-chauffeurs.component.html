@@ -57,7 +57,7 @@
  Rechercher
  </button>
  <button type="button" class="btn btn-success mt-2 " (click)="exportPerformancesChauffeur();"
- title="Exporter les notes en excel" [disabled]="historiquesChauffeurs.length == 0">
+ title="Exporter les notes en excel" [disabled]="!historiquesChauffeurs || historiquesChauffeurs.length == 0">
  <i class="fa fa-file-excel"></i>
  Exporter en Excel
  </button>

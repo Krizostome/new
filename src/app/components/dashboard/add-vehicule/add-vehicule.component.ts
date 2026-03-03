@@ -119,7 +119,8 @@ export class AddVehiculeComponent implements OnInit {
     }
     
     if (['',null,undefined].includes(vehicule.type_vehicule_id)) {
-      this.utilsService.showErreurMessage('Erreur','Veuillez sélectionner une catégorie de véhicule')
+      this.utilsService.showErreurMessage('Erreur','Veuillez sélectionner une catégorie de véhicule');
+      return;
     }
     if (this.form.valid) {
       if (this.isEdit){
@@ -128,7 +129,9 @@ export class AddVehiculeComponent implements OnInit {
         vehicule.id = this.vehicule.id;
         this.editVehicule(vehicule);
       }
-    } 
+    } else {
+      this.utilsService.showErreurMessage('Erreur', 'Veuillez remplir tous les champs obligatoires');
+    }
   }
 
   editVehicule(vehicule: any) {

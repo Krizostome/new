@@ -15,10 +15,21 @@ describe('MapsComponent', () => {
   let fixture: ComponentFixture<MapsComponent>;
 
   beforeEach(async () => {
+    (window as any).google = {
+      maps: {
+        Map: class { setOptions() {} },
+        LatLng: class {},
+        LatLngBounds: class {},
+        Marker: class { setMap() {} },
+        InfoWindow: class {},
+        DirectionsService: class {},
+        DirectionsRenderer: class {},
+      }
+    };
     await TestBed.configureTestingModule({
       providers: [DatePipe],
       declarations: [ MapsComponent ],
-      imports: [ GoogleMapsModule , ToastrModule.forRoot(), HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule, NgbModule, GoogleMapsModule, NgSelectModule, DataTablesModule]
+      imports: [ GoogleMapsModule , ToastrModule.forRoot(), HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule, NgbModule, NgSelectModule, DataTablesModule]
     })
     .compileComponents();
   });
