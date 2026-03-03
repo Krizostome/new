@@ -143,15 +143,18 @@ export class AddChauffeurComponent implements OnInit {
     }
     console.log(chauffeur);
     if (['',null,undefined].includes(chauffeur.user_id)) {
-      this.utilsService.showErreurMessage('Erreur','Veuillez sélectionner une catégorie de véhicule')
+      this.utilsService.showErreurMessage('Erreur','Veuillez sélectionner un agent');
+      return;
     }
-    if (!this.form.valid) {
+    if (this.form.valid) {
       if (this.isEdit){
         this.saveChauffeur(chauffeur);
       } else {
         chauffeur.id = this.chauffeur.id;
         this.editChauffeur(chauffeur);
       }
+    } else {
+      this.utilsService.showErreurMessage('Erreur', 'Veuillez remplir tous les champs obligatoires');
     }
   }
 

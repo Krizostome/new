@@ -159,7 +159,7 @@
  <td class="text-center">{{demande?.date_depart | date:'dd/MM/yyyy'}} à {{demande?.heure_depart?.substring(0,5)}}</td>
  <td class="text-center">{{demande?.date_retour | date:'dd/MM/yyyy'}} à {{demande?.heure_retour?.substring(0,5)}}</td>
  <td class="text-center">{{demande?.statut}}</td>
- <td class="text-center">{{demande.affectation.vehicule.immatr}}</td>
+ <td class="text-center">{{demande?.affectation?.vehicule?.immatr}}</td>
  @if (demande?.affectation?.chauffeur?.user) {
  <td class="text-center">
  {{demande?.affectation?.chauffeur?.user.nom +' ' +demande?.affectation?.chauffeur?.user.prenom}}

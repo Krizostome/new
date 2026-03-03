@@ -24,7 +24,7 @@ export class PlanningGardeService {
   }
 
   savePlanningGarde(body: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'chauffeur/save/planning-garde', {body});
+    return this.http.post(environment.BASE_URL + 'chauffeur/save/planning-garde', body);
   }
 
   getPlanningGardeById(planningId: number): Observable<any> {

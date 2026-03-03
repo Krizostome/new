@@ -15,7 +15,7 @@ export class ChauffeursService {
   }
 
   saveChauffeur(body: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'chauffeur/save', {body});
+    return this.http.post(environment.BASE_URL + 'chauffeur/save', body);
   }
 
   getChauffeurById(chauffeurId: number): Observable<any> {

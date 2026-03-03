@@ -10,6 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HistoriqueChauffeursComponent } from './historique-chauffeurs.component';
+import { PaginationSlicePipe } from '../../../../pipes/pagination-slice.pipe';
 
 describe('HistoriqueChauffeursComponent', () => {
   let component: HistoriqueChauffeursComponent;
@@ -18,8 +19,8 @@ describe('HistoriqueChauffeursComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [DatePipe],
-      imports: [ToastrModule.forRoot(), HttpClientTestingModule, RouterTestingModule, ToastrModule.forRoot(), HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule, NgbModule, GoogleMapsModule, NgSelectModule, DataTablesModule],
-    declarations: [HistoriqueChauffeursComponent]
+      imports: [ToastrModule.forRoot(), HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule, NgbModule, GoogleMapsModule, NgSelectModule, DataTablesModule],
+    declarations: [HistoriqueChauffeursComponent, PaginationSlicePipe]
 })
     .compileComponents();
   });

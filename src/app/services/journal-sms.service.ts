@@ -12,7 +12,7 @@ export class JournalSmsService {
   constructor(private http: HttpClient, private utilsService: UtilsService) { }
 
   searchSMS(data: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'journal-sms/search', JSON.stringify(data), this.utilsService.getHttpPostHeaderForResource());
+    return this.http.post(environment.BASE_URL + 'journal-sms/search', data);
   }
 
   getAllSMS(): Observable<any> {

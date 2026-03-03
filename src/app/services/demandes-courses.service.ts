@@ -15,7 +15,7 @@ export class DemandesCoursesService {
     return this.http.get(environment.BASE_URL+'parc/list/demande-courses-en-cour/' +userId+'/'+role,{});
   }
   searchDemandeCourseEncour(data: any):Observable<any> {
-    return this.http.post(environment.BASE_URL+'parc/list/demande-courses-en-cour-filtrer',JSON.stringify(data),this.utilsService.getHttpPostHeaderForResource());
+    return this.http.post(environment.BASE_URL+'parc/list/demande-courses-en-cour-filtrer', data);
   }
   getAllDemandesDeCourses(userId: any, role: any): Observable<any> {
     return this.http.get(environment.BASE_URL + 'parc/list/demande-courses/' +userId +'/' +role, {});
@@ -31,19 +31,19 @@ export class DemandesCoursesService {
   }
 
   saveDemandeCourse(demandeCourse: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'parc/save/demande-courses', JSON.stringify(demandeCourse), this.utilsService.getHttpPostHeaderForResource());
+    return this.http.post(environment.BASE_URL + 'parc/save/demande-courses', demandeCourse);
   }
 
   searchDemandeCourse(demandeCourse: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'parc/filter', JSON.stringify(demandeCourse), this.utilsService.getHttpPostHeaderForResource());
+    return this.http.post(environment.BASE_URL + 'parc/filter', demandeCourse);
   }
 
   editDemandeCourse(demandeCourse: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'chauffeur/edit/demande-course', JSON.stringify(demandeCourse), this.utilsService.getHttpPostHeaderForResource());
+    return this.http.post(environment.BASE_URL + 'chauffeur/edit/demande-course', demandeCourse);
   }
 
   deleteDemandeCourse(data: any) {
-    return this.http.post(environment.BASE_URL + 'chauffeur/delete/demande-course', JSON.stringify(data),  this.utilsService.getHttpPostHeaderForResource());
+    return this.http.post(environment.BASE_URL + 'chauffeur/delete/demande-course', data);
   }
 
   getDemandeCourseById(demandeId: number): Observable<any> {
@@ -55,11 +55,11 @@ export class DemandesCoursesService {
   }
 
   affecterCourse(affectation: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'parc/affecter/demande-courses', JSON.stringify(affectation), this.utilsService.getHttpPostHeaderForResource());
+    return this.http.post(environment.BASE_URL + 'parc/affecter/demande-courses', affectation);
   }
 
   updateAffectationCourse(affectation: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'parc/affecter/update', JSON.stringify(affectation), this.utilsService.getHttpPostHeaderForResource());
+    return this.http.post(environment.BASE_URL + 'parc/affecter/update', affectation);
   }
 
   getListDemandeAffecter(): Observable<any>{

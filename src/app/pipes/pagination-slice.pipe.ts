@@ -7,6 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PaginationSlicePipe implements PipeTransform {
 
   transform(datas: any[], startPage: number, endPage: number): any {
+    if (!datas) return [];
     return datas.slice(startPage, endPage);
   }
 

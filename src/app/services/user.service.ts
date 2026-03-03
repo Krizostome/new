@@ -28,14 +28,14 @@ export class UserService {
 
 
   updateUser(data: any){
-    return this.http.post(environment.BASE_URL + "parc/user/update", JSON.stringify(data), this.utilsService.getHttpPostHeaderForResource());
+    return this.http.post(environment.BASE_URL + "parc/user/update", data);
   }
 
-  deleteUser(body: any): Observable<any> {
-    const objet={
-      user_id:body
-    }
-    return this.http.post(environment.BASE_URL + 'parc/user/delete', JSON.stringify(body),this.utilsService.getHttpPostHeaderForResource());
+  deleteUser(userId: any): Observable<any> {
+    const data = {
+      user_id: userId
+    };
+    return this.http.post(environment.BASE_URL + 'parc/user/delete', data);
   }
 
 }

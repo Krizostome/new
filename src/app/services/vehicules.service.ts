@@ -26,23 +26,23 @@ export class VehiculesService {
   }
 
   saveVehicule(body: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'vehicule/save', {body});
+    return this.http.post(environment.BASE_URL + 'vehicule/save', body);
   }
 
   saveTypeVehicule(body: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'vehicule/save-type', {body});
+    return this.http.post(environment.BASE_URL + 'vehicule/save-type', body);
   }
 
   saveCategoriePermis(body: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'vehicule/save-categorie-permis', {body});
+    return this.http.post(environment.BASE_URL + 'vehicule/save-categorie-permis', body);
   }
 
   saveConduire(body: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'vehicule/save-conduire', {body});
+    return this.http.post(environment.BASE_URL + 'vehicule/save-conduire', body);
   }
 
   deleteConduire(body: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'vehicule/delete-conduire', {body});
+    return this.http.post(environment.BASE_URL + 'vehicule/delete-conduire', body);
   }
 
 }
