@@ -17,6 +17,8 @@ import {Router} from "@angular/router";
 export class SidebarComponent implements OnInit {
 
   user: User | null = new User();
+  isAdministrationOpen: boolean = false;
+  isStatistiquesOpen: boolean = false;
 
   constructor(public utilsService: UtilsService, private demandesCoursesService: DemandesCoursesService, private ngxService: NgxUiLoaderService,
               private toastr: ToastrService, private datePipe: DatePipe,
@@ -26,21 +28,30 @@ export class SidebarComponent implements OnInit {
     this.user = this.utilsService.getUserConnected();
   }
 
+  toggleAdministration(): void {
+    this.isAdministrationOpen = !this.isAdministrationOpen;
+  }
+
+  toggleStatistiques(): void {
+    this.isStatistiquesOpen = !this.isStatistiquesOpen;
+  }
+
   checkNotNotedCourseFromUser(): void {
     this.ngxService.start();
     this.demandesCoursesService.checkNotNotedCourseFromUser(this.user?.id).subscribe({
       next: value => {
-        if (value.data) {
+        if (value && value.data) {
           this.utilsService.showWarningMessage('Vous avez une course terminée non notée','Attention');
           this.router.navigate(['/demande/notation/' +value.data.id]);
         } else {
-          this.router.navigate(['demande/nouveau']);
+          this.router.navigateByUrl('demande/nouveau');
         }
         this.ngxService.stop();
       },
       error: err => {
         this.ngxService.stop();
-        this.utilsService.handleError(err);
+        // If API fails, allow proceeding to new demand
+        this.router.navigateByUrl('demande/nouveau');
       },
       complete: () => {
         this.ngxService.stop();

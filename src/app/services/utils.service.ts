@@ -136,6 +136,8 @@ export class UtilsService {
     if (error.status === this.ERREUR_401) { // UTILISATEUR NON AUTHENTIFIE
       //  this.oauthService.logout();
       // this.logout(false);
+    } else if (error.status === 404) {
+      this.showWarningMessage("La ressource demandée n'existe pas ou l'API est indisponible.", 'Ressource introuvable');
     } else { // erreur interne
       this.showErreurMessage('Erreur interne', environment.MESSAGE_ERREUR_INTERNE);
     }
