@@ -81,7 +81,6 @@ export class AddDemandeCourseComponent implements OnInit {
     this.getAllTypesVehicules();
     this.getAllMotifs();
     this.getParamValue();
-    // this.getUser();
     this.user = this.utilsService.getUserConnected();
   }
 
@@ -188,7 +187,6 @@ export class AddDemandeCourseComponent implements OnInit {
     this.ngxService.start();
     this.demandesCoursesService.editDemandeCourse(demandeCourse).subscribe({
       next: value => { // success
-        // $('#exampleModal').modal('toggle');
         this.ngxService.stop();
         this.utilsService.showSuccessMessage('Demande de course modifiée avec succès');
         this.router.navigate(['/demande/encours']);
