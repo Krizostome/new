@@ -10,55 +10,27 @@ export class ApiInterceptor implements HttpInterceptor {
   constructor(private utilsService: UtilsService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // base headers
+    let headers = req.headers.set('Accept', 'application/json');
 
-    // Ensure Accept header is always application/json
-    let defaultHeaders: any = {
-      'Accept': 'application/json'
-    };
-
-    let defaultBaseUrl = req.clone({
-      url: `${req.url}`,
-      setHeaders: defaultHeaders
-    });
-
-    // ajout du token bearer a lentete avant de poursuivre la requete
-    let accesToken: any = this.utilsService.getUserToken() ;
-
-    if(this.utilsService.getUserConnected()){
-      this.userId = this.utilsService.getUserConnected()?.id;
-    }
+    const accesToken = this.utilsService.getUserToken();
+    const user = this.utilsService.getUserConnected();
 
     if (accesToken && !req.url.includes('login')) {
-      let clone: HttpRequest<any>;
-
-      if(req.headers.has('enctype')) {
-        clone = req.clone({
-          setHeaders: {
-            'Accept': `application/json`,
-            'enctype': 'multipart/form-data',
-            'Authorization': `Bearer ${accesToken}`
-          }
-        });
+      headers = headers.set('Authorization', `Bearer ${accesToken}`);
+      if (req.headers.has('enctype')) {
+        headers = headers.set('enctype', 'multipart/form-data');
       } else {
-        clone = req.clone({
-          setHeaders: {
-            'Accept': `application/json`,
-            'Content-Type': `application/json`,
-            'Authorization': `Bearer ${accesToken}`
-          }
-        });
+        headers = headers.set('Content-Type', 'application/json');
       }
-      // user id
-      if(this.userId) {
-        clone = clone.clone({
-          headers: clone.headers.set('ParcUserId', this.userId.toString())
-        });
+
+      if (user?.id) {
+        headers = headers.set('ParcUserId', user.id.toString());
       }
-      return next.handle(clone);
     }
 
-    return next.handle(defaultBaseUrl);
-
+    const clonedReq = req.clone({ headers });
+    return next.handle(clonedReq);
   }
 
 }
