@@ -1,1 +1,62 @@
-<p>Accueil</p>
+<div class="container-fluid py-4">
+    <!-- Welcome Header Card -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm border-0 overflow-hidden" style="border-radius: 15px;">
+                <div class="card-body p-0">
+                    <div class="row g-0">
+                        <div class="col-md-4 d-flex align-items-center justify-content-center bg-light p-4">
+                            <img src="assets/img/parc-logo.png" alt="PAC Logo" style="max-width: 200px;" class="mb-4">
+                        </div>
+                        <div class="col-md-8 p-4 d-flex flex-column justify-content-center">
+                            <h2 class="text-primary mb-3" style="font-weight: 700; letter-spacing: -0.5px;">
+                                BIENVENUE SUR LA PLATEFORME DE GESTION DU PARC AUTOMOBILE
+                            </h2>
+                            <p class="lead text-muted mb-4">
+                                Cette application permet au <strong>Port Autonome de Cotonou</strong> de gérer efficacement sa flotte de véhicules, les chauffeurs et les demandes de courses.
+                            </p>
+                            <hr class="my-4 opacity-25">
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <div class="p-3 bg-info bg-opacity-10 rounded-3 border border-info border-opacity-25 h-100 cursor-pointer hover-shadow transition" routerLink="/dashboard/demande/nouveau" style="background: linear-gradient(135deg, #42d3e8 0%, #2196f3 100%); color: white;">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h5 class="mb-1 fw-bold">Nouvelle Demande</h5>
+                                                <small class="opacity-75">Créer une demande de course</small>
+                                            </div>
+                                            <i class="fas fa-plus-circle fa-2x opacity-50"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="p-3 bg-success bg-opacity-10 rounded-3 border border-success border-opacity-25 h-100 cursor-pointer hover-shadow transition" routerLink="/dashboard/demandes-en-cours" style="background: linear-gradient(135deg, #4ade80 0%, #06b6d4 100%); color: white;">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h5 class="mb-1 fw-bold">Suivi des Courses</h5>
+                                                <small class="opacity-75">Voir les demandes en cours</small>
+                                            </div>
+                                            <i class="fas fa-car fa-2x opacity-50"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .transition {
+        transition: all 0.3s ease;
+    }
+    .cursor-pointer {
+        cursor: pointer;
+    }
+</style>
