@@ -55,18 +55,11 @@ export class AddDemandeCourseComponent implements OnInit {
     language: 'fr'
   };
 
-  constructor(
-  private demandesCoursesService: DemandesCoursesService,
-  private ngxService: NgxUiLoaderService,
-  private toastr: ToastrService,
-  private utilsService: UtilsService,
-  private formBuilder: UntypedFormBuilder,
-  private router: Router,
-  private activatedRoute: ActivatedRoute,
-  private datePipe: DatePipe,
-  private userService: UserService,
-  private cd: ChangeDetectorRef
-) {
+
+  constructor(private demandesCoursesService: DemandesCoursesService, private ngxService: NgxUiLoaderService,
+              private toastr: ToastrService, private utilsService: UtilsService,private formBuilder: UntypedFormBuilder,
+              private router: Router, private activatedRoute: ActivatedRoute,private datePipe: DatePipe, private userService: UserService,
+              private cdr: ChangeDetectorRef) {
     this.formattedDate = this.datePipe.transform(this.minDate, 'yyyy-MM-dd');
     this.minTime = new Date().toString().split(' ')[4];
     this.form = formBuilder.group(
