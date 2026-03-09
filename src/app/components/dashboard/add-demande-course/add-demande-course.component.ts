@@ -12,6 +12,7 @@ import {Motif} from "../../../models/motif";
 import {DatePipe} from "@angular/common";
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user.service";
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
     standalone: false,
@@ -53,9 +54,18 @@ export class AddDemandeCourseComponent implements OnInit {
     language: 'fr'
   };
 
-  constructor(private demandesCoursesService: DemandesCoursesService, private ngxService: NgxUiLoaderService,
-              private toastr: ToastrService, private utilsService: UtilsService,private formBuilder: UntypedFormBuilder,
-              private router: Router, private activatedRoute: ActivatedRoute,private datePipe: DatePipe, private userService: UserService) {
+  constructor(
+  private demandesCoursesService: DemandesCoursesService,
+  private ngxService: NgxUiLoaderService,
+  private toastr: ToastrService,
+  private utilsService: UtilsService,
+  private formBuilder: UntypedFormBuilder,
+  private router: Router,
+  private activatedRoute: ActivatedRoute,
+  private datePipe: DatePipe,
+  private userService: UserService,
+  private cd: ChangeDetectorRef
+) {
     this.formattedDate = this.datePipe.transform(this.minDate, 'yyyy-MM-dd');
     this.minTime = new Date().toString().split(' ')[4];
     this.form = formBuilder.group(
@@ -81,6 +91,7 @@ export class AddDemandeCourseComponent implements OnInit {
     this.getAllTypesVehicules();
     this.getAllMotifs();
     this.getParamValue();
+    // this.getUser();
     this.user = this.utilsService.getUserConnected();
   }
 
@@ -187,6 +198,7 @@ export class AddDemandeCourseComponent implements OnInit {
     this.ngxService.start();
     this.demandesCoursesService.editDemandeCourse(demandeCourse).subscribe({
       next: value => { // success
+        // $('#exampleModal').modal('toggle');
         this.ngxService.stop();
         this.utilsService.showSuccessMessage('Demande de course modifiée avec succès');
         this.router.navigate(['/demande/encours']);
