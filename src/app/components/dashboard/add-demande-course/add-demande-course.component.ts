@@ -9,6 +9,7 @@ import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import { environment } from 'src/environments/environment';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Motif} from "../../../models/motif";
+import {ChangeDetectorRef} from "@angular/core";
 import {DatePipe} from "@angular/common";
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user.service";
@@ -305,6 +306,7 @@ export class AddDemandeCourseComponent implements OnInit {
       this.dataTypeVehiculeSelect2.push({ id: typeVehicule.id.toString(), text: typeVehicule.libelle});
     });
     this.setElementTypeVehiculeSelected('', '--');
+    this.cdr.detectChanges();
   }
 
   setElementTypeVehiculeSelected(idSelect: string, textSelect: string): void {
@@ -326,6 +328,7 @@ export class AddDemandeCourseComponent implements OnInit {
       this.dataMotifSelect2.push({ id: motif.id.toString(), text: motif.libelle});
     });
     this.setElementMotifSelected('', '--');
+    this.cdr.detectChanges();
   }
 
   setElementMotifSelected(idSelect: string, textSelect: string): void {
@@ -347,6 +350,7 @@ export class AddDemandeCourseComponent implements OnInit {
       this.dataAgentSelect2.push({ id: user.id.toString(), text: user.prenom +' ' +user.nom});
     });
     this.setElementAgentSelected('', '--');
+    this.cdr.detectChanges();
   }
 
   setElementAgentSelected(idSelect: string, textSelect: string): void {
