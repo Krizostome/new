@@ -9,6 +9,7 @@ import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import { environment } from 'src/environments/environment';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Motif} from "../../../models/motif";
+import {ChangeDetectorRef} from "@angular/core";
 import {DatePipe} from "@angular/common";
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user.service";
@@ -55,7 +56,8 @@ export class AddDemandeCourseComponent implements OnInit {
 
   constructor(private demandesCoursesService: DemandesCoursesService, private ngxService: NgxUiLoaderService,
               private toastr: ToastrService, private utilsService: UtilsService,private formBuilder: UntypedFormBuilder,
-              private router: Router, private activatedRoute: ActivatedRoute,private datePipe: DatePipe, private userService: UserService) {
+              private router: Router, private activatedRoute: ActivatedRoute,private datePipe: DatePipe, private userService: UserService,
+              private cdr: ChangeDetectorRef) {
     this.formattedDate = this.datePipe.transform(this.minDate, 'yyyy-MM-dd');
     this.minTime = new Date().toString().split(' ')[4];
     this.form = formBuilder.group(
@@ -293,6 +295,7 @@ export class AddDemandeCourseComponent implements OnInit {
       this.dataTypeVehiculeSelect2.push({ id: typeVehicule.id.toString(), text: typeVehicule.libelle});
     });
     this.setElementTypeVehiculeSelected('', '--');
+    this.cdr.detectChanges();
   }
 
   setElementTypeVehiculeSelected(idSelect: string, textSelect: string): void {
@@ -314,6 +317,7 @@ export class AddDemandeCourseComponent implements OnInit {
       this.dataMotifSelect2.push({ id: motif.id.toString(), text: motif.libelle});
     });
     this.setElementMotifSelected('', '--');
+    this.cdr.detectChanges();
   }
 
   setElementMotifSelected(idSelect: string, textSelect: string): void {
@@ -335,6 +339,7 @@ export class AddDemandeCourseComponent implements OnInit {
       this.dataAgentSelect2.push({ id: user.id.toString(), text: user.prenom +' ' +user.nom});
     });
     this.setElementAgentSelected('', '--');
+    this.cdr.detectChanges();
   }
 
   setElementAgentSelected(idSelect: string, textSelect: string): void {
