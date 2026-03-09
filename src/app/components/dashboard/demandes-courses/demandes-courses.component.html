@@ -185,10 +185,10 @@
  @if (listeDemandesDeCourses.length == 0) {
  <tr>
  @if (filter.value !== null && filter.value !== undefined && filter.value !== '') {
- <td colspan="10" class="text-center">Aucune demande de course ne correspond à votre recherche</td>
+ <td colspan="11" class="text-center">Aucune demande de course ne correspond à votre recherche</td>
  }
  @if (filter.value === null || filter.value === undefined || filter.value === '') {
- <td colspan="10" class="text-center">Aucune demande de course n'est enregistrée pour le moment</td>
+ <td colspan="11" class="text-center">Aucune demande de course n'est enregistrée pour le moment</td>
  }
  </tr>
  }
@@ -197,7 +197,7 @@
 
  <tfoot>
  <tr>
- <td colspan="10">
+ <td colspan="11">
  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" [maxSize]="10" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
  </td>
  </tr>
