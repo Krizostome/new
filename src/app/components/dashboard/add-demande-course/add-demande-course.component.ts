@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {DemandesCoursesService} from "../../../services/demandes-courses.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import {ToastrService} from "ngx-toastr";
@@ -9,7 +9,6 @@ import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import { environment } from 'src/environments/environment';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Motif} from "../../../models/motif";
-import {ChangeDetectorRef} from "@angular/core";
 import {DatePipe} from "@angular/common";
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user.service";
