@@ -235,6 +235,8 @@
  <div>
 
  <ng-select
+ bindLabel="text"
+ bindValue="id"
  id="vehicule"
  (change)="handleSelectVehiculeChange($event)"
  [items]="dataVehiculeSelect2"
@@ -256,6 +258,8 @@
  <div>
 
  <ng-select
+ bindLabel="text"
+ bindValue="id"
  id="chauffeur"
  (change)="handleSelectChauffeurChange($event)"
  [items]="dataChauffeurSelect2"

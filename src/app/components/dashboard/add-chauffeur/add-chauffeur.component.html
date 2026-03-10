@@ -20,6 +20,8 @@
  </div>
  <div>
  <ng-select
+ bindLabel="text"
+ bindValue="id"
  id="user_id"
  (change)="handleSelectUserChange($event)"
  [items]="dataUserSelect2"
@@ -86,6 +88,8 @@
  </div>
  <div>
  <ng-select
+ bindLabel="text"
+ bindValue="id"
  id="disponibilite"
  (change)="handleSelectDisponibiliteChange($event)"
  [items]="dataDisponibiliteSelect2"
@@ -104,6 +108,8 @@
  </div>
  <div>
  <ng-select
+ bindLabel="text"
+ bindValue="id"
  id="categorie_permis_id"
  (change)="handleSelectCategoriePermisChange($event)"
  [items]="dataCategoriePermisSelect2"
