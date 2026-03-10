@@ -53,7 +53,7 @@ export class UtilisateurComponent implements OnInit {
     this.userService.getListUser().subscribe({
       next: value => {
         if (value) {
-          this.listeUser = value.data ? value.data : value;
+          this.listeUser = value.data || value.users || (Array.isArray(value) ? value : []);
           this.originalListeUser = this.listeUser;
           this.totalItems = this.originalListeUser.length;
         } else {
