@@ -228,7 +228,7 @@ export class AddDemandeCourseComponent implements OnInit {
     this.userService.getListUser().subscribe({
       next: value => {
         if (value) {
-          this.listUsers = value.data || value.users || (Array.isArray(value) ? value : []);
+          this.listUsers = value.data?.data || value.data || value.users || (Array.isArray(value) ? value : []);
           this.bindDataAgentSelect2();
         } else {
           this.listUsers = [];
@@ -298,13 +298,17 @@ export class AddDemandeCourseComponent implements OnInit {
       const text = typeVehicule.libelle || typeVehicule.text || typeVehicule.libelle_type || '--';
       this.dataTypeVehiculeSelect2.push({ id, text });
     });
-    this.setElementTypeVehiculeSelected('', '--');
+    if (!this.form.get('type_vehicule')?.value) {
+      this.setElementTypeVehiculeSelected('', '--');
+    }
     this.cdr.detectChanges();
   }
 
   setElementTypeVehiculeSelected(idSelect: string, textSelect: string): void {
     this.elementTypeVehiculeSelected = {id: idSelect, text: textSelect};
-    this.form.get('type_vehicule')?.setValue(this.elementTypeVehiculeSelected.id);
+    if (this.form.get('type_vehicule')?.value !== idSelect) {
+      this.form.get('type_vehicule')?.setValue(idSelect);
+    }
   }
 
   handleSelectTypeVehiculeChange(valueSelected: any) {
@@ -322,13 +326,17 @@ export class AddDemandeCourseComponent implements OnInit {
       const text = motif.libelle || motif.text || '--';
       this.dataMotifSelect2.push({ id, text });
     });
-    this.setElementMotifSelected('', '--');
+    if (!this.form.get('motif')?.value) {
+      this.setElementMotifSelected('', '--');
+    }
     this.cdr.detectChanges();
   }
 
   setElementMotifSelected(idSelect: string, textSelect: string): void {
     this.elementMotifSelected = {id: idSelect, text: textSelect};
-    this.form.get('motif')?.setValue(this.elementMotifSelected.id);
+    if (this.form.get('motif')?.value !== idSelect) {
+      this.form.get('motif')?.setValue(idSelect);
+    }
   }
 
   handleSelectMotifChange(valueSelected: any) {
@@ -346,13 +354,17 @@ export class AddDemandeCourseComponent implements OnInit {
       const text = (user.prenom || '') + ' ' + (user.nom || user.name || '');
       this.dataAgentSelect2.push({ id, text: text.trim() || user.email || '--' });
     });
-    this.setElementAgentSelected('', '--');
+    if (!this.form.get('user')?.value) {
+      this.setElementAgentSelected('', '--');
+    }
     this.cdr.detectChanges();
   }
 
   setElementAgentSelected(idSelect: string, textSelect: string): void {
     this.elementAgentSelected = {id: idSelect, text: textSelect};
-    this.form.get('user')?.setValue(this.elementAgentSelected.id);
+    if (this.form.get('user')?.value !== idSelect) {
+      this.form.get('user')?.setValue(idSelect);
+    }
   }
 
   handleSelectAgentChange(valueSelected: any) {
