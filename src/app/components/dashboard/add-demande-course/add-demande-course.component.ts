@@ -250,7 +250,7 @@ export class AddDemandeCourseComponent implements OnInit {
     this.demandesCoursesService.getAllTypesVehicules().subscribe({
       next: value => {
         if (value) {
-          this.listeTypesVehicules = value.data?.data || value.data || value.type_vehicules || (Array.isArray(value) ? value : []);
+          this.listeTypesVehicules = value.data?.data || value.data?.type_vehicules || value.data?.types_vehicules || value.type_vehicules || value.types_vehicules || value.data || (Array.isArray(value) ? value : []);
           this.bindDataTypeVehiculeSelect2();
         } else {
           this.listeTypesVehicules = [];
@@ -272,7 +272,7 @@ export class AddDemandeCourseComponent implements OnInit {
     this.demandesCoursesService.getAllMotifs().subscribe({
       next: value => {
         if (value) {
-          this.listeMotifs = value.data?.data || value.data || value.motifs || (Array.isArray(value) ? value : []);
+          this.listeMotifs = value.data?.data || value.data?.motifs || value.motifs || value.data || (Array.isArray(value) ? value : []);
           this.bindDataMotifSelect2();
         } else {
           this.listeMotifs = [];

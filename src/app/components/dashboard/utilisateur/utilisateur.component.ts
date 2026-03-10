@@ -1,4 +1,4 @@
-import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, OnInit, QueryList, ViewChildren, ChangeDetectorRef} from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -41,7 +41,8 @@ export class UtilisateurComponent implements OnInit {
     private userService: UserService,
     private ngxService: NgxUiLoaderService,
     private router: Router,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.initDataTable();
@@ -53,9 +54,11 @@ export class UtilisateurComponent implements OnInit {
     this.userService.getListUser().subscribe({
       next: value => {
         if (value) {
-          this.listeUser = value.data || value.users || (Array.isArray(value) ? value : []);
+          this.listeUser = value.data?.data || value.data || value.users || (Array.isArray(value) ? value : []);
           this.originalListeUser = this.listeUser;
           this.totalItems = this.originalListeUser.length;
+          this.cdr.detectChanges();
+          this.ngxService.stop();
         } else {
           this.listeUser = [];
           this.originalListeUser = [];

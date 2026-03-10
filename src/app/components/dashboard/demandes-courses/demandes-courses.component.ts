@@ -81,7 +81,7 @@ export class DemandesCoursesComponent implements OnInit {
   constructor(private demandesCoursesService: DemandesCoursesService, private ngxService: NgxUiLoaderService,
               private toastr: ToastrService, private utilsService: UtilsService, private datePipe: DatePipe,
               private modalService: NgbModal, private router: Router, private chauffeurService: ChauffeursService,
-              private formBuilder: UntypedFormBuilder, private changeDetectorRef: ChangeDetectorRef) {
+              private formBuilder: UntypedFormBuilder, private cdr: ChangeDetectorRef) {
     this.formattedDate = this.datePipe.transform(this.maxDate, 'yyyy-MM-dd');
     this.form = formBuilder.group(
       {
@@ -125,7 +125,7 @@ export class DemandesCoursesComponent implements OnInit {
     this.demandesCoursesService.searchDemandeCourse(data).subscribe({
       next: (value : any) => {
         if (value) {
-          this.listeDemandesDeCourses = value.data || value.demande_courses || (Array.isArray(value) ? value : []);
+          this.listeDemandesDeCourses = value.data?.data || value.data || value.demande_courses || (Array.isArray(value) ? value : []);
           this.debut = value.debut;
           this.fin = value.fin;
           this.originalListeDemandesDeCourses = this.listeDemandesDeCourses;
@@ -195,9 +195,10 @@ export class DemandesCoursesComponent implements OnInit {
     this.demandesCoursesService.getAllDemandesDeCourses(this.user?.id, this.user?.role?.libelle).subscribe({
       next: value => {
         if (value) {
-          this.listeDemandesDeCourses = value.data || value.demande_courses || (Array.isArray(value) ? value : []);
+          this.listeDemandesDeCourses = value.data?.data || value.data || value.demande_courses || (Array.isArray(value) ? value : []);
           this.originalListeDemandesDeCourses = this.listeDemandesDeCourses;
           this.totalItems = this.originalListeDemandesDeCourses.length;
+          this.cdr.detectChanges();
         } else {
           this.listeDemandesDeCourses = [];
           this.originalListeDemandesDeCourses = [];
