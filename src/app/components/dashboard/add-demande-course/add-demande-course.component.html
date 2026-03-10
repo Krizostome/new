@@ -34,9 +34,9 @@
 
         <div class="row">
           <div class="col-6 form-group">
-            <div class="text-left"><label for="type_vehicule">Catégorie de véhicules</label> <span style="color:red"> *</span></div>
-            <ng-select bindLabel="text" bindValue="id" id="type_vehicule" (change)="handleSelectTypeVehiculeChange($event)" [items]="dataTypeVehiculeSelect2"
-              [class.has-success]="!form.get('type_vehicule')?.errors && formSubmitted" [class.has-danger]="form.get('type_vehicule')?.errors && formSubmitted"
+            <div class="text-left"><label for="type_vehicules">Catégorie de véhicules</label> <span style="color:red"> *</span></div>
+            <ng-select bindLabel="text" bindValue="id" id="type_vehicules" (change)="handleSelectTypeVehiculeChange($event)" [items]="dataTypeVehiculeSelect2"
+              [class.has-success]="!form.get('type_vehicules')?.errors && formSubmitted" [class.has-danger]="form.get('type_vehicules')?.errors && formSubmitted"
               [placeholder]="'Veuillez sélectionner un type de véhicule'">
             </ng-select>
           </div>
