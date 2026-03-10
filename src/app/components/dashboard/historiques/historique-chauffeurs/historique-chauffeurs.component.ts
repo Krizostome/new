@@ -109,8 +109,8 @@ export class HistoriqueChauffeursComponent implements OnInit {
     this.historiquesService.getHistoriquesPerformancesChauffeurs(body).subscribe({
       next: value => {
 
-        if (value && value.data) {
-          this.historiquesChauffeurs = value.data;
+        if (value) {
+          this.historiquesChauffeurs = value.data?.data || value.data || (Array.isArray(value) ? value : []);
           this.originalHistoriquesChauffeurs = this.historiquesChauffeurs;
           this.totalItems = this.originalHistoriquesChauffeurs.length;
           
@@ -135,8 +135,10 @@ export class HistoriqueChauffeursComponent implements OnInit {
   getChauffeurs(): void {
     this.chauffeursService.getChauffeurs().subscribe({
       next: value => {
-        this.chauffeurList = value.data;
-        this.binddataChauffeurSelect2();
+        if (value) {
+          this.chauffeurList = value.data?.data || value.data || value.chauffeurs || (Array.isArray(value) ? value : []);
+          this.binddataChauffeurSelect2();
+        }
       },
       error: err => {
         this.ngxService.stop();
@@ -153,7 +155,9 @@ export class HistoriqueChauffeursComponent implements OnInit {
     this.dataChauffeurSelect2 = [];
     this.dataChauffeurSelect2.push({ id: '', text: '--' });
     this.chauffeurList.forEach((chauffeur: any) => {
-      this.dataChauffeurSelect2.push({ id: chauffeur.id.toString(), text: chauffeur.user.nom + ' ' + chauffeur.user.prenom });
+      const id = (chauffeur.id || '').toString();
+      const text = (chauffeur?.user?.nom || '') + ' ' + (chauffeur?.user?.prenom || '');
+      this.dataChauffeurSelect2.push({ id, text: text.trim() || '--' });
     });
     this.setElementChauffeurSelected('', '--');
   }

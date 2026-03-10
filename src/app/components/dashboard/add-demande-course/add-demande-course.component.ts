@@ -80,11 +80,11 @@ export class AddDemandeCourseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user = this.utilsService.getUserConnected();
     this.getAllTypesVehicules();
     this.getAllMotifs();
     this.getParamValue();
     // this.getUser();
-    this.user = this.utilsService.getUserConnected();
   }
 
   getParamValue(): void {
@@ -227,8 +227,8 @@ export class AddDemandeCourseComponent implements OnInit {
     this.ngxService.start();
     this.userService.getListUser().subscribe({
       next: value => {
-        if (value && value.data) {
-          this.listUsers = value.data;
+        if (value) {
+          this.listUsers = value.data || value.users || (Array.isArray(value) ? value : []);
           this.bindDataAgentSelect2();
         } else {
           this.listUsers = [];
@@ -249,8 +249,8 @@ export class AddDemandeCourseComponent implements OnInit {
     this.ngxService.start();
     this.demandesCoursesService.getAllTypesVehicules().subscribe({
       next: value => {
-        if (value && value.data) {
-          this.listeTypesVehicules = value.data;
+        if (value) {
+          this.listeTypesVehicules = value.data?.data || value.data || value.type_vehicules || (Array.isArray(value) ? value : []);
           this.bindDataTypeVehiculeSelect2();
         } else {
           this.listeTypesVehicules = [];
@@ -271,8 +271,8 @@ export class AddDemandeCourseComponent implements OnInit {
     this.ngxService.start();
     this.demandesCoursesService.getAllMotifs().subscribe({
       next: value => {
-        if (value && value.data) {
-          this.listeMotifs = value.data;
+        if (value) {
+          this.listeMotifs = value.data?.data || value.data || value.motifs || (Array.isArray(value) ? value : []);
           this.bindDataMotifSelect2();
         } else {
           this.listeMotifs = [];
@@ -293,8 +293,10 @@ export class AddDemandeCourseComponent implements OnInit {
   private bindDataTypeVehiculeSelect2() {
     this.dataTypeVehiculeSelect2 = [];
     this.dataTypeVehiculeSelect2.push({ id: '', text: '--'});
-    this.listeTypesVehicules.forEach(typeVehicule => {
-      this.dataTypeVehiculeSelect2.push({ id: typeVehicule.id.toString(), text: typeVehicule.libelle});
+    this.listeTypesVehicules.forEach((typeVehicule: any) => {
+      const id = (typeVehicule.id || '').toString();
+      const text = typeVehicule.libelle || typeVehicule.text || typeVehicule.libelle_type || '--';
+      this.dataTypeVehiculeSelect2.push({ id, text });
     });
     this.setElementTypeVehiculeSelected('', '--');
     this.cdr.detectChanges();
@@ -315,8 +317,10 @@ export class AddDemandeCourseComponent implements OnInit {
   private bindDataMotifSelect2() {
     this.dataMotifSelect2 = [];
     this.dataMotifSelect2.push({ id: '', text: '--'});
-    this.listeMotifs.forEach(motif => {
-      this.dataMotifSelect2.push({ id: motif.id.toString(), text: motif.libelle});
+    this.listeMotifs.forEach((motif: any) => {
+      const id = (motif.id || '').toString();
+      const text = motif.libelle || motif.text || '--';
+      this.dataMotifSelect2.push({ id, text });
     });
     this.setElementMotifSelected('', '--');
     this.cdr.detectChanges();
@@ -337,8 +341,10 @@ export class AddDemandeCourseComponent implements OnInit {
   private bindDataAgentSelect2() {
     this.dataAgentSelect2 = [];
     this.dataAgentSelect2.push({ id: '', text: '--'});
-    this.listUsers.forEach(user => {
-      this.dataAgentSelect2.push({ id: user.id.toString(), text: user.prenom +' ' +user.nom});
+    this.listUsers.forEach((user: any) => {
+      const id = (user.id || '').toString();
+      const text = (user.prenom || '') + ' ' + (user.nom || user.name || '');
+      this.dataAgentSelect2.push({ id, text: text.trim() || user.email || '--' });
     });
     this.setElementAgentSelected('', '--');
     this.cdr.detectChanges();
@@ -370,8 +376,12 @@ export class AddDemandeCourseComponent implements OnInit {
     this.form.get('date_retour')?.setValue(demandeCourse.date_depart.substring(0,10));
     this.form.get('heure_depart')?.setValue(demandeCourse.heure_depart.substring(0,5));
     this.form.get('heure_retour')?.setValue(demandeCourse.heure_depart.substring(0,5));
-    this.setElementMotifSelected(demandeCourse.motif.id.toString(), '');
-    this.setElementTypeVehiculeSelected(demandeCourse.type_vehicule.id.toString(), '');
+    if (demandeCourse.motif?.id) {
+      this.setElementMotifSelected(demandeCourse.motif.id.toString(), '');
+    }
+    if (demandeCourse.type_vehicule?.id) {
+      this.setElementTypeVehiculeSelected(demandeCourse.type_vehicule.id.toString(), '');
+    }
 
     if (this.user?.id != demandeCourse.beneficiaire?.id && this.user?.id == demandeCourse.user?.id) { // Demande créée pour un autre agent
       this.setElementAgentSelected(demandeCourse.beneficiaire.id.toString(),'');
