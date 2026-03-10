@@ -52,14 +52,14 @@ export class UtilisateurComponent implements OnInit {
     this.ngxService.start();
     this.userService.getListUser().subscribe({
       next: value => {
-        if (value && value.data) {
-          this.listeUser = value.data;
+        if (value) {
+          this.listeUser = value.data ? value.data : value;
           this.originalListeUser = this.listeUser;
           this.totalItems = this.originalListeUser.length;
         } else {
           this.listeUser = [];
           this.originalListeUser = [];
-          this.totalItems = this.originalListeUser.length;
+          this.totalItems = 0;
         }
         this.ngxService.stop();
       },
