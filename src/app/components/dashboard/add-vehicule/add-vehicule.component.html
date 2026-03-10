@@ -56,7 +56,7 @@
  <div>
  <ng-select bindLabel="text" bindValue="id" id="disponibilite" (change)="handleSelectDisponibiliteChange($event)"
  [items]="dataDisponibiliteSelect2"
-
+ appendTo="body" formControlName="disponibilite"
  [class.has-success]="!form.get('disponibilite')?.errors && formSubmitted"
  [class.has-danger]="form.get('disponibilite')?.errors && formSubmitted"
  [placeholder]="'Veuillez sélectionner une disponibilité'">
@@ -85,7 +85,7 @@
 
  <ng-select bindLabel="text" bindValue="id" id="type_vehicule_id" (change)="handleSelectTypeVehiculeChange($event)"
  [items]="dataTypeVehiculeSelect2"
-
+ appendTo="body" formControlName="type_vehicule_id"
  [class.has-success]="!form.get('type_vehicule_id')?.errors && formSubmitted"
  [class.has-danger]="form.get('type_vehicule_id')?.errors && formSubmitted"
  [placeholder]="'Veuillez sélectionner un type de véhicule'">
