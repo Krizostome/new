@@ -114,7 +114,7 @@
 </div>
 <div>
  <ng-select bindLabel="text" bindValue="id" id="chauffeur_id" (change)="handleSelectChauffeurChange($event)"
- [items]="dataChauffeurSelect2" bindLabel="text" bindValue="id"
+ [items]="dataChauffeurSelect2" appendTo="body"
  [(ngModel)]="chauffeurId" [ngModelOptions]="{standalone: true}"
  [class.has-success]="!form.get('chauffeur_id')?.errors && formSubmitted"
  [class.has-danger]="form.get('chauffeur_id')?.errors && formSubmitted"
@@ -127,7 +127,7 @@
 </div>
 <div>
  <ng-select bindLabel="text" bindValue="id" id="vehicule_id" (change)="handleSelectVehiculeChange($event)"
- [items]="dataVehiculeSelect2" bindLabel="text" bindValue="id"
+ [items]="dataVehiculeSelect2" appendTo="body"
  [(ngModel)]="vehiculeId" [ngModelOptions]="{standalone: true}"
  [class.has-success]="!form.get('vehicule_id')?.errors && formSubmitted"
  [class.has-danger]="form.get('vehicule_id')?.errors && formSubmitted"

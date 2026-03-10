@@ -17,8 +17,8 @@ describe('AddDemandeCourseComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ AddDemandeCourseComponent ],
-      imports: [ ToastrModule.forRoot(), HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule, NgbModule , ToastrModule.forRoot(), HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule, NgbModule, GoogleMapsModule, NgSelectModule, DataTablesModule],
-      providers: [ DatePipe , DatePipe]
+      imports: [ ToastrModule.forRoot(), HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule, NgbModule, GoogleMapsModule, NgSelectModule, DataTablesModule],
+      providers: [ DatePipe ]
     })
     .compileComponents();
   });

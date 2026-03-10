@@ -235,10 +235,12 @@
  <div>
 
  <ng-select
+ bindLabel="text"
+ bindValue="id"
  id="vehicule"
  (change)="handleSelectVehiculeChange($event)"
  [items]="dataVehiculeSelect2"
-
+ appendTo="body" formControlName="vehicule"
 
  [placeholder]="'Veuillez sélectionner un véhicule'">
 
@@ -256,10 +258,12 @@
  <div>
 
  <ng-select
+ bindLabel="text"
+ bindValue="id"
  id="chauffeur"
  (change)="handleSelectChauffeurChange($event)"
  [items]="dataChauffeurSelect2"
-
+ appendTo="body" formControlName="chauffeur"
 
  [placeholder]="'Veuillez sélectionner un chauffeur'">
 

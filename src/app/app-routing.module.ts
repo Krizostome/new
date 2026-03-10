@@ -28,7 +28,6 @@ import {administrationGuard} from "./guards/administration.guard";
 import {JournalSmsComponent} from "./components/dashboard/journal-sms/journal-sms.component";
 
 const routes: Routes = [
-
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 

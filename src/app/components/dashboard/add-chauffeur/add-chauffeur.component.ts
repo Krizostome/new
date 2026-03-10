@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -47,7 +47,8 @@ export class AddChauffeurComponent implements OnInit {
 
   constructor(private ngxService: NgxUiLoaderService, private chauffeursService: ChauffeursService,
     private utilsService: UtilsService, private modalService: NgbModal, private router: Router,
-    private formBuilder: UntypedFormBuilder, private vehiculesService: VehiculesService, private activatedRoute: ActivatedRoute) {
+    private formBuilder: UntypedFormBuilder, private vehiculesService: VehiculesService, private activatedRoute: ActivatedRoute,
+    private cdr: ChangeDetectorRef) {
       this.form = formBuilder.group(
         {
           matricule: ['',Validators.required],
@@ -77,8 +78,11 @@ export class AddChauffeurComponent implements OnInit {
     this.ngxService.start();
     this.vehiculesService.getCategoriePermis().subscribe({
       next: value => {
-        this.typePermis = value.data;
-        this.bindDataCategoriePermisSelect2();
+        if (value) {
+          this.typePermis = value.data?.data || value.data || value.categorie_permis || (Array.isArray(value) ? value : []);
+          this.bindDataCategoriePermisSelect2();
+          this.cdr.detectChanges();
+        }
         this.ngxService.stop();
       },
       error: err => {
@@ -94,8 +98,11 @@ export class AddChauffeurComponent implements OnInit {
   getListAgents(): void {
     this.chauffeursService.getListAgents().subscribe({
       next: value => {
-        this.usersList = value.data;
-        this.bindDataUserSelect2();
+        if (value) {
+          this.usersList = value.data?.data || value.data || value.users || (Array.isArray(value) ? value : []);
+          this.bindDataUserSelect2();
+          this.cdr.detectChanges();
+        }
       },
       error: err => {
         this.ngxService.stop();
@@ -221,7 +228,9 @@ export class AddChauffeurComponent implements OnInit {
     this.dataUserSelect2 = [];
     this.dataUserSelect2.push({ id: '', text: '--'});
     this.usersList.forEach((user: any) => {
-      this.dataUserSelect2.push({ id: user.id.toString(), text: user.nom + ' ' + user.prenom});
+      const id = (user.id || '').toString();
+      const text = (user.prenom || '') + ' ' + (user.nom || user.name || '');
+      this.dataUserSelect2.push({ id, text: text.trim() || user.email || '--' });
     });
     this.setElementUserSelected('', '--');
   }
@@ -242,7 +251,9 @@ export class AddChauffeurComponent implements OnInit {
     this.dataCategoriePermisSelect2 = [];
     this.dataCategoriePermisSelect2.push({ id: '', text: '--'});
     this.typePermis.forEach((type_permis: any) => {
-      this.dataCategoriePermisSelect2.push({ id: type_permis.id.toString(), text: type_permis.libelle});
+      const id = (type_permis.id || '').toString();
+      const text = type_permis.libelle || type_permis.text || '--';
+      this.dataCategoriePermisSelect2.push({ id, text });
     });
     this.setElementCategoriePermisSelected('', '--');
   }

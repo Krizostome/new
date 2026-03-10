@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren, ChangeDetectorRef } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subject } from 'rxjs';
@@ -44,7 +44,8 @@ export class HistoriqueChauffeursComponent implements OnInit {
   originalHistoriquesChauffeurs: any;
 
   constructor(private historiquesService: HistoriquesService, private chauffeursService: ChauffeursService, private ngxService: NgxUiLoaderService,
-    private utilsService: UtilsService, private formBuilder: UntypedFormBuilder, private noteService: NoteService,) {
+    private utilsService: UtilsService, private formBuilder: UntypedFormBuilder, private noteService: NoteService,
+    private cdr: ChangeDetectorRef) {
     this.form = formBuilder.group(
       {
         date_debut: ['',],
@@ -109,10 +110,11 @@ export class HistoriqueChauffeursComponent implements OnInit {
     this.historiquesService.getHistoriquesPerformancesChauffeurs(body).subscribe({
       next: value => {
 
-        if (value && value.data) {
-          this.historiquesChauffeurs = value.data;
+        if (value) {
+          this.historiquesChauffeurs = value.data?.data || value.data || (Array.isArray(value) ? value : []);
           this.originalHistoriquesChauffeurs = this.historiquesChauffeurs;
           this.totalItems = this.originalHistoriquesChauffeurs.length;
+          this.cdr.detectChanges();
           
         } else {
           this.historiquesChauffeurs = [];
@@ -135,8 +137,10 @@ export class HistoriqueChauffeursComponent implements OnInit {
   getChauffeurs(): void {
     this.chauffeursService.getChauffeurs().subscribe({
       next: value => {
-        this.chauffeurList = value.data;
-        this.binddataChauffeurSelect2();
+        if (value) {
+          this.chauffeurList = value.data?.data || value.data || value.chauffeurs || (Array.isArray(value) ? value : []);
+          this.binddataChauffeurSelect2();
+        }
       },
       error: err => {
         this.ngxService.stop();
@@ -153,7 +157,9 @@ export class HistoriqueChauffeursComponent implements OnInit {
     this.dataChauffeurSelect2 = [];
     this.dataChauffeurSelect2.push({ id: '', text: '--' });
     this.chauffeurList.forEach((chauffeur: any) => {
-      this.dataChauffeurSelect2.push({ id: chauffeur.id.toString(), text: chauffeur.user.nom + ' ' + chauffeur.user.prenom });
+      const id = (chauffeur.id || '').toString();
+      const text = (chauffeur?.user?.nom || '') + ' ' + (chauffeur?.user?.prenom || '');
+      this.dataChauffeurSelect2.push({ id, text: text.trim() || '--' });
     });
     this.setElementChauffeurSelected('', '--');
   }

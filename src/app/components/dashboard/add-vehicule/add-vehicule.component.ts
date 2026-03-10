@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute,  Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -40,7 +40,8 @@ export class AddVehiculeComponent implements OnInit {
 
   constructor(private ngxService: NgxUiLoaderService, private vehiculesService: VehiculesService, 
     private utilsService: UtilsService, private modalService: NgbModal, private router: Router, 
-    private formBuilder: UntypedFormBuilder, private activatedRoute: ActivatedRoute) {
+    private formBuilder: UntypedFormBuilder, private activatedRoute: ActivatedRoute,
+    private cdr: ChangeDetectorRef) {
       this.form = formBuilder.group(
         {
           immatr: ['',Validators.required],
@@ -66,8 +67,11 @@ export class AddVehiculeComponent implements OnInit {
     this.ngxService.start();
     this.vehiculesService.getTypesVehicules().subscribe({
       next: value => {
-        this.types_vehicules = value.data;
-        this.bindDataTypeVehiculeSelect2();
+        if (value) {
+          this.types_vehicules = value.data?.data || value.data?.type_vehicules || value.data?.types_vehicules || value.type_vehicules || value.types_vehicules || value.data || (Array.isArray(value) ? value : []);
+          this.bindDataTypeVehiculeSelect2();
+          this.cdr.detectChanges();
+        }
         this.ngxService.stop();
       },
       error: err => {
@@ -213,7 +217,9 @@ export class AddVehiculeComponent implements OnInit {
     this.dataTypeVehiculeSelect2 = [];
     this.dataTypeVehiculeSelect2.push({ id: '', text: '--'});
     this.types_vehicules.forEach((typeVehicule: any) => {
-      this.dataTypeVehiculeSelect2.push({ id: typeVehicule.id.toString(), text: typeVehicule.libelle});
+      const id = (typeVehicule.id || '').toString();
+      const text = typeVehicule.libelle || typeVehicule.text || typeVehicule.libelle_type || '--';
+      this.dataTypeVehiculeSelect2.push({ id, text });
     });
     this.setElementTypeVehiculeSelected('', '--');
   }

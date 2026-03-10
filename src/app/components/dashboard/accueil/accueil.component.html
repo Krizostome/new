@@ -1,62 +1,332 @@
-<div class="container-fluid py-4">
-    <!-- Welcome Header Card -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card shadow-sm border-0 overflow-hidden" style="border-radius: 15px;">
-                <div class="card-body p-0">
-                    <div class="row g-0">
-                        <div class="col-md-4 d-flex align-items-center justify-content-center bg-light p-4">
-                            <img src="assets/img/parc-logo.png" alt="PAC Logo" style="max-width: 200px;" class="mb-4">
-                        </div>
-                        <div class="col-md-8 p-4 d-flex flex-column justify-content-center">
-                            <h2 class="text-primary mb-3" style="font-weight: 700; letter-spacing: -0.5px;">
-                                BIENVENUE SUR LA PLATEFORME DE GESTION DU PARC AUTOMOBILE
-                            </h2>
-                            <p class="lead text-muted mb-4">
-                                Cette application permet au <strong>Port Autonome de Cotonou</strong> de gérer efficacement sa flotte de véhicules, les chauffeurs et les demandes de courses.
-                            </p>
-                            <hr class="my-4 opacity-25">
-                            <div class="row g-3">
-                                <div class="col-sm-6">
-                                    <div class="p-3 bg-info bg-opacity-10 rounded-3 border border-info border-opacity-25 h-100 cursor-pointer hover-shadow transition" routerLink="/dashboard/demande/nouveau" style="background: linear-gradient(135deg, #42d3e8 0%, #2196f3 100%); color: white;">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <h5 class="mb-1 fw-bold">Nouvelle Demande</h5>
-                                                <small class="opacity-75">Créer une demande de course</small>
-                                            </div>
-                                            <i class="fas fa-plus-circle fa-2x opacity-50"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="p-3 bg-success bg-opacity-10 rounded-3 border border-success border-opacity-25 h-100 cursor-pointer hover-shadow transition" routerLink="/dashboard/demandes-en-cours" style="background: linear-gradient(135deg, #4ade80 0%, #06b6d4 100%); color: white;">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <h5 class="mb-1 fw-bold">Suivi des Courses</h5>
-                                                <small class="opacity-75">Voir les demandes en cours</small>
-                                            </div>
-                                            <i class="fas fa-car fa-2x opacity-50"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- ╔══════════════════════════════════════════════════╗ -->
+<!-- ║      FLEET MASTER — Page d'Accueil              ║ -->
+<!-- ╚══════════════════════════════════════════════════╝ -->
 
-<style>
-    .hover-shadow:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-    .transition {
-        transition: all 0.3s ease;
-    }
-    .cursor-pointer {
-        cursor: pointer;
-    }
-</style>
+<div class="page-wrapper">
+
+  <!-- ═══════════ HERO BANNER ═══════════ -->
+  <div class="hero-banner">
+    <div class="hero-shapes">
+      <div class="hs-circle hs-c1"></div>
+      <div class="hs-circle hs-c2"></div>
+      <div class="hs-stripe"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span class="live-dot"></span>
+          Système actif — 47 véhicules en ligne
+        </div>
+        <h1 class="hero-title">
+          Bienvenue sur votre<br>
+          <span class="hero-highlight">Parc Automobile</span>
+        </h1>
+        <p class="hero-sub">
+          Gérez votre flotte, vos conducteurs et vos missions depuis un seul tableau de bord centralisé.
+        </p>
+        <div class="hero-btns">
+          <button class="btn-primary-hero">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+            </svg>
+            Tableau de bord
+          </button>
+          <button class="btn-outline-hero">Voir les véhicules →</button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="float-card">
+          <div class="fc-bar"></div>
+          <div class="fc-head">
+            <span class="fc-live">● EN ROUTE</span>
+            <span class="fc-id">VH-047</span>
+          </div>
+          <div class="fc-plate">AB-512-CD</div>
+          <div class="fc-rows">
+            <div class="fc-row"><span>Modèle</span><strong>Toyota Hilux 2023</strong></div>
+            <div class="fc-row"><span>Conducteur</span><strong>M. Diallo</strong></div>
+            <div class="fc-row"><span>Mission</span><strong>Livraison Nord</strong></div>
+            <div class="fc-row">
+              <span>Carburant</span>
+              <div class="fc-fuel">
+                <div class="fc-fuel-bar"><div class="fc-fuel-fill"></div></div>
+                <strong>72%</strong>
+              </div>
+            </div>
+          </div>
+          <div class="fc-map">
+            <div class="fcm-grid"></div>
+            <div class="fcm-pin">
+              <div class="fcm-dot"></div>
+              <div class="fcm-pulse"></div>
+            </div>
+            <div class="fcm-line"></div>
+            <div class="fcm-dest"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ KPI STATS ═══════════ -->
+  <div class="section-block">
+    <div class="kpi-grid">
+
+      <div class="kpi-card" style="--kpi-color:#4974a5; --kpi-bg:rgba(73,116,165,.1)">
+        <div class="kpi-icon-wrap">🚗</div>
+        <div class="kpi-body">
+          <div class="kpi-val">47</div>
+          <div class="kpi-lbl">Véhicules Total</div>
+        </div>
+        <div class="kpi-trend trend-up">▲ +3 ce mois</div>
+        <div class="kpi-accent-bar"></div>
+      </div>
+
+      <div class="kpi-card" style="--kpi-color:#00b887; --kpi-bg:rgba(0,184,135,.1)">
+        <div class="kpi-icon-wrap">✅</div>
+        <div class="kpi-body">
+          <div class="kpi-val">34</div>
+          <div class="kpi-lbl">Véhicules Actifs</div>
+        </div>
+        <div class="kpi-trend trend-up">▲ 72% du parc</div>
+        <div class="kpi-accent-bar"></div>
+      </div>
+
+      <div class="kpi-card" style="--kpi-color:#0097c7; --kpi-bg:rgba(0,151,199,.1)">
+        <div class="kpi-icon-wrap">👷</div>
+        <div class="kpi-body">
+          <div class="kpi-val">28</div>
+          <div class="kpi-lbl">Conducteurs</div>
+        </div>
+        <div class="kpi-trend trend-neutral">● Stable</div>
+        <div class="kpi-accent-bar"></div>
+      </div>
+
+      <div class="kpi-card" style="--kpi-color:#e07b00; --kpi-bg:rgba(224,123,0,.1)">
+        <div class="kpi-icon-wrap">🔧</div>
+        <div class="kpi-body">
+          <div class="kpi-val">6</div>
+          <div class="kpi-lbl">En Maintenance</div>
+        </div>
+        <div class="kpi-trend trend-down">▼ -2 vs sem.</div>
+        <div class="kpi-accent-bar"></div>
+      </div>
+
+      <div class="kpi-card" style="--kpi-color:#7c5cbf; --kpi-bg:rgba(124,92,191,.1)">
+        <div class="kpi-icon-wrap">🗺️</div>
+        <div class="kpi-body">
+          <div class="kpi-val">12</div>
+          <div class="kpi-lbl">Missions en cours</div>
+        </div>
+        <div class="kpi-trend trend-up">▲ +4 aujourd'hui</div>
+        <div class="kpi-accent-bar"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ DASHBOARD GRID ═══════════ -->
+  <div class="section-block">
+    <div class="dash-grid">
+
+      <!-- ── COL GAUCHE ── -->
+      <div class="dash-col">
+
+        <!-- Flotte active -->
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-title"><span class="ptitle-icon">🚗</span> Flotte Active</h2>
+            <a href="#" class="link-more">Voir tout →</a>
+          </div>
+          <div class="table-wrap">
+            <table class="fleet-table">
+              <thead>
+                <tr>
+                  <th>Immatriculation</th>
+                  <th>Modèle</th>
+                  <th>Conducteur</th>
+                  <th>Statut</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let v of vehicles" class="fleet-row">
+                  <td><span class="plate">{{ v.plate }}</span></td>
+                  <td>{{ v.model }}</td>
+                  <td>{{ v.driver || '—' }}</td>
+                  <td><span class="status-badge" [ngClass]="v.statusClass">{{ v.status }}</span></td>
+                  <td><button class="btn-eye">👁</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Missions -->
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-title"><span class="ptitle-icon">🗺️</span> Missions en Cours</h2>
+            <button class="btn-add">+ Nouvelle</button>
+          </div>
+          <div class="mission-list">
+            <div class="mission-card" *ngFor="let m of missions">
+              <div class="mc-top">
+                <span class="mc-id">{{ m.id }}</span>
+                <span class="mc-badge" [ngClass]="'ms-' + m.status">{{ m.statusLabel }}</span>
+              </div>
+              <div class="mc-route">
+                <div class="mcp mcp-from">
+                  <div class="mcp-dot mcp-dot-blue"></div>
+                  <span>{{ m.from }}</span>
+                </div>
+                <div class="mcp-line"></div>
+                <div class="mcp mcp-to">
+                  <div class="mcp-dot mcp-dot-orange"></div>
+                  <span>{{ m.to }}</span>
+                </div>
+              </div>
+              <div class="mc-meta">
+                <span>🚗 {{ m.vehicle }}</span>
+                <span>👤 {{ m.driver }}</span>
+                <span>📅 {{ m.date }}</span>
+              </div>
+              <div class="mc-prog-wrap">
+                <div class="mc-prog-bar">
+                  <div class="mc-prog-fill" [style.width]="m.progress + '%'"></div>
+                </div>
+                <span>{{ m.progress }}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── COL DROITE ── -->
+      <div class="dash-col">
+
+        <!-- Géolocalisation -->
+        <div class="panel panel-no-pad">
+          <div class="panel-head panel-head-pad">
+            <h2 class="panel-title"><span class="ptitle-icon">📍</span> Localisation Flotte</h2>
+            <a href="#" class="link-more">Carte complète →</a>
+          </div>
+          <div class="map-zone">
+            <div class="map-bg-grid"></div>
+
+            <!-- Routes simulées -->
+            <svg class="map-svg" viewBox="0 0 520 300" fill="none">
+              <path d="M80 200 Q180 140 260 160 Q340 180 420 110" stroke="#4974a5" stroke-width="1.5" stroke-dasharray="6 4" opacity=".4"/>
+              <path d="M120 240 Q200 200 300 220 Q380 235 460 190" stroke="#00b887" stroke-width="1.5" stroke-dasharray="6 4" opacity=".3"/>
+            </svg>
+
+            <!-- Pins GPS -->
+            <div class="gps-pin" style="left:28%;top:58%">
+              <div class="gpin-dot gpin-blue"></div>
+              <div class="gpin-ripple ripple-blue"></div>
+              <div class="gpin-lbl">AB-512-CD</div>
+            </div>
+            <div class="gps-pin" style="left:55%;top:42%">
+              <div class="gpin-dot gpin-blue"></div>
+              <div class="gpin-ripple ripple-blue"></div>
+              <div class="gpin-lbl">GH-234-EF</div>
+            </div>
+            <div class="gps-pin" style="left:70%;top:65%">
+              <div class="gpin-dot gpin-green"></div>
+              <div class="gpin-ripple ripple-green"></div>
+              <div class="gpin-lbl">QR-321-ST</div>
+            </div>
+            <div class="gps-pin" style="left:42%;top:75%">
+              <div class="gpin-dot gpin-orange"></div>
+              <div class="gpin-lbl">MN-101-OP</div>
+            </div>
+            <div class="gps-pin" style="left:80%;top:30%">
+              <div class="gpin-dot gpin-red"></div>
+              <div class="gpin-lbl">IJ-890-KL</div>
+            </div>
+
+            <div class="map-legend">
+              <span><i class="leg-dot leg-blue"></i> En route</span>
+              <span><i class="leg-dot leg-green"></i> Disponible</span>
+              <span><i class="leg-dot leg-orange"></i> À l'arrêt</span>
+              <span><i class="leg-dot leg-red"></i> Maintenance</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alertes -->
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-title"><span class="ptitle-icon">🔔</span> Alertes</h2>
+            <span class="count-badge">3</span>
+          </div>
+          <div class="alerts-list">
+
+            <div class="alert-row alert-danger">
+              <span class="alert-ico">⚠️</span>
+              <div class="alert-body">
+                <strong>Vidange urgente — AB-512-CD</strong>
+                <span>Kilométrage dépassé. Intervention immédiate requise.</span>
+              </div>
+              <span class="alert-ago">5 min</span>
+            </div>
+
+            <div class="alert-row alert-warning">
+              <span class="alert-ico">⛽</span>
+              <div class="alert-body">
+                <strong>Carburant faible — MN-101-OP</strong>
+                <span>Niveau à 12%. Ravitaillement recommandé.</span>
+              </div>
+              <span class="alert-ago">23 min</span>
+            </div>
+
+            <div class="alert-row alert-info">
+              <span class="alert-ico">📋</span>
+              <div class="alert-body">
+                <strong>Assurance à renouveler</strong>
+                <span>3 véhicules dont l'assurance expire dans 30 jours.</span>
+              </div>
+              <span class="alert-ago">Hier</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Maintenances -->
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-title"><span class="ptitle-icon">🔧</span> Maintenances Planifiées</h2>
+            <a href="#" class="link-more">Calendrier →</a>
+          </div>
+          <div class="maint-list">
+            <div class="maint-row" *ngFor="let m of maintenances">
+              <div class="maint-date">
+                <strong>{{ m.day }}</strong>
+                <span>{{ m.month }}</span>
+              </div>
+              <div class="maint-info">
+                <strong>{{ m.vehicle }}</strong>
+                <span>{{ m.type }}</span>
+              </div>
+              <span class="maint-badge" [ngClass]="'urg-' + m.urgency">{{ m.urgencyLabel }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ ACTIONS RAPIDES ═══════════ -->
+  <div class="section-block">
+    <h2 class="section-title">Actions Rapides</h2>
+    <div class="qa-grid">
+      <div class="qa-card" *ngFor="let qa of quickActions">
+        <div class="qa-icon" [style.background]="qa.bg">{{ qa.emoji }}</div>
+        <span>{{ qa.label }}</span>
+      </div>
+    </div>
+  </div>
+
+</div>

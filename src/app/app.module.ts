@@ -53,7 +53,7 @@ import { JournalSmsComponent } from './components/dashboard/journal-sms/journal-
 @NgModule({
   declarations: [
     AppComponent,MainComponent,EmptyComponent,HeaderComponent,
-    FooterComponent,SidebarComponent,AccueilComponent,DemandesCoursesComponent,
+    FooterComponent,SidebarComponent,DemandesCoursesComponent,
     AddDemandeCourseComponent,LoginComponent,VehiculesComponent,AddVehiculeComponent,
     AddChauffeurComponent,PalnningGardeComponent,AddPalnningGardeComponent,
     ChauffeursComponent,AddChauffeurComponent,DetailsDemandeComponent,DetailsVehiculeComponent,
@@ -77,6 +77,7 @@ import { JournalSmsComponent } from './components/dashboard/journal-sms/journal-
       preventDuplicates: true
     }),
     GoogleMapsModule,
+    AccueilComponent 
 
   ],
   providers: [
