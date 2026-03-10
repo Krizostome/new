@@ -12,7 +12,6 @@ import {Motif} from "../../../models/motif";
 import {DatePipe} from "@angular/common";
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user.service";
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
     standalone: false,
