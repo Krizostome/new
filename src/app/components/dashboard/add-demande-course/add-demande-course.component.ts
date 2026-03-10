@@ -138,7 +138,7 @@ export class AddDemandeCourseComponent implements OnInit {
       point_destination: this.form.get('point_destination')?.value,
       nbre_personnes: this.form.get('nbr_personnes')?.value,
       objet: this.form.get('objet')?.value,
-      type_vehicule: this.form.get('type_vehicule')?.value,
+      type_vehicule_id: this.form.get('type_vehicule')?.value,
       motif: this.form.get('motif')?.value,
       escales: this.form.get('escales')?.value,
       date_depart:this.form.get('date_depart')?.value,
@@ -163,7 +163,7 @@ export class AddDemandeCourseComponent implements OnInit {
       return ;
     }
 
-    if (['',null,undefined].includes(demandeCourse.type_vehicule)) {
+    if (['',null,undefined].includes(demandeCourse.type_vehicule_id)) {
       this.utilsService.showErreurMessage('Erreur','Veuillez sélectionner une catégorie de véhicule');
       return ;
     }

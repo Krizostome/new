@@ -194,8 +194,8 @@ export class DemandesCoursesComponent implements OnInit {
     this.ngxService.start();
     this.demandesCoursesService.getAllDemandesDeCourses(this.user?.id, this.user?.role?.libelle).subscribe({
       next: value => {
-        if (value && value.data) {
-          this.listeDemandesDeCourses = value.data;
+        if (value) {
+          this.listeDemandesDeCourses = value.data ? value.data : value;
           this.originalListeDemandesDeCourses = this.listeDemandesDeCourses;
           this.totalItems = this.originalListeDemandesDeCourses.length;
         } else {
