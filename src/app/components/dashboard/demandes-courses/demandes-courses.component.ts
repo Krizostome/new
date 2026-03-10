@@ -124,8 +124,8 @@ export class DemandesCoursesComponent implements OnInit {
     this.ngxService.start();
     this.demandesCoursesService.searchDemandeCourse(data).subscribe({
       next: (value : any) => {
-        if (value && value.data) {
-          this.listeDemandesDeCourses = value.data;
+        if (value) {
+          this.listeDemandesDeCourses = value.data || value.demande_courses || (Array.isArray(value) ? value : []);
           this.debut = value.debut;
           this.fin = value.fin;
           this.originalListeDemandesDeCourses = this.listeDemandesDeCourses;
@@ -195,7 +195,7 @@ export class DemandesCoursesComponent implements OnInit {
     this.demandesCoursesService.getAllDemandesDeCourses(this.user?.id, this.user?.role?.libelle).subscribe({
       next: value => {
         if (value) {
-          this.listeDemandesDeCourses = value.data ? value.data : value;
+          this.listeDemandesDeCourses = value.data || value.demande_courses || (Array.isArray(value) ? value : []);
           this.originalListeDemandesDeCourses = this.listeDemandesDeCourses;
           this.totalItems = this.originalListeDemandesDeCourses.length;
         } else {
@@ -315,8 +315,10 @@ export class DemandesCoursesComponent implements OnInit {
   private bindDataVehiculeSelect2() {
     this.dataVehiculeSelect2 = [];
     this.dataVehiculeSelect2.push({ id: '', text: '--'});
-    this.listeVehicules.forEach(vehicule => {
-      this.dataVehiculeSelect2.push({ id: vehicule.id.toString(), text: vehicule.immatr +' - ' +vehicule.marque});
+    this.listeVehicules.forEach((vehicule: any) => {
+      const id = (vehicule.id || '').toString();
+      const text = (vehicule.immatr || '') + ' - ' + (vehicule.marque || '');
+      this.dataVehiculeSelect2.push({ id, text: text.trim() === '-' ? '--' : text });
     });
     this.setElementVehiculeSelected('', '--');
   }
@@ -336,8 +338,10 @@ export class DemandesCoursesComponent implements OnInit {
   private bindDataChauffeurSelect2() {
     this.dataChauffeurSelect2 = [];
     this.dataChauffeurSelect2.push({ id: '', text: '--'});
-    this.listeChauffeurs.forEach(chauffeur => {
-      this.dataChauffeurSelect2.push({ id: chauffeur.id.toString(), text: chauffeur?.user?.prenom +' - ' +chauffeur?.user?.nom});
+    this.listeChauffeurs.forEach((chauffeur: any) => {
+      const id = (chauffeur.id || '').toString();
+      const text = (chauffeur?.user?.prenom || '') + ' - ' + (chauffeur?.user?.nom || '');
+      this.dataChauffeurSelect2.push({ id, text: text.trim() === '-' ? '--' : text });
     });
     this.setElementChauffeurSelected('', '--');
   }

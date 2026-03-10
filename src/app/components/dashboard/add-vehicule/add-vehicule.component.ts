@@ -66,8 +66,10 @@ export class AddVehiculeComponent implements OnInit {
     this.ngxService.start();
     this.vehiculesService.getTypesVehicules().subscribe({
       next: value => {
-        this.types_vehicules = value.data;
-        this.bindDataTypeVehiculeSelect2();
+        if (value) {
+          this.types_vehicules = value.data?.data || value.data || value.type_vehicules || (Array.isArray(value) ? value : []);
+          this.bindDataTypeVehiculeSelect2();
+        }
         this.ngxService.stop();
       },
       error: err => {
@@ -213,7 +215,9 @@ export class AddVehiculeComponent implements OnInit {
     this.dataTypeVehiculeSelect2 = [];
     this.dataTypeVehiculeSelect2.push({ id: '', text: '--'});
     this.types_vehicules.forEach((typeVehicule: any) => {
-      this.dataTypeVehiculeSelect2.push({ id: typeVehicule.id.toString(), text: typeVehicule.libelle});
+      const id = (typeVehicule.id || '').toString();
+      const text = typeVehicule.libelle || typeVehicule.text || typeVehicule.libelle_type || '--';
+      this.dataTypeVehiculeSelect2.push({ id, text });
     });
     this.setElementTypeVehiculeSelected('', '--');
   }

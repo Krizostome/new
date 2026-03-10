@@ -137,15 +137,15 @@ export class HistoriqueDemandesComponent implements OnInit {
 
     this.historiquesService.getHistoriquesDemandes(body).subscribe({
       next: value => {
-        if (value && value.data) {
-          this.historiquesDemandes = value.data;
+        if (value) {
+          this.historiquesDemandes = value.data?.data || value.data || value.demande_courses || (Array.isArray(value) ? value : []);
 
           this.originalHistoriquesDemandes = this.historiquesDemandes;
           this.totalItems = this.originalHistoriquesDemandes.length;
 
-          this.demandesEncours = value.demandesEncours;
-          this.demandesNouvelles = value.demandesNouvelles;
-          this.demandesTerminees = value.demandesTerminees;
+          this.demandesEncours = value.demandesEncours || 0;
+          this.demandesNouvelles = value.demandesNouvelles || 0;
+          this.demandesTerminees = value.demandesTerminees || 0;
 
         } else {
           this.historiquesDemandes = [];
@@ -173,8 +173,10 @@ export class HistoriqueDemandesComponent implements OnInit {
     this.ngxService.start();
     this.chauffeursService.getChauffeurs().subscribe({
       next: value => {
-        this.chauffeurList = value.data;
-        this.binddataChauffeurSelect2();
+        if (value) {
+          this.chauffeurList = value.data?.data || value.data || value.chauffeurs || (Array.isArray(value) ? value : []);
+          this.binddataChauffeurSelect2();
+        }
       },
       error: err => {
         this.ngxService.stop();
@@ -191,7 +193,9 @@ export class HistoriqueDemandesComponent implements OnInit {
     this.dataChauffeurSelect2 = [];
     this.dataChauffeurSelect2.push({ id: '', text: '--' });
     this.chauffeurList.forEach((chauffeur: any) => {
-      this.dataChauffeurSelect2.push({ id: chauffeur.id.toString(), text: chauffeur.user.nom + ' ' + chauffeur.user.prenom });
+      const id = (chauffeur.id || '').toString();
+      const text = (chauffeur?.user?.nom || '') + ' ' + (chauffeur?.user?.prenom || '');
+      this.dataChauffeurSelect2.push({ id, text: text.trim() || '--' });
     });
     this.setElementChauffeurSelected('', '--');
   }
@@ -213,8 +217,10 @@ export class HistoriqueDemandesComponent implements OnInit {
     this.ngxService.start();
     this.vehiculesService.getListVehicules().subscribe({
       next: value => {
-        this.vehiculeList = value.data;
-        this.binddataVehiculeSelect2();
+        if (value) {
+          this.vehiculeList = value.data?.data || value.data || value.vehicules || (Array.isArray(value) ? value : []);
+          this.binddataVehiculeSelect2();
+        }
       },
       error: err => {
         this.ngxService.stop();
@@ -231,7 +237,9 @@ export class HistoriqueDemandesComponent implements OnInit {
     this.dataVehiculeSelect2 = [];
     this.dataVehiculeSelect2.push({ id: '', text: '--' });
     this.vehiculeList.forEach((vehicule: any) => {
-      this.dataVehiculeSelect2.push({ id: vehicule.id.toString(), text: vehicule.immatr });
+      const id = (vehicule.id || '').toString();
+      const text = vehicule.immatr || vehicule.marque || '--';
+      this.dataVehiculeSelect2.push({ id, text });
     });
     this.setElementVehiculeSelected('', '--');
   }
@@ -253,8 +261,10 @@ export class HistoriqueDemandesComponent implements OnInit {
     this.ngxService.start();
     this.historiquesService.getDirections().subscribe({
       next: value => {
-        this.directionList = value.data;
-        this.binddataDirectionSelect2();
+        if (value) {
+          this.directionList = value.data?.data || value.data || value.directions || (Array.isArray(value) ? value : []);
+          this.binddataDirectionSelect2();
+        }
       },
       error: err => {
         this.ngxService.stop();
@@ -266,12 +276,14 @@ export class HistoriqueDemandesComponent implements OnInit {
     });
   }
 
-  // Select2 for Véhicule
+  // Select2 for Direction
   private binddataDirectionSelect2() {
     this.dataDirectionSelect2 = [];
     this.dataDirectionSelect2.push({ id: '', text: '--' });
     this.directionList.forEach((direction: any) => {
-      this.dataDirectionSelect2.push({ id: direction.id.toString(), text: direction.libelle + ' (' + direction.code + ')' });
+      const id = (direction.id || '').toString();
+      const text = (direction.libelle || '') + (direction.code ? ' (' + direction.code + ')' : '');
+      this.dataDirectionSelect2.push({ id, text: text.trim() || '--' });
     });
     this.setElementDirectionSelected('', '--');
   }
