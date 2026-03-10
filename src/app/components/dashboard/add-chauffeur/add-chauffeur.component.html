@@ -25,7 +25,7 @@
  id="user_id"
  (change)="handleSelectUserChange($event)"
  [items]="dataUserSelect2"
-
+ appendTo="body" formControlName="user_id"
 
  [class.has-success]="!form.get('user_id')?.errors && formSubmitted"
  [class.has-danger]="form.get('user_id')?.errors && formSubmitted"
@@ -93,7 +93,7 @@
  id="disponibilite"
  (change)="handleSelectDisponibiliteChange($event)"
  [items]="dataDisponibiliteSelect2"
-
+ appendTo="body" formControlName="disponibilite"
 
  [class.has-success]="!form.get('disponibilite')?.errors && formSubmitted"
  [class.has-danger]="form.get('disponibilite')?.errors && formSubmitted"
@@ -113,7 +113,7 @@
  id="categorie_permis_id"
  (change)="handleSelectCategoriePermisChange($event)"
  [items]="dataCategoriePermisSelect2"
-
+ appendTo="body" formControlName="categorie_permis_id"
 
  [class.has-success]="!form.get('categorie_permis_id')?.errors && formSubmitted"
  [class.has-danger]="form.get('categorie_permis_id')?.errors && formSubmitted"

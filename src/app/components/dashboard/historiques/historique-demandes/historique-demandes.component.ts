@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subject } from 'rxjs';
@@ -56,7 +56,8 @@ export class HistoriqueDemandesComponent implements OnInit {
   originalHistoriquesDemandes: any;
 
   constructor(private historiquesService: HistoriquesService, private chauffeursService: ChauffeursService, private ngxService: NgxUiLoaderService,
-    private utilsService: UtilsService, private router: Router, private formBuilder: UntypedFormBuilder, private vehiculesService: VehiculesService,) {
+    private utilsService: UtilsService, private router: Router, private formBuilder: UntypedFormBuilder, private vehiculesService: VehiculesService,
+    private cdr: ChangeDetectorRef) {
     this.form = formBuilder.group(
       {
         date_debut: ['', Validators.required],
@@ -146,6 +147,7 @@ export class HistoriqueDemandesComponent implements OnInit {
           this.demandesEncours = value.demandesEncours || 0;
           this.demandesNouvelles = value.demandesNouvelles || 0;
           this.demandesTerminees = value.demandesTerminees || 0;
+          this.cdr.detectChanges();
 
         } else {
           this.historiquesDemandes = [];

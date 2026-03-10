@@ -36,6 +36,7 @@
           <div class="col-6 form-group">
             <div class="text-left"><label for="type_vehicule">Catégorie de véhicules</label> <span style="color:red"> *</span></div>
             <ng-select bindLabel="text" bindValue="id" id="type_vehicule" (change)="handleSelectTypeVehiculeChange($event)" [items]="dataTypeVehiculeSelect2"
+              appendTo="body" formControlName="type_vehicule"
               [class.has-success]="!form.get('type_vehicule')?.errors && formSubmitted" [class.has-danger]="form.get('type_vehicule')?.errors && formSubmitted"
               [placeholder]="'Veuillez sélectionner un type de véhicule'">
             </ng-select>
@@ -44,6 +45,7 @@
           <div class="col-6 form-group">
             <div class="text-left"><label for="motif">Motif</label> <span style="color:red"> *</span></div>
             <ng-select bindLabel="text" bindValue="id" id="motif" (change)="handleSelectMotifChange($event)" [items]="dataMotifSelect2"
+              appendTo="body" formControlName="motif"
               [class.has-success]="!form.get('motif')?.errors && formSubmitted" [class.has-danger]="form.get('motif')?.errors && formSubmitted"
               [placeholder]="'Veuillez sélectionner un motif'">
             </ng-select>
@@ -114,6 +116,7 @@
           <div class="col-6 form-group" *ngIf="isForAnotherAgent">
             <div class="text-left"><label for="agent">Sélectionner le bénéficiaire</label> <span style="color:red"> *</span></div>
             <ng-select bindLabel="text" bindValue="id" id="agent" (change)="handleSelectAgentChange($event)" [items]="dataAgentSelect2"
+              appendTo="body" formControlName="user"
               [class.has-success]="!form.get('user')?.errors && formSubmitted" [class.has-danger]="form.get('user')?.errors && formSubmitted"
               [placeholder]="'Veuillez sélectionner le bénéficiaire'">
             </ng-select>

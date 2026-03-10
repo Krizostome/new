@@ -39,7 +39,7 @@
  </div>
  <div>
  <ng-select bindLabel="text" bindValue="id" id="chauffeur_id" (change)="handleSelectChauffeurChange($event)"
- [items]="dataChauffeurSelect2"
+ [items]="dataChauffeurSelect2" appendTo="body" formControlName="chauffeur_id"
 
  [class.has-success]="!form.get('chauffeur_id')?.errors && formSubmitted"
  [class.has-danger]="form.get('chauffeur_id')?.errors && formSubmitted"
