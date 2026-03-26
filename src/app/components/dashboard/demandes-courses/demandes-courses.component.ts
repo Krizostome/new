@@ -303,8 +303,15 @@ export class DemandesCoursesComponent implements OnInit {
 
     openAffectationModal(content:any, demandeCourse: DemandeVehicule) {
       this.demandeCourseSelected = demandeCourse;
-      this.getAllChauffeurs();
-      this.getAllVehiculeByType(this.demandeCourseSelected.type_vehicule.id);
+
+      if (this.demandeCourseSelected.type_vehicule && this.demandeCourseSelected.type_vehicule.id) {
+        this.getAllChauffeurs();
+        this.getAllVehiculeByType(this.demandeCourseSelected.type_vehicule.id);
+      } else {
+        this.utilsService.showErreurMessage('Erreur', 'Impossible de récupérer la catégorie de véhicule pour cette demande.');
+        return;
+      }
+
       this.modalService.open(content, { ariaLabelledBy: 'affectation-modal-basic-title', size: 'xl' }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

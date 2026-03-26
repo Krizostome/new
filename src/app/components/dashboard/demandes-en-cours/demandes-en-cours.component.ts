@@ -145,8 +145,7 @@ export class DemandesEnCoursComponent implements OnInit {
       },
       error: err => {
         this.ngxService.stop();
-        // If the API for checking notations fails (e.g. 404), allow the user to proceed to add a demand anyway.
-        this.router.navigateByUrl('demande/nouveau');
+        this.utilsService.handleError(err);
       },
       complete: () => {
         this.ngxService.stop();
@@ -238,7 +237,7 @@ export class DemandesEnCoursComponent implements OnInit {
       },
       error: err => {
         this.ngxService.stop();
-        this.router.navigateByUrl('demande/nouveau');
+        this.utilsService.handleError(err);
       },
       complete: () => {
         this.ngxService.stop();
@@ -328,7 +327,7 @@ export class DemandesEnCoursComponent implements OnInit {
       },
       error: err => {
         this.ngxService.stop();
-        this.router.navigateByUrl('demande/nouveau');
+        this.utilsService.handleError(err);
       },
       complete: () => {
         this.ngxService.stop();
@@ -349,8 +348,15 @@ export class DemandesEnCoursComponent implements OnInit {
 
     openAffectationModal(content:any, demandeCourse: DemandeVehicule) {
       this.demandeCourseSelected = demandeCourse;
-      this.getAllChauffeurs();
-      this.getAllVehiculeByType(this.demandeCourseSelected.type_vehicule.id);
+
+      if (this.demandeCourseSelected.type_vehicule && this.demandeCourseSelected.type_vehicule.id) {
+        this.getAllChauffeurs();
+        this.getAllVehiculeByType(this.demandeCourseSelected.type_vehicule.id);
+      } else {
+        this.utilsService.showErreurMessage('Erreur', 'Impossible de récupérer la catégorie de véhicule pour cette demande.');
+        return;
+      }
+
       this.modalService.open(content, { ariaLabelledBy: 'affectation-modal-basic-title', size: 'xl' }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -532,7 +538,7 @@ export class DemandesEnCoursComponent implements OnInit {
       },
       error: err => {
         this.ngxService.stop();
-        this.router.navigateByUrl('demande/nouveau');
+        this.utilsService.handleError(err);
       },
       complete: () => {
         this.ngxService.stop();
@@ -572,7 +578,7 @@ export class DemandesEnCoursComponent implements OnInit {
       },
       error: err => {
         this.ngxService.stop();
-        this.router.navigateByUrl('demande/nouveau');
+        this.utilsService.handleError(err);
       },
       complete: () => {
         this.ngxService.stop();
@@ -612,7 +618,7 @@ export class DemandesEnCoursComponent implements OnInit {
       },
       error: err => {
         this.ngxService.stop();
-        this.router.navigateByUrl("demande/nouveau");
+        this.utilsService.handleError(err);
       },
       complete: () => {
         this.ngxService.stop();

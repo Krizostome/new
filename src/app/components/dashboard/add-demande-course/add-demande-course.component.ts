@@ -265,15 +265,8 @@ export class AddDemandeCourseComponent implements OnInit {
     this.demandesCoursesService.getAllTypesVehicules().subscribe({
       next: value => {
         if (value) {
-          // ✅ CORRECTION 4 : chaîne de fallback élargie pour couvrir toutes
-          // les structures de réponse possibles de l'API Laravel
-           console.log('=== REPONSE BRUTE vehicule/type ===', value);
-      console.log('=== TYPE ===', typeof value);
-      console.log('=== KEYS ===', Object.keys(value));
-
-          // ✅ CORRECTION 5 : appel de bindDataTypeVehiculeSelect2() garanti
-          // même si la liste est vide (évite que le ng-select reste vide)
-          
+          this.listeTypesVehicules = value.data?.data || value.data || value.type_vehicules || (Array.isArray(value) ? value : []);
+          this.bindDataTypeVehiculeSelect2();
         } else {
           this.listeTypesVehicules = [];
           this.bindDataTypeVehiculeSelect2(); // toujours construire le select (avec juste "--")
@@ -398,7 +391,7 @@ export class AddDemandeCourseComponent implements OnInit {
     this.dataAgentSelect2 = [{ id: '', text: '--' }];
     this.listUsers.forEach((user: any) => {
       const id   = (user.id || '').toString();
-      const text = ((user.prenom || '') + ' ' + (user.nom || user.name || '')).trim() || user.email || '--';
+      const text = ((user.prenom || '') + ' ' + (user.nom || user.name || user.libelle || '')).trim() || user.email || '--';
       this.dataAgentSelect2.push({ id, text });
     });
 
