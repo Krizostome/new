@@ -17,7 +17,7 @@ import {DataTablesModule} from "angular-datatables";
 import {ToastrModule} from "ngx-toastr";
 import { NgSelectModule } from '@ng-select/ng-select';
 import {
-  NgbModule, NgbPaginationModule
+  NgbModule, NgbPaginationModule, NgbTooltipModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { AddDemandeCourseComponent } from './components/dashboard/add-demande-course/add-demande-course.component';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -26,7 +26,7 @@ import { VehiculesComponent } from './components/dashboard/vehicules/vehicules.c
 import { AddVehiculeComponent } from './components/dashboard/add-vehicule/add-vehicule.component';
 import {NgxUiLoaderModule} from "ngx-ui-loader";
 import { AddChauffeurComponent } from './components/dashboard/add-chauffeur/add-chauffeur.component';
-import {DatePipe, HashLocationStrategy, LocationStrategy} from "@angular/common";
+import { CommonModule, DatePipe, HashLocationStrategy, LocationStrategy} from "@angular/common";
 import { PalnningGardeComponent } from './components/dashboard/palnning-garde/palnning-garde.component';
 import { AddPalnningGardeComponent } from './components/dashboard/add-palnning-garde/add-palnning-garde.component';
 import { ChauffeursComponent } from './components/dashboard/chauffeurs/chauffeurs.component';
@@ -49,6 +49,10 @@ import { UrlPipe } from './pipes/url.pipe';
 import {ApiInterceptor} from "./interceptors/api.interceptor";
 import {BnNgIdleService} from "bn-ng-idle";
 import { JournalSmsComponent } from './components/dashboard/journal-sms/journal-sms.component';
+import { AddEntiteComponent } from './components/dashboard/entite/add-entite/add-entite.component';
+import { ListEntiteComponent } from './components/dashboard/entite/list-entite/list-entite.component';
+import { AddUserComponent } from './components/dashboard/add-user/add-user.component';
+import { UpdateEntiteComponent } from './components/dashboard/entite/update-entite/update-entite.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,8 @@ import { JournalSmsComponent } from './components/dashboard/journal-sms/journal-
     ChauffeursComponent,AddChauffeurComponent,DetailsDemandeComponent,DetailsVehiculeComponent,
     DetailsChauffeurComponent,AffectationCourseComponent,UtilisateurComponent,UpdateUserComponent,
     DetailUtilisateurComponent,NoteCourseComponent,MapsComponent,NgbdSortableHeader,PaginationSlicePipe,
-    DemandesEnCoursComponent,HistoriqueDemandesComponent,HistoriqueChauffeursComponent,UrlPipe,JournalSmsComponent
+    DemandesEnCoursComponent,HistoriqueDemandesComponent,HistoriqueChauffeursComponent,UrlPipe,JournalSmsComponent,
+    AddEntiteComponent,ListEntiteComponent,AddUserComponent,UpdateEntiteComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +82,9 @@ import { JournalSmsComponent } from './components/dashboard/journal-sms/journal-
       preventDuplicates: true
     }),
     GoogleMapsModule,
-    AccueilComponent 
+    AccueilComponent,
+    NgbTooltipModule
+
 
   ],
   providers: [
@@ -89,3 +96,4 @@ import { JournalSmsComponent } from './components/dashboard/journal-sms/journal-
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+ 

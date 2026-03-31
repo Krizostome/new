@@ -1,143 +1,99 @@
 <div class="col-12 mx-auto">
- <div class="col-md-6 mb-2">
- <div class="justify-content-lg-start">
- <a routerLink="/chauffeurs" class="btn btn-sm btn-secondary add-infos text-white menu-font">
- <i class="fas fa-backward"></i> Retour
- </a>
- </div>
- </div>
- <form method="post" id="add-demande" (keyup.enter)="onSubmit()" [formGroup]="form" (submit)="onSubmit()">
- <div class="card mx-auto rounded-lg bg-white mb-3">
- <div class="card-header text-center bg-primary">
- <div class="mx-auto">{{modalTitle}}</div>
- </div>
+    <div class="col-md-6 mb-2">
+        <div class="justify-content-lg-start">
+            <a routerLink="/chauffeurs" class="btn btn-sm btn-secondary add-infos text-white menu-font">
+                <i class="fas fa-backward"></i> Retour
+            </a>
+        </div>
+    </div>
+    <form method="post" id="add-demande" (keyup.enter)="onSubmit()" [formGroup]="form" (submit)="onSubmit()">
+        <div class="card mx-auto rounded-lg bg-white mb-3">
+            <div class="card-header text-center bg-primary">
+                <div class="mx-auto">{{modalTitle}}</div>
+            </div>
 
- <div class="card-body">
+            <div class="card-body">
 
- <div class="row">
- <div class="col-6 form-group">
- <div class="text-left"><label for="user_id">Agent PAC<span style="color:red"> *</span></label>
- </div>
- <div>
- <ng-select
- bindLabel="text"
- bindValue="id"
- id="user_id"
- (change)="handleSelectUserChange($event)"
- [items]="dataUserSelect2"
- appendTo="body" formControlName="user_id"
-
- [class.has-success]="!form.get('user_id')?.errors && formSubmitted"
- [class.has-danger]="form.get('user_id')?.errors && formSubmitted"
- [placeholder]="'Veuillez sélectionner un agent'">
- </ng-select>
- </div>
- </div>
- <div class="col-6 form-group">
- <div class="text-left"><label for="matricule">Matricule</label> <span style="color:red">
+                <div class="row">
+                    <div class="col-6 form-group">
+                        <div class="text-left"><label for="user_id">Agent PAC<span style="color:red"> *</span></label>
+                        </div>
+                        <div>
+                            <ng-select bindLabel="text" bindValue="id" id="user_id" (change)="handleSelectUserChange($event)" [items]="dataUserSelect2" appendTo="body" formControlName="user_id" [class.has-success]="!form.get('user_id')?.errors && formSubmitted" [class.has-danger]="form.get('user_id')?.errors && formSubmitted"
+                                [placeholder]="'Veuillez sélectionner un agent'">
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-6 form-group">
+                        <div class="text-left"><label for="matricule">Matricule</label> <span style="color:red">
  *</span>
- </div>
- <div [class.has-success]="!form.get('matricule')?.errors && formSubmitted"
- [class.has-danger]="form.get('matricule')?.errors && formSubmitted">
- <input class="form-control form-control-sm" id="matricule" name="matricule"
- type="number" formControlName="matricule"
- [class.is-valid]="!form.get('matricule')?.errors && formSubmitted"
- [class.is-invalid]="form.get('matricule')?.errors && formSubmitted">
- </div>
- </div>
- </div>
- <div class="row">
- <div class="col-6 form-group">
- <div class="text-left"><label for="email">Email</label> <span style="color:red">
+                        </div>
+                        <div [class.has-success]="!form.get('matricule')?.errors && formSubmitted" [class.has-danger]="form.get('matricule')?.errors && formSubmitted">
+                            <input class="form-control form-control-sm" id="matricule" name="matricule" type="number" formControlName="matricule" [class.is-valid]="!form.get('matricule')?.errors && formSubmitted" [class.is-invalid]="form.get('matricule')?.errors && formSubmitted">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 form-group">
+                        <div class="text-left"><label for="email">Email</label> <span style="color:red">
  *</span>
- </div>
- <div [class.has-success]="!form.get('email')?.errors && formSubmitted"
- [class.has-danger]="form.get('email')?.errors && formSubmitted">
- <input class="form-control form-control-sm" id="email" name="email"
- type="email" formControlName="email"
- [class.is-valid]="!form.get('email')?.errors && formSubmitted"
- [class.is-invalid]="form.get('email')?.errors && formSubmitted">
- </div>
- </div>
- <div class="col-6 form-group">
- <div class="text-left"><label for="num_permis">Numéro Permis</label> <span style="color:red"> *</span>
- </div>
- <div [class.has-success]="!form.get('num_permis')?.errors && formSubmitted"
- [class.has-danger]="form.get('num_permis')?.errors && formSubmitted">
- <input class="form-control form-control-sm" id="num_permis" name="num_permis" type="text" formControlName="num_permis"
- [class.is-valid]="!form.get('num_permis')?.errors && formSubmitted"
- [class.is-invalid]="form.get('num_permis')?.errors && formSubmitted">
- </div>
- </div>
- </div>
- <div class="row">
- <div class="col-6 form-group">
- <div class="text-left"><label for="contact">Téléphone</label> <span style="color:red">
+                        </div>
+                        <div [class.has-success]="!form.get('email')?.errors && formSubmitted" [class.has-danger]="form.get('email')?.errors && formSubmitted">
+                            <input class="form-control form-control-sm" id="email" name="email" type="email" formControlName="email" [class.is-valid]="!form.get('email')?.errors && formSubmitted" [class.is-invalid]="form.get('email')?.errors && formSubmitted">
+                        </div>
+                    </div>
+                    <div class="col-6 form-group">
+                        <div class="text-left"><label for="num_permis">Numéro Permis</label> <span style="color:red"> *</span>
+                        </div>
+                        <div [class.has-success]="!form.get('num_permis')?.errors && formSubmitted" [class.has-danger]="form.get('num_permis')?.errors && formSubmitted">
+                            <input class="form-control form-control-sm" id="num_permis" name="num_permis" type="text" formControlName="num_permis" [class.is-valid]="!form.get('num_permis')?.errors && formSubmitted" [class.is-invalid]="form.get('num_permis')?.errors && formSubmitted">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 form-group">
+                        <div class="text-left"><label for="contact">Téléphone</label> <span style="color:red">
  *</span>
- </div>
- <div [class.has-success]="!form.get('contact')?.errors && formSubmitted"
- [class.has-danger]="form.get('contact')?.errors && formSubmitted">
- <input class="form-control form-control-sm" id="contact" name="contact"
- type="number" formControlName="contact"
- [class.is-valid]="!form.get('contact')?.errors && formSubmitted"
- [class.is-invalid]="form.get('contact')?.errors && formSubmitted">
- </div>
- </div>
- <div class="col-6 form-group">
- <div class="text-left"><label for="disponibilite">Disponibilite</label> <span style="color:red"> *</span>
- </div>
- <div>
- <ng-select
- bindLabel="text"
- bindValue="id"
- id="disponibilite"
- (change)="handleSelectDisponibiliteChange($event)"
- [items]="dataDisponibiliteSelect2"
- appendTo="body" formControlName="disponibilite"
-
- [class.has-success]="!form.get('disponibilite')?.errors && formSubmitted"
- [class.has-danger]="form.get('disponibilite')?.errors && formSubmitted"
- [placeholder]="'Sélectionnez une disponibilité'">
- </ng-select>
- </div>
- </div>
- </div>
- <div class="row">
- <div class="col-6 form-group">
- <div class="text-left"><label for="categorie_permis_id">Catégorie permis<span style="color:red"> *</span></label>
- </div>
- <div>
- <ng-select
- bindLabel="text"
- bindValue="id"
- id="categorie_permis_id"
- (change)="handleSelectCategoriePermisChange($event)"
- [items]="dataCategoriePermisSelect2"
- appendTo="body" formControlName="categorie_permis_id"
-
- [class.has-success]="!form.get('categorie_permis_id')?.errors && formSubmitted"
- [class.has-danger]="form.get('categorie_permis_id')?.errors && formSubmitted"
- [placeholder]="'Veuillez sélectionner une catégorie permis'">
- </ng-select>
- </div>
- </div>
- <div class="col-6 form-group">
- <div class="text-left"><label for="adresse">Adresse</label>
- </div>
- <div [class.has-success]="!form.get('adresse')?.errors && formSubmitted"
- [class.has-danger]="form.get('adresse')?.errors && formSubmitted">
- <input class="form-control form-control-sm" id="adresse" name="adresse"
- type="text" formControlName="adresse">
- </div>
- </div>
- </div>
- </div>
- <div class="card-footer">
- <div class="mx-auto">
- <button class="btn btn-secondary ml-3" (click)="reset()" type="reset">Annuler</button>
- <button class="btn btn-success ml-3" type="submit">Valider</button>
- </div>
- </div>
- </div>
- </form>
- </div>
+                        </div>
+                        <div [class.has-success]="!form.get('contact')?.errors && formSubmitted" [class.has-danger]="form.get('contact')?.errors && formSubmitted">
+                            <input class="form-control form-control-sm" id="contact" name="contact" type="number" formControlName="contact" [class.is-valid]="!form.get('contact')?.errors && formSubmitted" [class.is-invalid]="form.get('contact')?.errors && formSubmitted">
+                        </div>
+                    </div>
+                    <div class="col-6 form-group">
+                        <div class="text-left"><label for="disponibilite">Disponibilite</label> <span style="color:red"> *</span>
+                        </div>
+                        <div>
+                            <ng-select bindLabel="text" bindValue="id" id="disponibilite" (change)="handleSelectDisponibiliteChange($event)" [items]="dataDisponibiliteSelect2" appendTo="body" formControlName="disponibilite" [class.has-success]="!form.get('disponibilite')?.errors && formSubmitted"
+                                [class.has-danger]="form.get('disponibilite')?.errors && formSubmitted" [placeholder]="'Sélectionnez une disponibilité'">
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 form-group">
+                        <div class="text-left"><label for="categorie_permis_id">Catégorie permis<span style="color:red"> *</span></label>
+                        </div>
+                        <div>
+                            <ng-select bindLabel="text" bindValue="id" id="categorie_permis_id" (change)="handleSelectCategoriePermisChange($event)" [items]="dataCategoriePermisSelect2" appendTo="body" formControlName="categorie_permis_id" [class.has-success]="!form.get('categorie_permis_id')?.errors && formSubmitted"
+                                [class.has-danger]="form.get('categorie_permis_id')?.errors && formSubmitted" [placeholder]="'Veuillez sélectionner une catégorie permis'">
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-6 form-group">
+                        <div class="text-left"><label for="adresse">Adresse</label>
+                        </div>
+                        <div [class.has-success]="!form.get('adresse')?.errors && formSubmitted" [class.has-danger]="form.get('adresse')?.errors && formSubmitted">
+                            <input class="form-control form-control-sm" id="adresse" name="adresse" type="text" formControlName="adresse">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="mx-auto">
+                    <button class="btn btn-secondary ml-3" (click)="reset()" type="reset">Annuler</button>
+                    <button class="btn btn-success ml-3" type="submit">Valider</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

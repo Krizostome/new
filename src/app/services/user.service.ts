@@ -19,23 +19,33 @@ export class UserService {
   }
 
   getUserById(userId: any):Observable<any>{
-    return this.http.get(environment.BASE_URL+ 'parc/get-user-by-id/'+userId, {});
+    return this.http.get(environment.BASE_URL+ 'user/get/'+userId, {});
   }
 
   getListUser(): Observable<any>{
-    return this.http.get(environment.BASE_URL + "parc/getAllUser", {});
+    return this.http.get(environment.BASE_URL + "user/all", {});
+  } 
+
+  getListRole(): Observable<any>{
+    return this.http.get(environment.BASE_URL + "user/role_all", {});
+  } 
+
+
+  saveUser(data: any){
+    return this.http.post(environment.BASE_URL + "user/save", data);
   }
 
 
+
   updateUser(data: any){
-    return this.http.post(environment.BASE_URL + "parc/user/update", data);
+    return this.http.post(environment.BASE_URL + "user/update", data);
   }
 
   deleteUser(userId: any): Observable<any> {
     const data = {
       user_id: userId
     };
-    return this.http.post(environment.BASE_URL + 'parc/user/delete', data);
+    return this.http.post(environment.BASE_URL + 'user/delete', data);
   }
 
 }

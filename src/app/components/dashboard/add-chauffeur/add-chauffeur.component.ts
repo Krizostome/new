@@ -148,7 +148,7 @@ export class AddChauffeurComponent implements OnInit {
       created_by: 1,
       statut: true,
     }
-    console.log(chauffeur);
+   // console.log(chauffeur);
     if (['',null,undefined].includes(chauffeur.user_id)) {
       this.utilsService.showErreurMessage('Erreur','Veuillez sélectionner un agent');
       return;
@@ -228,9 +228,11 @@ export class AddChauffeurComponent implements OnInit {
     this.dataUserSelect2 = [];
     this.dataUserSelect2.push({ id: '', text: '--'});
     this.usersList.forEach((user: any) => {
-      const id = (user.id || '').toString();
-      const text = (user.prenom || '') + ' ' + (user.nom || user.name || '');
-      this.dataUserSelect2.push({ id, text: text.trim() || user.email || '--' });
+      if(user?.role?.libelle == "AGENT"){
+        const id = (user.id || '').toString();
+        const text = (user.prenom || '') + ' ' + (user.nom || user.name || '');
+        this.dataUserSelect2.push({ id, text: text.trim() || user.email || '--' }); 
+      }
     });
     this.setElementUserSelected('', '--');
   }
@@ -241,8 +243,8 @@ export class AddChauffeurComponent implements OnInit {
   }
 
   handleSelectUserChange(valueSelected: any) {
-    if (![null, undefined].includes(valueSelected)) {
-      this.setElementUserSelected(valueSelected, valueSelected);
+    if (![null, undefined].includes(valueSelected.id)) {
+      this.setElementUserSelected(valueSelected.id, valueSelected.text);
     }
   }
 
@@ -264,8 +266,8 @@ export class AddChauffeurComponent implements OnInit {
   }
 
   handleSelectCategoriePermisChange(valueSelected: any) {
-    if (![null, undefined].includes(valueSelected)) {
-      this.setElementCategoriePermisSelected(valueSelected, valueSelected);
+    if (![null, undefined].includes(valueSelected.id)) {
+      this.setElementCategoriePermisSelected(valueSelected.text, valueSelected.text);
     }
   }
 
@@ -285,8 +287,8 @@ export class AddChauffeurComponent implements OnInit {
   }
 
   handleSelectDisponibiliteChange(valueSelected: any) {
-    if (![null, undefined].includes(valueSelected)) {
-      this.setElementDisponibiliteSelected(valueSelected, valueSelected);
+    if (![null, undefined].includes(valueSelected.id)) {
+      this.setElementDisponibiliteSelected(valueSelected.id, valueSelected.text);
     }
   }
 

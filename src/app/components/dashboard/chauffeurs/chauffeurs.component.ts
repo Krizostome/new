@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
     standalone: false,
     selector: 'app-chauffeurs',
     templateUrl: './chauffeurs.component.html',
-    styleUrls: ['./chauffeurs.component.css'],
+    styleUrls: ['./chauffeurs.component.css'], 
 })
 export class ChauffeursComponent implements OnInit {
 
@@ -36,12 +36,13 @@ export class ChauffeursComponent implements OnInit {
     this.ngxService.start();
     this.chauffeursService.getChauffeurs().subscribe({
       next: value => {
-        if (value && value.data) {
-          this.listeChauffeurs = value.data;
+        if (value && value.data) { 
+          this.listeChauffeurs = value.data?.data || value.data  || (Array.isArray(value) ? value : []);
           this.dtTrigger.next(undefined);
         } else {
           this.listeChauffeurs = [];
         }
+        console.log(this.listeChauffeurs);
         this.ngxService.stop();
       },
       error: err => {
