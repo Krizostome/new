@@ -7,11 +7,11 @@ import { DemandeVehicule } from "../../../models/demande-vehicule";
 import { TypeVehicule } from "../../../models/type-vehicule";
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute, Router } from "@angular/router";
-import { Motif } from "../../../models/motif";
-import { DatePipe } from "@angular/common";
-import { User } from "../../../models/user";
-import { UserService } from "../../../services/user.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Motif} from "../../../models/motif";
+import {DatePipe} from "@angular/common";
+import {User} from "../../../models/user";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   standalone: false,

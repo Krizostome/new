@@ -1,0 +1,91 @@
+<div class="d-flex justify-content-end mb-3">
+    <div class="col-md-6 text-right">
+        <a class="btn btn-primary text-white add-infos" routerLink="/entites/ajouter">
+            <i class="fas fa-plus"></i> Ajouter une entite
+        </a>
+    </div>
+</div>
+
+
+<div class="content">
+
+    <div class="animated fadeIn">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+
+                    <!-- Sur la liste des entites -->
+                    <div class="card-header justify-content-center">
+
+                        <p class="card-title text-center">
+                            Liste des entites ({{listeEntites?.length}})
+                        </p>
+
+                    </div>
+
+                    <div class="card-body">
+                        <table id="bootstrap-data-table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-striped table-bordered w-100">
+                            <thead class=" bg-primary text-white">
+                                <tr>
+
+                                    <th class="text-center">N°</th>
+                                    <th class="text-center">Nom</th>
+                                    <th class="text-center">code</th>
+                                    <th class="text-center">Type</th>
+                                    <th class="text-center">Actions</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @for (entite of listeEntites; track entite; let index = $index) {
+                                <tr>
+                                    <td class="text-center">{{index+1}}</td>
+                                    <td class="text-center">{{entite.nom}}</td>
+                                    <td class="text-center">{{entite.code}}</td>
+                                    <td class="text-center">{{entite.type}}</td>
+                                    <td class="text-center">
+                                        <a class="cursor-pointer ml-2" (click)="jumpToEntiteEdit(entite.id)">
+                                            <i class="fa fa-edit text-success" placement="top" ngbTooltip="Modifier"></i>
+                                        </a>
+
+                                        <a class="cursor-pointer ml-2" (click)="open_lg(entitedeletemodal, entite);">
+                                            <i class="fas fa-trash text-danger" data-placement="top" placement="top" ngbTooltip="Supprimer le chauffeur"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+<ng-template #entitedeletemodal let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+    </div>
+    <div class="modal-body">
+        <form action="" method="post" class="my-unique-form">
+            <div class="row mb-2 pl-2 pr-2" id="suppression-entite">
+                <p class="text-center">
+                    Voulez-vous vraiment supprimer cet entite ?
+                </p>
+            </div>
+            <div class="text-center my-border-top-footer">
+                <button type="button" class="btn btn-sm btn-secondary mx-2 text-black" (click)="modal.close('Save click')">NON</button>
+                <button id="bouton-action-activer" type="button" (click)="deleteEntite(entite); modal.close('Save click')" class="btn btn-sm btn-danger btn-submit-unique-form">OUI</button>
+            </div>
+        </form>
+    </div>
+
+</ng-template>

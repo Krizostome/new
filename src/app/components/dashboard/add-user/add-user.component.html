@@ -1,0 +1,116 @@
+<div class="col-12 mx-auto">
+    <div class="col-md-6 mb-2">
+        <div class="justify-content-lg-start">
+            <a routerLink="/liste/utilisateur" class="btn btn-sm btn-secondary add-infos text-white menu-font">
+                <i class="fas fa-backward"></i> Retour
+            </a>
+        </div>
+    </div>
+
+    <form method="post" id="add-user" (keyup.enter)="onSubmit()" [formGroup]="form" (submit)="onSubmit()">
+
+        <div class="card mx-auto rounded-lg bg-white mb-3">
+
+            <div class="card-header text-center bg-primary">
+                <div class="mx-auto">{{modalTitle}}</div>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+
+                    <div class="col-6 form-group">
+                        <div class="text-left">
+                            <label for="role">Role</label>
+                            <span style="color:red">*</span>
+                        </div>
+                        <ng-select bindLabel="text" bindValue="id" id="role_id" (change)="handleSelectRoleChange($event)" [items]="dataRolesSelect2" appendTo="body" formControlName="role_id" [class.has-success]="!form.get('role_id')?.errors && formSubmitted" [class.has-danger]="form.get('role_id')?.errors && formSubmitted"
+                            placeholder="'Veuillez sélectionner un role'">
+                        </ng-select>
+                    </div>
+
+
+                    <div class="col-6 form-group">
+                        <div class="text-left">
+                            <label for="entite">Entite</label>
+                            <span style="color:red">*</span>
+                        </div>
+                        <ng-select bindLabel="text" bindValue="id" id="entite_id" (change)="handleSelectEntiteChange($event)" [items]="dataEntiteSelect2" appendTo="body" formControlName="entite_id" [class.has-success]="!form.get('entite_id')?.errors && formSubmitted" [class.has-danger]="form.get('entite_id')?.errors && formSubmitted"
+                            placeholder="'Veuillez sélectionner une entite'">
+                        </ng-select>
+                    </div>
+
+
+                    <div class="col-6 form-group">
+                        <div class="text-left">
+                            <label for="nom">Nom de l'utilisateur</label>
+                            <span style="color:red">*</span>
+                        </div>
+
+                        <div [class.has-success]="!form.get('nom')?.errors && formSubmitted" [class.has-danger]="form.get('nom')?.errors && formSubmitted">
+                            <input class="form-control form-control-sm" id="nom" name="nom" type="text" formControlName="nom" [class.is-valid]="!form.get('nom')?.errors && formSubmitted" [class.is-invalid]="form.get('nom')?.errors && formSubmitted">
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 form-group">
+                        <div class="text-left">
+                            <label for="prenom">Prenom de l'utilisateur</label>
+                            <span style="color:red">*</span>
+                        </div>
+
+                        <div [class.has-success]="!form.get('prenom')?.errors && formSubmitted" [class.has-danger]="form.get('prenom')?.errors && formSubmitted">
+                            <input class="form-control form-control-sm" id="nom" name="prenom" type="text" formControlName="prenom" [class.is-valid]="!form.get('prenom')?.errors && formSubmitted" [class.is-invalid]="form.get('prenom')?.errors && formSubmitted">
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 form-group">
+                        <div class="text-left">
+                            <label for="email">Email de l'utilisateur</label>
+                            <span style="color:red">*</span>
+                        </div>
+
+                        <div [class.has-success]="!form.get('email')?.errors && formSubmitted" [class.has-danger]="form.get('email')?.errors && formSubmitted">
+                            <input class="form-control form-control-sm" id="email" name="email" type="email" formControlName="email" [class.is-valid]="!form.get('email')?.errors && formSubmitted" [class.is-invalid]="form.get('email')?.errors && formSubmitted">
+                        </div>
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <div class="text-left">
+                            <label for="tel">Numero de l'utilisateur</label>
+                            <span style="color:red">*</span>
+                        </div>
+
+                        <div [class.has-success]="!form.get('tel')?.errors && formSubmitted" [class.has-danger]="form.get('tel')?.errors && formSubmitted">
+                            <input class="form-control form-control-sm" id="tel" name="tel" type="tel" formControlName="tel" [class.is-valid]="!form.get('tel')?.errors && formSubmitted" [class.is-invalid]="form.get('tel')?.errors && formSubmitted">
+                        </div>
+                    </div>
+
+                    <div class="col-12 form-group">
+                        <div class="text-left">
+                            <label for="mot de passe">Mot de pass</label>
+                            <span style="color:red">*</span>
+                        </div>
+
+                        <div [class.has-success]="!form.get('password')?.errors && formSubmitted" [class.has-danger]="form.get('password')?.errors && formSubmitted">
+                            <input class="form-control form-control-sm" id="password" name="password" type="password" formControlName="password" [class.is-valid]="!form.get('password')?.errors && formSubmitted" [class.is-invalid]="form.get('password')?.errors && formSubmitted">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                <div class="mx-auto">
+                    <button class="btn btn-primary ml-3" type="submit">Valider</button>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

@@ -11,6 +11,7 @@ export const environment = {
   MESSAGE_ERREUR_INTERNE: 'Une erreur interne est survenue',
   paginationNbItemsPerPage: 10,
   TIME_OUT_ERREUR_MESSAGE: 30000,
+  ENTITE_TYPE:[{'id':'Direction', 'libelle':'direction'}, {'id':'Département', 'libelle':'departement'}, {'id':'Service', 'libelle':'service'}, {'id':'Bureau', 'libelle':'bureau'}],
   DISPONIBILITE_VEHICULE:[{'id':'DISPONIBLE', 'libelle':'DISPONIBLE'}, {'id':'PANNE', 'libelle':'PANNE'}, {'id':'COURSE', 'libelle':'COURSE'}],
   DISPONIBILITE_CHAUFFEUR:[{'id':'DISPONIBLE', 'libelle':'DISPONIBLE'}, {'id':'CONGE', 'libelle':'CONGE'}, {'id':'COURSE', 'libelle':'COURSE'}, {'id':'REPOS', 'libelle':'REPOS'}, {'id':'ABSENT', 'libelle': 'ABSENT'}],
   STATUT_DEMANDE_COURSE_CREEE: 'CREEE',

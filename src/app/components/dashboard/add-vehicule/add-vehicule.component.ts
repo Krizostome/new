@@ -35,7 +35,7 @@ export class AddVehiculeComponent implements OnInit {
   };
   modalTitle: string = "";
   isEdit: boolean = false;
-  formSubmitted: boolean = false;
+  formSubmitted: boolean = false; 
   vehculeId: any;
 
   constructor(private ngxService: NgxUiLoaderService, private vehiculesService: VehiculesService, 
@@ -208,7 +208,7 @@ export class AddVehiculeComponent implements OnInit {
       }
       else {
         this.modalTitle = 'Modification d\'une demande de course';
-        this.getVehiculeById(this.vehculeId);
+        this.getVehiculeById(this.vehculeId); 
       }
   }
 

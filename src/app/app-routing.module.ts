@@ -26,6 +26,10 @@ import { HistoriqueChauffeursComponent } from './components/dashboard/historique
 import {authGuard} from "./guards/auth.guard";
 import {administrationGuard} from "./guards/administration.guard";
 import {JournalSmsComponent} from "./components/dashboard/journal-sms/journal-sms.component";
+import { AddUserComponent } from './components/dashboard/add-user/add-user.component';
+import { AddEntiteComponent } from './components/dashboard/entite/add-entite/add-entite.component';
+import { ListEntiteComponent } from './components/dashboard/entite/list-entite/list-entite.component';
+import { UpdateEntiteComponent } from './components/dashboard/entite/update-entite/update-entite.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -45,6 +49,7 @@ const routes: Routes = [
       { path: 'maps', component: MapsComponent },
       { path: 'demande/encours', component: DemandesEnCoursComponent },
       { path: 'liste/utilisateur', canActivate: [administrationGuard], component: UtilisateurComponent },
+      { path: 'ajout/utilisateur', canActivate: [administrationGuard], component: AddUserComponent },
       { path: 'modifier/utilisateur/:userId', canActivate: [administrationGuard], component: UpdateUserComponent },
       { path: 'detail/utilisateur/:userId', canActivate: [administrationGuard], component: DetailUtilisateurComponent },
 
@@ -90,6 +95,14 @@ const routes: Routes = [
       { path: 'historique/chauffeurs', component: HistoriqueChauffeursComponent },
       { path: 'statistiques/sms', component: JournalSmsComponent },
 
+    ]
+  },
+  {
+    path: '',canActivate: [authGuard,administrationGuard], component: MainComponent, children: [
+
+      { path: 'entites', component: ListEntiteComponent },
+      { path: 'entites/ajouter', component: AddEntiteComponent },
+      { path: 'entites/modifier/:entiteId', component: UpdateEntiteComponent },
     ]
   },
 ];

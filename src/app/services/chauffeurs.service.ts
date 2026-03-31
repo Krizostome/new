@@ -19,7 +19,7 @@ export class ChauffeursService {
   }
 
   getChauffeurById(chauffeurId: number): Observable<any> {
-    return this.http.get(environment.BASE_URL + 'chauffeur/get-chauffeur-by-id/' +chauffeurId, {});
+    return this.http.get(environment.BASE_URL + 'chauffeur/get/' +chauffeurId, {});
   }
 
   getListAgents(): Observable<any> {

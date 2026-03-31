@@ -1,0 +1,72 @@
+<div class="col-12 mx-auto">
+    <div class="col-md-6 mb-2">
+        <div class="justify-content-lg-start">
+            <a routerLink="/entite" class="btn btn-sm btn-secondary add-infos text-white menu-font">
+                <i class="fas fa-backward"></i> Retour
+            </a>
+        </div>
+    </div>
+
+    <form method="post" id="add-entite" (keyup.enter)="onSubmit()" [formGroup]="form" (submit)="onSubmit()">
+
+        <div class="card mx-auto rounded-lg bg-white mb-3">
+
+            <div class="card-header text-center bg-primary">
+                <div class="mx-auto">{{modalTitle}}</div>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+
+                    <div class="col-6 form-group">
+                        <div class="text-left">
+                            <label for="nom">Type</label>
+                            <span style="color:red">*</span>
+                        </div>
+                        <ng-select bindLabel="text" bindValue="value" id="type_value" (change)="handleSelectTypeChange($event)" [items]="dataEntiteTypeSelect2" appendTo="body" formControlName="type_value" [class.has-success]="!form.get('type_value')?.errors && formSubmitted"
+                            [class.has-danger]="form.get('type_value')?.errors && formSubmitted" placeholder="'Veuillez sélectionner un type'">
+                        </ng-select>
+                    </div>
+
+
+                    <div class="col-6 form-group">
+                        <div class="text-left">
+                            <label for="nom">Nom de l'entite</label>
+                            <span style="color:red">*</span>
+                        </div>
+
+                        <div [class.has-success]="!form.get('nom')?.errors && formSubmitted" [class.has-danger]="form.get('nom')?.errors && formSubmitted">
+                            <input class="form-control form-control-sm" id="nom" name="nom" type="text" formControlName="nom" [class.is-valid]="!form.get('nom')?.errors && formSubmitted" [class.is-invalid]="form.get('nom')?.errors && formSubmitted">
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 form-group">
+                        <div class="text-left">
+                            <label for="code">Code</label>
+                            <span style="color:red">*</span>
+                        </div>
+
+                        <div [class.has-success]="!form.get('code')?.errors && formSubmitted" [class.has-danger]="form.get('code')?.errors && formSubmitted">
+                            <input class="form-control form-control-sm" id="nom" name="code" type="text" formControlName="code" [class.is-valid]="!form.get('code')?.errors && formSubmitted" [class.is-invalid]="form.get('code')?.errors && formSubmitted">
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                <div class="mx-auto">
+                    <button class="btn btn-primary ml-3" type="submit">Valider</button>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

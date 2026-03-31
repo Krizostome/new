@@ -119,12 +119,12 @@ export class LoginComponent implements OnInit {
         }
         this.ngxService.stop();
         // this.utilsService.showSuccessMessage('Vous avez été connecté avec succès');
-        this.router.navigate(['/demande/encours']);
+        this.router.navigate(['/accueil']);
       },
       error: err => { // erreur
         // Even if secondary user fetch fails, we have the user from login
         this.ngxService.stop();
-        this.router.navigate(['/demande/encours']);
+        this.router.navigate(['/accueil']); 
       },
       complete: () => { // fin de la requete
         this.ngxService.stop();
