@@ -31,8 +31,8 @@ export class AddDemandeCourseComponent implements OnInit {
   modalTitle: string = '';
   isEdit: boolean = false;
   minDate: Date = new Date();
+  formattedDate: string = '';
   minTime: string = '';
-  formattedDate: string | null = '';
   user: User | null = new User();
   listUsers: Array<User> = [];
   isForAnotherAgent: boolean = false;
@@ -65,12 +65,12 @@ export class AddDemandeCourseComponent implements OnInit {
     private userService: UserService,
     private cdr: ChangeDetectorRef
   ) {
-    this.formattedDate = this.datePipe.transform(this.minDate, 'yyyy-MM-dd');
+    this.formattedDate = this.datePipe.transform(this.minDate, 'yyyy-MM-dd') || '';
     this.minTime = new Date().toString().split(' ')[4];
     this.form = formBuilder.group({
       point_depart:      ['', Validators.required],
       point_destination: ['', Validators.required],
-      nbr_personnes:     ['', Validators.required],
+      nbre_personnes:     ['', Validators.required],
       objet:             ['', Validators.required],
       type_vehicule:     ['', Validators.required],
       motif:             ['', Validators.required],
@@ -88,22 +88,17 @@ export class AddDemandeCourseComponent implements OnInit {
     this.user = this.utilsService.getUserConnected();
     this.getAllTypesVehicules();
     this.getAllMotifs();
-    this.getUser();          // ✅ CORRECTION 1 : déplacé ici — getUser() doit être appelé
-                             // dans ngOnInit() directement, pas uniquement dans getParamValue()
+    this.getUser();         
     this.getParamValue();
   }
 
   getParamValue(): void {
-    // ✅ CORRECTION 2 : suppression de l'appel this.getUser() ici pour éviter
-    // le double appel (il était appelé ici ET dans ngOnInit en commentaire)
     this.demandeId = this.activatedRoute.snapshot.params["demandeId"];
 
     if (!(this.demandeId || '').length) {
-      // Cas création
       this.isAddingNewDemandeCourse();
       return;
     } else {
-      // Cas modification
       this.modalTitle = "Modification d'une demande de course";
       this.getDemandeById(this.demandeId);
     }
@@ -143,10 +138,10 @@ export class AddDemandeCourseComponent implements OnInit {
     let demandeCourse: any = {
       point_depart:      this.form.get('point_depart')?.value,
       point_destination: this.form.get('point_destination')?.value,
-      nbre_personnes:    this.form.get('nbr_personnes')?.value,
+      nbre_personnes:    this.form.get('nbre_personnes')?.value,
       objet:             this.form.get('objet')?.value,
       type_vehicule_id:  this.form.get('type_vehicule')?.value,
-      motif:             this.form.get('motif')?.value,
+      motif_id:          this.form.get('motif')?.value,
       escales:           this.form.get('escales')?.value,
       date_depart:       this.form.get('date_depart')?.value,
       date_retour:       this.form.get('date_retour')?.value,
@@ -155,7 +150,7 @@ export class AddDemandeCourseComponent implements OnInit {
       user_id:           this.user?.id,
       beneficiaire_id:   this.user?.id
     };
-
+    /* console.log('Données envoyées à l’API :', demandeCourse); // <= ici*/
     if (this.isForAnotherAgent) {
       demandeCourse.beneficiaire_id = Number(this.form.get('user')?.value);
       if (['', null, undefined].includes(this.form.get('user')?.value)) {
@@ -177,23 +172,15 @@ export class AddDemandeCourseComponent implements OnInit {
       return;
     }
 
-    if (['', null, undefined].includes(demandeCourse.motif)) {
+    if (['', null, undefined].includes(demandeCourse.motif_id)) {
       this.utilsService.showErreurMessage('Erreur', 'Veuillez sélectionner un motif');
       return;
     }
 
     if (this.form.valid) {
-      // ✅ CORRECTION 3 : la logique isEdit était INVERSÉE dans l'original.
-      // isEdit = true  → nouvelle demande  → saveDemandeVehicule()
-      // isEdit = false → modification      → editDemandeVehicule()
-      // Avant : save était appelé quand isEdit=true (nouveau) ✅ mais
-      //         edit était appelé quand isEdit=false avec demande_id ❌
-      //         (demande_id était assigné sur l'objet AVANT d'appeler edit, pas save)
       if (this.isEdit) {
-        // Nouvelle demande → save
         this.saveDemandeVehicule(demandeCourse);
       } else {
-        // Modification → edit — on passe l'id de la demande existante
         demandeCourse.demande_id = this.demandeCourse.id;
         this.editDemandeVehicule(demandeCourse);
       }
@@ -265,22 +252,16 @@ export class AddDemandeCourseComponent implements OnInit {
     this.demandesCoursesService.getAllTypesVehicules().subscribe({
       next: value => {
         if (value) {
-          // ✅ CORRECTION 4 : chaîne de fallback élargie pour couvrir toutes
-          // les structures de réponse possibles de l'API Laravel
-           console.log('=== REPONSE BRUTE vehicule/type ===', value);
-      console.log('=== TYPE ===', typeof value);
-      console.log('=== KEYS ===', Object.keys(value));
-
-          // ✅ CORRECTION 5 : appel de bindDataTypeVehiculeSelect2() garanti
-          // même si la liste est vide (évite que le ng-select reste vide)
-          
+          this.listeTypesVehicules = value.data?.data || value.data?.type_vehicules || value.data?.types_vehicules || value.type_vehicules || value.types_vehicules || value.data || (Array.isArray(value) ? value : []);
+          this.bindDataTypeVehiculeSelect2();
         } else {
           this.listeTypesVehicules = [];
-          this.bindDataTypeVehiculeSelect2(); // toujours construire le select (avec juste "--")
+          this.bindDataTypeVehiculeSelect2();
         }
         this.ngxService.stop();
       },
       error: err => {
+        console.error({...err});
         this.ngxService.stop();
         this.listeTypesVehicules = [];
         this.bindDataTypeVehiculeSelect2();
@@ -297,12 +278,7 @@ export class AddDemandeCourseComponent implements OnInit {
     this.demandesCoursesService.getAllMotifs().subscribe({
       next: value => {
         if (value) {
-          this.listeMotifs =
-            value.data?.data ||
-            value.data?.motifs ||
-            value.motifs ||
-            value.data ||
-            (Array.isArray(value) ? value : []);
+          this.listeMotifs = value.data?.data || value.data?.motifs || value.motifs || value.data || (Array.isArray(value) ? value : []);
           this.bindDataMotifSelect2();
         } else {
           this.listeMotifs = [];
@@ -322,20 +298,11 @@ export class AddDemandeCourseComponent implements OnInit {
     });
   }
 
-  // ── Select2 : Types de véhicules ──
   private bindDataTypeVehiculeSelect2(): void {
     this.dataTypeVehiculeSelect2 = [{ id: '', text: '--' }];
-    this.listeTypesVehicules.forEach((typeVehicule: any) => {
-      const id   = (typeVehicule.id || '').toString();
-      // ✅ CORRECTION 6 : ajout de libelle_type_vehicule comme fallback
-      // supplémentaire pour couvrir d'autres nommages côté API
-      const text = typeVehicule.libelle
-                || typeVehicule.libelle_type_vehicule
-                || typeVehicule.libelle_type
-                || typeVehicule.text
-                || '--';
-      this.dataTypeVehiculeSelect2.push({ id, text });
-    });
+    this.listeTypesVehicules.forEach(tv => 
+      this.dataTypeVehiculeSelect2.push({ id: tv.id, text: tv.libelle || '--' })
+    );
 
     if (!this.form.get('type_vehicule')?.value) {
       this.setElementTypeVehiculeSelected('', '--');
@@ -351,24 +318,19 @@ export class AddDemandeCourseComponent implements OnInit {
   }
 
   handleSelectTypeVehiculeChange(valueSelected: any): void {
-    // ✅ CORRECTION 7 : on stocke bien l'id (valueSelected.id) et le label
-    // (valueSelected.text), pas la valeur brute de l'objet entier
     if (valueSelected != null) {
       this.setElementTypeVehiculeSelected(
-        valueSelected.id   ?? valueSelected,
+        valueSelected.id ?? valueSelected,
         valueSelected.text ?? valueSelected
       );
     }
   }
 
-  // ── Select2 : Motifs ──
   private bindDataMotifSelect2(): void {
     this.dataMotifSelect2 = [{ id: '', text: '--' }];
-    this.listeMotifs.forEach((motif: any) => {
-      const id   = (motif.id || '').toString();
-      const text = motif.libelle || motif.text || '--';
-      this.dataMotifSelect2.push({ id, text });
-    });
+    this.listeMotifs.forEach(m => 
+      this.dataMotifSelect2.push({ id: m.id, text: m.libelle || '--' })
+    );
 
     if (!this.form.get('motif')?.value) {
       this.setElementMotifSelected('', '--');
@@ -384,22 +346,19 @@ export class AddDemandeCourseComponent implements OnInit {
   }
 
   handleSelectMotifChange(valueSelected: any): void {
-    // ✅ CORRECTION 8 : même correction que pour type_vehicule
     if (valueSelected != null) {
       this.setElementMotifSelected(
-        valueSelected.id   ?? valueSelected,
+        valueSelected.id ?? valueSelected,
         valueSelected.text ?? valueSelected
       );
     }
   }
 
-  // ── Select2 : Agents ──
   private bindDataAgentSelect2(): void {
     this.dataAgentSelect2 = [{ id: '', text: '--' }];
-    this.listUsers.forEach((user: any) => {
-      const id   = (user.id || '').toString();
-      const text = ((user.prenom || '') + ' ' + (user.nom || user.name || '')).trim() || user.email || '--';
-      this.dataAgentSelect2.push({ id, text });
+    this.listUsers.forEach(u => {
+      const text = `${u.prenom || ''} ${u.nom || ''}`.trim() || u.email || '--';
+      this.dataAgentSelect2.push({ id: u.id, text });
     });
 
     if (!this.form.get('user')?.value) {
@@ -418,7 +377,7 @@ export class AddDemandeCourseComponent implements OnInit {
   handleSelectAgentChange(valueSelected: any): void {
     if (valueSelected != null) {
       this.setElementAgentSelected(
-        valueSelected.id   ?? valueSelected,
+        valueSelected.id ?? valueSelected,
         valueSelected.text ?? valueSelected
       );
     }
@@ -432,17 +391,11 @@ export class AddDemandeCourseComponent implements OnInit {
   isEditingDemandeCourse(demandeCourse: DemandeVehicule): void {
     this.form.get('point_depart')?.setValue(demandeCourse.point_depart);
     this.form.get('point_destination')?.setValue(demandeCourse.point_destination);
-    this.form.get('nbr_personnes')?.setValue(demandeCourse.nbre_personnes);
+    this.form.get('nbre_personnes')?.setValue(demandeCourse.nbre_personnes);
     this.form.get('escales')?.setValue(demandeCourse.escales);
     this.form.get('objet')?.setValue(demandeCourse.objet);
-
-    // ✅ CORRECTION 9 : date_retour utilisait date_depart.substring() au lieu
-    // de date_retour.substring() — copie/colle oubliée dans l'original
     this.form.get('date_depart')?.setValue(demandeCourse.date_depart?.substring(0, 10));
     this.form.get('date_retour')?.setValue(demandeCourse.date_retour?.substring(0, 10));
-
-    // ✅ CORRECTION 10 : heure_retour utilisait heure_depart.substring() au lieu
-    // de heure_retour.substring() — même problème que ci-dessus
     this.form.get('heure_depart')?.setValue(demandeCourse.heure_depart?.substring(0, 5));
     this.form.get('heure_retour')?.setValue(demandeCourse.heure_retour?.substring(0, 5));
 
@@ -450,24 +403,13 @@ export class AddDemandeCourseComponent implements OnInit {
       this.setElementMotifSelected(demandeCourse.motif.id.toString(), demandeCourse.motif.libelle || '');
     }
     if (demandeCourse.type_vehicule?.id) {
-      // ✅ CORRECTION 11 : on passe aussi le libellé pour que le ng-select
-      // affiche le texte sélectionné et ne reste pas vide en mode édition
-      this.setElementTypeVehiculeSelected(
-        demandeCourse.type_vehicule.id.toString(),
-        demandeCourse.type_vehicule.libelle || ''
-      );
+      this.setElementTypeVehiculeSelected(demandeCourse.type_vehicule.id.toString(), demandeCourse.type_vehicule.libelle || '');
     }
 
     if (this.user?.id != demandeCourse.beneficiaire?.id && this.user?.id == demandeCourse.user?.id) {
-      this.setElementAgentSelected(
-        demandeCourse.beneficiaire.id.toString(),
-        (demandeCourse.beneficiaire.prenom || '') + ' ' + (demandeCourse.beneficiaire.nom || '')
-      );
+      this.setElementAgentSelected(demandeCourse.beneficiaire.id.toString(), `${demandeCourse.beneficiaire.prenom || ''} ${demandeCourse.beneficiaire.nom || ''}`);
     } else {
-      this.setElementAgentSelected(
-        demandeCourse.user.id.toString(),
-        (demandeCourse.user.prenom || '') + ' ' + (demandeCourse.user.nom || '')
-      );
+      this.setElementAgentSelected(demandeCourse.user.id.toString(), `${demandeCourse.user.prenom || ''} ${demandeCourse.user.nom || ''}`);
     }
   }
 

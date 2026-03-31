@@ -22,7 +22,7 @@ export class VehiculesService {
   }
 
   getVehiculeById(vehiculeId: number): Observable<any> {
-    return this.http.get(environment.BASE_URL + 'vehicule/get-vehicule-by-id/' +vehiculeId, {});
+    return this.http.get(environment.BASE_URL + 'vehicule/get/' +vehiculeId, {});
   }
 
   saveVehicule(body: any): Observable<any> {

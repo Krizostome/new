@@ -188,7 +188,7 @@ export class DemandesEnCoursComponent implements OnInit {
         this.utilsService.showSuccessMessage('Demande de course affectée avec succès');
         this.modalService.dismissAll();
         this.getDemandesDeCoursesEnCour();
-        this.isUpdatingAffectation == false;
+        this.isUpdatingAffectation = false;
         this.ngxService.stop();
       },
       error: err => { // erreur
@@ -347,17 +347,37 @@ export class DemandesEnCoursComponent implements OnInit {
     this.router.navigate(['/demande/notation/'+demandeId]);
   }
 
-    openAffectationModal(content:any, demandeCourse: DemandeVehicule) {
-      this.demandeCourseSelected = demandeCourse;
-      this.getAllChauffeurs();
-      this.getAllVehiculeByType(this.demandeCourseSelected.type_vehicule.id);
-      this.modalService.open(content, { ariaLabelledBy: 'affectation-modal-basic-title', size: 'xl' }).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-    }
+ openAffectationModal(content: any, demandeCourse: DemandeVehicule) {
+  console.log("OPEN MODAL");
 
+  this.demandeCourseSelected = demandeCourse;
+
+  // Ouvrir le modal d'abord
+  const modalRef = this.modalService.open(content, {
+    ariaLabelledBy: 'affectation-modal-basic-title',
+    size: 'xl'
+  });
+
+  // Charger les données après ouverture
+  setTimeout(() => {
+    this.loadAffectationData();
+  }, 0);
+}
+
+loadAffectationData() {
+  this.getAllChauffeurs();
+
+  if (this.demandeCourseSelected?.type_vehicule?.id) {
+    this.getAllVehiculeByType(this.demandeCourseSelected.type_vehicule.id);
+  }
+}
+
+debugClick(content: any, demande: any) {
+  console.log("CONTENT :", content);
+  console.log("DEMANDE :", demande);
+
+  this.openAffectationModal(content, demande);
+}
   // Select2 for Vehicules
   private bindDataVehiculeSelect2() {
     this.dataVehiculeSelect2 = [];

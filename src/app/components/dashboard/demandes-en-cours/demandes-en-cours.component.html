@@ -182,7 +182,9 @@
  }
  @if (demande?.statut == environment.STATUT_DEMANDE_COURSE_CREEE && utilsService.isAdmin()) {
  <a class="cursor-pointer" >
- <i class="fa fa-car-side text-primary" placement="top" ngbTooltip="Affecter cette course à un chauffeur" (click)="isUpdatingNotAffect();openAffectationModal(affectationCourse, demande)"></i>
+<i class="fa fa-car-side text-primary"
+   (click)="openAffectationModal(affectationCourse, demande)">
+</i>
  </a>&nbsp;
  }
  @if (demande?.statut == environment.STATUT_DEMANDE_COURSE_AFFECTEE && utilsService.isAdmin()) {
@@ -254,93 +256,82 @@
 
 <ng-template #affectationCourse let-modal>
 
- <div class="modal-header">
- <h4 class="modal-title" id="affectation-modal-basic-title">Affectation de course</h4>
- <button type="button" (click)="this.utilsService.closeModal()" class="close" data-dismiss="modal" aria-label="Close">
- <span aria-hidden="true">&times;</span>
- </button>
- </div>
+  <div class="modal-header">
+    <h4 class="modal-title">Affectation de course</h4>
+    <button type="button" (click)="utilsService.closeModal()" class="close">
+      <span>&times;</span>
+    </button>
+  </div>
 
- <div class="modal-body">
+  <div class="modal-body">
 
- @if (warning == true) {
- <div class="alert mx-auto col-10 alert-danger" role="alert">
- <p class="my-auto text-danger">Attention, Ce chauffeur a été déjà affecté à une course</p>
- </div>
- }
+    <!-- WARNING -->
+    <div *ngIf="warning" class="alert mx-auto col-10 alert-danger">
+      <p class="my-auto text-danger">
+        Attention, Ce chauffeur a été déjà affecté à une course
+      </p>
+    </div>
 
- @if (placeWarning == true) {
- <div class="alert mx-auto col-10 alert-danger" role="alert">
- <p class="my-auto text-danger">Attention, Le nombre maximum de place dans le véhicule est atteint</p>
- </div>
- }
+    <!-- PLACE WARNING -->
+    <div *ngIf="placeWarning" class="alert mx-auto col-10 alert-danger">
+      <p class="my-auto text-danger">
+        Attention, Le nombre maximum de place dans le véhicule est atteint
+      </p>
+    </div>
 
- <!--<p *ngIf="warning == true" class="mx-auto col-10 text-danger">Attention, Ce chauffeur a été déjà affecté à une course</p>-->
+    <!-- FORM -->
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
 
- <form action="" method="" (keyup.enter)="onSubmit()" [formGroup]="form" (submit)="onSubmit()">
+      <div class="row">
 
- <div class="row">
+        <!-- VEHICULE -->
+        <div class="col-6 form-group">
+          <label>Véhicule <span style="color:red">*</span></label>
 
- <div class="col-6 form-group">
+          <ng-select
+            bindLabel="text"
+            bindValue="id"
+            [items]="dataVehiculeSelect2 || []"
+            formControlName="vehicule"
+            (change)="handleSelectVehiculeChange($event)"
+            appendTo="body"
+            placeholder="Veuillez sélectionner un véhicule">
+          </ng-select>
+        </div>
 
- <div class="text-left"><label for="vehicule">Véhicule</label> <span style="color:red"> *</span>
- </div>
+        <!-- CHAUFFEUR -->
+        <div class="col-6 form-group">
+          <label>Chauffeur <span style="color:red">*</span></label>
 
- <div>
+          <ng-select
+            bindLabel="text"
+            bindValue="id"
+            [items]="dataChauffeurSelect2 || []"
+            formControlName="chauffeur"
+            (change)="handleSelectChauffeurChange($event)"
+            appendTo="body"
+            placeholder="Veuillez sélectionner un chauffeur">
+          </ng-select>
+        </div>
 
- <ng-select
- bindLabel="text"
- bindValue="id"
- id="vehicule"
- (change)="handleSelectVehiculeChange($event)"
- [items]="dataVehiculeSelect2"
- appendTo="body" formControlName="vehicule"
+      </div>
 
- [placeholder]="'Veuillez sélectionner un véhicule'">
+      <!-- FOOTER -->
+      <div class="modal-footer">
+        <div class="mx-auto">
+          <button class="btn btn-secondary" type="button" (click)="modal.close()">
+            Annuler
+          </button>
 
- </ng-select>
+          <button class="btn btn-success ml-3" [disabled]="!form.valid" type="submit">
+            Valider
+          </button>
+        </div>
+      </div>
 
- </div>
+    </form>
 
- </div>
-
- <div class="col-6 form-group">
-
- <div class="text-left"><label for="chauffeur">Chauffeur</label> <span style="color:red"> *</span>
- </div>
-
- <div>
-
- <ng-select
- bindLabel="text"
- bindValue="id"
- id="chauffeur"
- (change)="handleSelectChauffeurChange($event)"
- [items]="dataChauffeurSelect2"
- appendTo="body" formControlName="chauffeur"
-
- [placeholder]="'Veuillez sélectionner un chauffeur'">
-
- </ng-select>
-
- </div>
-
- </div>
-
- </div>
-
- <div class="modal-footer">
-
- <div class="mx-auto">
- <button class="btn btn-secondary" type="reset" (click)="modal.close('Save click')">Annuler</button>
- <button class="btn btn-success ml-3" [disabled]="!this.form.valid" type="submit">Valider</button>
- </div>
-
- </div>
-
-</form>
-
-</div>
+  </div>
 
 </ng-template>
 

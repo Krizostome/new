@@ -22,7 +22,7 @@ export class DemandesCoursesService {
   }
 
   getAllTypesVehicules(): Observable<any> {
-    return this.http.get(environment.BASE_URL + 'vehicule/type', {});
+    return this.http.get(environment.BASE_URL + 'parc/typevehicule', {});
   }
 
 
@@ -31,7 +31,7 @@ export class DemandesCoursesService {
   }
 
   saveDemandeCourse(demandeCourse: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'parc/save/demande-courses', demandeCourse);
+    return this.http.post(environment.BASE_URL + 'demande/save', demandeCourse);
   }
 
   searchDemandeCourse(demandeCourse: any): Observable<any> {
@@ -39,7 +39,7 @@ export class DemandesCoursesService {
   }
 
   editDemandeCourse(demandeCourse: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'chauffeur/edit/demande-course', demandeCourse);
+    return this.http.post(environment.BASE_URL + 'demande/edit/', demandeCourse);
   }
 
   deleteDemandeCourse(data: any) {
@@ -47,16 +47,16 @@ export class DemandesCoursesService {
   }
 
   getDemandeCourseById(demandeId: number): Observable<any> {
-    return this.http.get(environment.BASE_URL + 'chauffeur/get-demande-by-id/' +demandeId, {});
+    return this.http.get(environment.BASE_URL + 'demande/get/' +demandeId, {});
   }
 
-  getVehiculesByType(typeId: number, demandeId: number): Observable<any> {
-    return this.http.get(environment.BASE_URL + 'parc/affecter/demande-courses/' +typeId+ '/' +demandeId, {});
+  getVehiculesByType(typeVehiculeId: number, demandeId: number): Observable<any> {
+    return this.http.get(environment.BASE_URL + 'affectation/attributs/' +typeVehiculeId+ '/' +demandeId, {});
   }
 
   affecterCourse(affectation: any): Observable<any> {
     return this.http.post(environment.BASE_URL + 'parc/affecter/demande-courses', affectation);
-  }
+  } 
 
   updateAffectationCourse(affectation: any): Observable<any> {
     return this.http.post(environment.BASE_URL + 'parc/affecter/update', affectation);

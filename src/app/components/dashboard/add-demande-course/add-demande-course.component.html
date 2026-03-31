@@ -34,7 +34,7 @@
 
         <div class="row">
           <div class="col-6 form-group">
-            <div class="text-left"><label for="type_vehicule">Catégorie de véhicules</label> <span style="color:red"> *</span></div>
+            <div class="text-left"><label id="type_vehicule">Catégorie de véhicules</label> <span style="color:red"> *</span></div>
             <ng-select bindLabel="text" bindValue="id" id="type_vehicule" (change)="handleSelectTypeVehiculeChange($event)" [items]="dataTypeVehiculeSelect2"
               appendTo="body" formControlName="type_vehicule"
               [class.has-success]="!form.get('type_vehicule')?.errors && formSubmitted" [class.has-danger]="form.get('type_vehicule')?.errors && formSubmitted"
@@ -43,7 +43,7 @@
           </div>
 
           <div class="col-6 form-group">
-            <div class="text-left"><label for="motif">Motif</label> <span style="color:red"> *</span></div>
+            <div class="text-left"><label id="motif">Motif</label> <span style="color:red"> *</span></div>
             <ng-select bindLabel="text" bindValue="id" id="motif" (change)="handleSelectMotifChange($event)" [items]="dataMotifSelect2"
               appendTo="body" formControlName="motif"
               [class.has-success]="!form.get('motif')?.errors && formSubmitted" [class.has-danger]="form.get('motif')?.errors && formSubmitted"
@@ -54,10 +54,10 @@
 
         <div class="row">
           <div class="col-6 form-group">
-            <div class="text-left"><label for="nbr_personne">Nombre de personnes</label> <span style="color:red"> *</span></div>
-            <div [class.has-success]="!form.get('nbr_personnes')?.errors && formSubmitted" [class.has-danger]="form.get('nbr_personnes')?.errors && formSubmitted">
-              <input class="form-control form-control-sm" type="number" id="nbr_personne" name="nbr_personne" formControlName="nbr_personnes"
-                [class.is-valid]="!form.get('nbr_personnes')?.errors && formSubmitted" [class.is-invalid]="form.get('nbr_personnes')?.errors && formSubmitted">
+            <div class="text-left"><label for="nbre_personne">Nombre de personnes</label> <span style="color:red"> *</span></div>
+            <div [class.has-success]="!form.get('nbre_personnes')?.errors && formSubmitted" [class.has-danger]="form.get('nbre_personnes')?.errors && formSubmitted">
+              <input class="form-control form-control-sm" type="number" id="nbre_personne" name="nbre_personne" formControlName="nbre_personnes"
+                [class.is-valid]="!form.get('nbre_personnes')?.errors && formSubmitted" [class.is-invalid]="form.get('nbre_personnes')?.errors && formSubmitted">
             </div>
           </div>
 
@@ -104,7 +104,7 @@
 
         <div class="row">
           <div class="col-6 form-group">
-            <div class="text-left"><label for="agent">Créer au profit d'un tiers ? <span style="color: red">*</span> </label></div>
+            <div class="text-left"><label id="agent">Créer au profit d'un tiers ? <span style="color: red">*</span> </label></div>
             <div class="text-left">
               <label for="demande_myself_oui" class="mr-2">Oui</label>
               <input (change)="changeAgentOwner($event, 'OUI')" id="demande_myself_oui" class="mr-4" type="radio" value="OUI" formControlName="demande_myself">
