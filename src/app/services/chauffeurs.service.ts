@@ -23,7 +23,7 @@ export class ChauffeursService {
   }
 
   getListAgents(): Observable<any> {
-    return this.http.get(environment.BASE_URL + 'chauffeur/list-agents', {});
+    return this.http.get(environment.BASE_URL + 'user/all', {});
   }
 
 }

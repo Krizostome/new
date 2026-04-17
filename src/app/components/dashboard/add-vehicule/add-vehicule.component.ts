@@ -174,29 +174,41 @@ export class AddVehiculeComponent implements OnInit {
     });
   }
 
-  saveTypeVehicule(): void {
-    this.ngxService.start();
-    this.vehiculesService.saveTypeVehicule(this.type_vehicule).subscribe({
-      next: value => {
-        this.ngOnInit();
-        this.utilsService.showSuccessMessage(value.message);
-        this.ngxService.stop();
-      },
-      error: err => {
-        this.ngxService.stop();
-        this.utilsService.handleError(err);
-      },
-      complete: () => {
-        this.ngxService.stop();
-      }
+saveTypeVehicule(): void {
+  this.ngxService.start();
+
+  // Préparer le payload à envoyer au backend
+  const payload = {
+    libelle: this.type_vehicule.libelle,
+    // Convertit le statut : 1 ou true => 'ACTIF', 0 ou false => 'INACTIF'
+    statut: String(this.type_vehicule.statut) === '1' || this.type_vehicule.statut === true ? 'ACTIF' : 'INACTIF'
+  };
+  console.log(this.type_vehicule)
+
+  this.vehiculesService.saveTypeVehicule(payload).subscribe({
+  next: (typeVehicule: any) => {
+    this.ngOnInit(); // recharge la liste après ajout
+    this.utilsService.showSuccessMessage(`Type de véhicule ajouté avec succès`);
+    this.ngxService.stop();
+  },
+  error: (err: any) => {
+    this.ngxService.stop();
+    this.utilsService.handleError(err);
+  },
+  complete: () => {
+    this.ngxService.stop();
+  }
+});
+}
+  
+open_lg(content:any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
   
- open_lg(content: any) {
-  console.log("CLICK OK"); // 🔥 TEST
-  this.modalService.open(content);
-}
-
   getParamValue(): void {
     this.vehculeId = this.activatedRoute.snapshot.params["vehiculeId"]
       if ( !(this.vehculeId || '').length) {

@@ -45,4 +45,8 @@ export class VehiculesService {
     return this.http.post(environment.BASE_URL + 'vehicule/delete-conduire', body);
   }
 
+  deleteVehicule(id: number) {
+  return this.http.delete(environment.BASE_URL + 'vehicule/vehicules/' +id);
+}
+
 }

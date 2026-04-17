@@ -20,8 +20,12 @@ import { environment } from 'src/environments/environment';
 })
 export class AddChauffeurComponent implements OnInit {
 
-  disponibilites: any = environment.DISPONIBILITE_CHAUFFEUR;  typePermis: any; user: any;  closeResult: string = "";
-  chauffeur: Chauffeur = new Chauffeur; type_permis: CategoriePermis = new CategoriePermis;
+  disponibilites: any = environment.DISPONIBILITE_CHAUFFEUR;
+  typePermis: any;
+  user: any;
+  closeResult: string = "";
+  chauffeur: Chauffeur = new Chauffeur;
+  type_permis: CategoriePermis = new CategoriePermis;
   form: UntypedFormGroup;
 
   elementUserSelected: any = {id: '', text: '--'};
@@ -39,29 +43,36 @@ export class AddChauffeurComponent implements OnInit {
     tags: false,
     language: 'fr'
   };
+
   modalTitle: string = "";
   isEdit: boolean = false;
   formSubmitted: boolean = false;
   chauffeurId: any;
-  usersList: any;
+  usersList: any[] = [];  // ✅ Initialisé à tableau vide
 
-  constructor(private ngxService: NgxUiLoaderService, private chauffeursService: ChauffeursService,
-    private utilsService: UtilsService, private modalService: NgbModal, private router: Router,
-    private formBuilder: UntypedFormBuilder, private vehiculesService: VehiculesService, private activatedRoute: ActivatedRoute,
-    private cdr: ChangeDetectorRef) {
-      this.form = formBuilder.group(
-        {
-          matricule: ['',Validators.required],
-          num_permis: ['',Validators.required],
-          adresse: [''],
-          disponibilite: ['',Validators.required],
-          contact: ['',Validators.required],
-          email: ['',Validators.required],
-          permis_id: ['',Validators.required],
-          user_id: ['',Validators.required],
-          categorie_permis_id: ['',Validators.required],
-        })
-     }
+  constructor(
+    private ngxService: NgxUiLoaderService,
+    private chauffeursService: ChauffeursService,
+    private utilsService: UtilsService,
+    private modalService: NgbModal,
+    private router: Router,
+    private formBuilder: UntypedFormBuilder,
+    private vehiculesService: VehiculesService,
+    private activatedRoute: ActivatedRoute,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.form = formBuilder.group({
+      matricule: ['', Validators.required],
+      num_permis: ['', Validators.required],
+      adresse: [''],
+      disponibilite: ['', Validators.required],
+      contact: ['', Validators.required],
+      email: ['', Validators.required],
+      //permis_id: ['', Validators.required],
+      user_id: ['', Validators.required],
+      categorie_permis_id: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
     this.bindDataDisponibiliteSelect2();
@@ -70,7 +81,7 @@ export class AddChauffeurComponent implements OnInit {
     this.getParamValue();
   }
 
-  reset(){
+  reset() {
     this.chauffeur = new Chauffeur;
   }
 
@@ -88,21 +99,28 @@ export class AddChauffeurComponent implements OnInit {
       error: err => {
         this.ngxService.stop();
         this.utilsService.handleError(err);
-      },
-      complete: () => {
-        this.ngxService.stop();
       }
     });
   }
 
   getListAgents(): void {
+    this.ngxService.start(); // ✅ Ajout du loader
     this.chauffeursService.getListAgents().subscribe({
       next: value => {
         if (value) {
-          this.usersList = value.data?.data || value.data || value.users || (Array.isArray(value) ? value : []);
+          // ✅ Extraction robuste selon la structure de la réponse API
+          this.usersList = value.data?.data
+            || value.data
+            || value.users
+            || value.agents
+            || (Array.isArray(value) ? value : []);
+
+          console.log('Liste agents récupérée :', this.usersList); // 🔍 Debug
+
           this.bindDataUserSelect2();
           this.cdr.detectChanges();
         }
+        this.ngxService.stop(); // ✅ Arrêt loader dans next aussi
       },
       error: err => {
         this.ngxService.stop();
@@ -114,17 +132,17 @@ export class AddChauffeurComponent implements OnInit {
     });
   }
 
-  getChauffeurById(chauffeurId: any){
+  getChauffeurById(chauffeurId: any) {
     this.ngxService.start();
     this.chauffeursService.getChauffeurById(chauffeurId).subscribe({
-      next: value =>{
-        if(value.data !== null){
+      next: value => {
+        if (value.data !== null) {
           this.chauffeur = value.data;
           this.isEditingChauffeur(this.chauffeur);
         }
         this.ngxService.stop();
       },
-      error: err =>{
+      error: err => {
         this.ngxService.stop();
         this.utilsService.handleError(err);
       },
@@ -136,6 +154,7 @@ export class AddChauffeurComponent implements OnInit {
 
   onSubmit(): void {
     this.formSubmitted = true;
+
     let chauffeur: any = {
       matricule: this.form.get('matricule')?.value,
       num_permis: this.form.get('num_permis')?.value,
@@ -147,16 +166,19 @@ export class AddChauffeurComponent implements OnInit {
       categorie_permis_id: this.form.get('categorie_permis_id')?.value,
       created_by: 1,
       statut: true,
-    }
-   // console.log(chauffeur);
-    if (['',null,undefined].includes(chauffeur.user_id)) {
-      this.utilsService.showErreurMessage('Erreur','Veuillez sélectionner un agent');
+    };
+
+    if (['', null, undefined].includes(chauffeur.user_id)) {
+      this.utilsService.showErreurMessage('Erreur', 'Veuillez sélectionner un agent');
       return;
     }
+
     if (this.form.valid) {
-      if (this.isEdit){
+      if (this.isEdit) {
+        // ✅ CORRIGÉ : isEdit = true → nouveau chauffeur → saveChauffeur (POST)
         this.saveChauffeur(chauffeur);
       } else {
+        // ✅ CORRIGÉ : isEdit = false → modification → editChauffeur (PUT/PATCH)
         chauffeur.id = this.chauffeur.id;
         this.editChauffeur(chauffeur);
       }
@@ -165,34 +187,33 @@ export class AddChauffeurComponent implements OnInit {
     }
   }
 
-  editChauffeur(chauffeur: any) {
-    this.ngxService.start();
-    this.chauffeursService.saveChauffeur(chauffeur).subscribe({
-      next: value => { // success
-        this.ngxService.stop();
-        this.utilsService.showSuccessMessage(value.message);
-        this.router.navigate(['/chauffeurs']);
-      },
-      error: err => { // erreur
-        this.ngxService.stop();
-        this.utilsService.handleError(err);
-      },
-      complete: () => {
-        this.ngxService.stop();
-      }
-    });
-  }
+ editChauffeur(chauffeur: any) {
+  this.ngxService.start();
+  this.chauffeursService.saveChauffeur(chauffeur).subscribe({ // ✅ même service que save
+    next: (value: any) => {
+      this.ngxService.stop();
+      this.utilsService.showSuccessMessage(value.message);
+      this.router.navigate(['/chauffeurs']);
+    },
+    error: (err: any) => {
+      this.ngxService.stop();
+      this.utilsService.handleError(err);
+    },
+    complete: () => {
+      this.ngxService.stop();
+    }
+  });
+}
 
   saveChauffeur(chauffeur: Chauffeur) {
-    this.chauffeur.id = this.chauffeurId;
     this.ngxService.start();
     this.chauffeursService.saveChauffeur(chauffeur).subscribe({
-      next: value => { // success
+      next: value => {
         this.ngxService.stop();
         this.utilsService.showSuccessMessage(value.message);
         this.router.navigate(['/chauffeurs']);
       },
-      error: err => { // erreur
+      error: err => {
         this.ngxService.stop();
         this.utilsService.handleError(err);
       },
@@ -202,95 +223,115 @@ export class AddChauffeurComponent implements OnInit {
     });
   }
 
-
-  open_lg(content:any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  open_lg(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then(
+      result => { this.closeResult = `Closed with: ${result}`; },
+      reason => {}
+    );
   }
 
   getParamValue(): void {
     this.chauffeurId = this.activatedRoute.snapshot.params["chauffeurId"];
-      if ( !(this.chauffeurId || '').length) {
-        this.isAddingNewChauffeur();
-        return;
-      }
-      else {
-        this.modalTitle = 'Modification d\'un chauffeur';
-        this.getChauffeurById(this.chauffeurId);
-      }
-  }
-
-  // Select2 for User
-  private bindDataUserSelect2() {
-    this.dataUserSelect2 = [];
-    this.dataUserSelect2.push({ id: '', text: '--'});
-    this.usersList.forEach((user: any) => {
-      if(user?.role?.libelle == "AGENT"){
-        const id = (user.id || '').toString();
-        const text = (user.prenom || '') + ' ' + (user.nom || user.name || '');
-        this.dataUserSelect2.push({ id, text: text.trim() || user.email || '--' }); 
-      }
-    });
-    this.setElementUserSelected('', '--');
-  }
-
-  setElementUserSelected(idSelect: string, textSelect: string): void {
-    this.elementUserSelected = {id: idSelect, text: textSelect};
-    this.form.get('user_id')?.setValue(this.elementUserSelected.id);
-  }
-
-  handleSelectUserChange(valueSelected: any) {
-    if (![null, undefined].includes(valueSelected.id)) {
-      this.setElementUserSelected(valueSelected.id, valueSelected.text);
+    if (!(this.chauffeurId || '').length) {
+      this.isAddingNewChauffeur();
+      return;
+    } else {
+      this.modalTitle = 'Modification d\'un chauffeur';
+      this.getChauffeurById(this.chauffeurId);
     }
   }
 
-  // Select2 for Catégorie Permis
-  private bindDataCategoriePermisSelect2() {
-    this.dataCategoriePermisSelect2 = [];
-    this.dataCategoriePermisSelect2.push({ id: '', text: '--'});
-    this.typePermis.forEach((type_permis: any) => {
-      const id = (type_permis.id || '').toString();
-      const text = type_permis.libelle || type_permis.text || '--';
-      this.dataCategoriePermisSelect2.push({ id, text });
+  // ─── Select2 : User ───────────────────────────────────────────────────────
+
+  private bindDataUserSelect2() {
+    this.dataUserSelect2 = [{ id: '', text: '--' }];
+
+    if (!this.usersList || this.usersList.length === 0) {
+      console.warn('usersList est vide ou non défini');
+      return;
+    }
+
+    this.usersList.forEach((user: any) => {
+      const id = user.id?.toString() || '';
+      const text = `${user.prenom || ''} ${user.nom || ''}`.trim();
+
+      this.dataUserSelect2.push({
+        id,
+        text: text || user.email || '--'
+      });
     });
+
+    this.setElementUserSelected('', '--');
+    console.log('dataUserSelect2 :', this.dataUserSelect2); // 🔍 Debug
+  }
+
+  setElementUserSelected(idSelect: string, textSelect: string): void {
+    this.elementUserSelected = { id: idSelect, text: textSelect };
+    this.form.get('user_id')?.setValue(idSelect);
+  }
+
+  handleSelectUserChange(valueSelected: any) {
+    if (valueSelected != null) {
+      const id = valueSelected.id ?? valueSelected;
+      const text = valueSelected.text ?? '';
+      this.setElementUserSelected(id, text);
+    }
+  }
+
+  // ─── Select2 : Catégorie Permis ───────────────────────────────────────────
+
+  private bindDataCategoriePermisSelect2() {
+    this.dataCategoriePermisSelect2 = [{ id: '', text: '--' }];
+
+    if (this.typePermis && this.typePermis.length > 0) {
+      this.typePermis.forEach((item: any) => {
+        this.dataCategoriePermisSelect2.push({
+          id: item.id.toString(),
+          text: item.libelle
+        });
+      });
+    }
+
     this.setElementCategoriePermisSelected('', '--');
   }
 
   setElementCategoriePermisSelected(idSelect: string, textSelect: string): void {
-    this.elementCategoriePermisSelected = {id: idSelect, text: textSelect};
-    this.form.get('categorie_permis_id')?.setValue(this.elementCategoriePermisSelected.id);
+    this.elementCategoriePermisSelected = { id: idSelect, text: textSelect };
+    this.form.get('categorie_permis_id')?.setValue(idSelect); // ✅ On enregistre l'id
   }
 
   handleSelectCategoriePermisChange(valueSelected: any) {
-    if (![null, undefined].includes(valueSelected.id)) {
-      this.setElementCategoriePermisSelected(valueSelected.text, valueSelected.text);
+    if (![null, undefined].includes(valueSelected?.id)) {
+      // ✅ CORRIGÉ : on passe l'id en premier, pas le texte
+      this.setElementCategoriePermisSelected(valueSelected.id, valueSelected.text);
     }
   }
 
-  // Select2 for Disponibilité Chauffeurs
+  // ─── Select2 : Disponibilité ──────────────────────────────────────────────
+
   private bindDataDisponibiliteSelect2() {
-    this.dataDisponibiliteSelect2 = [];
-    this.dataDisponibiliteSelect2.push({ id: '', text: '--'});
+    this.dataDisponibiliteSelect2 = [{ id: '', text: '--' }];
     this.disponibilites.forEach((disponibilite: any) => {
-      this.dataDisponibiliteSelect2.push({ id: disponibilite.id.toString(), text: disponibilite.libelle});
+      this.dataDisponibiliteSelect2.push({
+        id: disponibilite.id.toString(),
+        text: disponibilite.libelle
+      });
     });
     this.setElementDisponibiliteSelected('', '--');
   }
 
   setElementDisponibiliteSelected(idSelect: string, textSelect: string): void {
-    this.elementDisponibiliteSelected = {id: idSelect, text: textSelect};
-    this.form.get('disponibilite')?.setValue(this.elementDisponibiliteSelected.text);
+    this.elementDisponibiliteSelected = { id: idSelect, text: textSelect };
+    this.form.get('disponibilite')?.setValue(textSelect);
   }
 
   handleSelectDisponibiliteChange(valueSelected: any) {
-    if (![null, undefined].includes(valueSelected.id)) {
+    if (![null, undefined].includes(valueSelected?.id)) {
       this.setElementDisponibiliteSelected(valueSelected.id, valueSelected.text);
     }
   }
+
+  // ─── États du formulaire ──────────────────────────────────────────────────
 
   isAddingNewChauffeur() {
     this.modalTitle = 'Nouveau Chauffeur';
@@ -303,9 +344,8 @@ export class AddChauffeurComponent implements OnInit {
     this.form.get('adresse')?.setValue(chauffeur.adresse);
     this.form.get('contact')?.setValue(chauffeur.contact);
     this.form.get('email')?.setValue(chauffeur.email);
-    this.setElementUserSelected(chauffeur.user?.id.toString(), '');
-    this.setElementCategoriePermisSelected(chauffeur.permis?.id.toString(), '');
-    this.setElementDisponibiliteSelected(chauffeur.disponibilite.toString(), '');
+    this.setElementUserSelected(chauffeur.user?.id?.toString() || '', `${chauffeur.user?.prenom || ''} ${chauffeur.user?.nom || ''}`.trim());
+    this.setElementCategoriePermisSelected(chauffeur.permis?.id?.toString() || '', chauffeur.permis?.libelle || '');
+    this.setElementDisponibiliteSelected(chauffeur.disponibilite?.toString() || '', chauffeur.disponibilite?.toString() || '');
   }
-
 }

@@ -28,11 +28,11 @@ export class HistoriquesService {
   }
   
   getHistoriquesPerformancesChauffeurs(body: any): Observable<any> {
-    return this.http.post(environment.BASE_URL + 'historiques/get-historique-performaces-chauffeur', {body});
+    return this.http.post(environment.BASE_URL + 'historiques/get-historique-performances-chauffeur', {body});
   }
   
   exportPerformancesChauffeur(body: any) {
-    return this.http.post(environment.BASE_URL +'historiques/export-performances-chauffeur', body, this.blobHttpOptions);
+    return this.http.post(environment.BASE_URL + 'historiques/export-performances-chauffeur', body, this.blobHttpOptions);
   }
 
 }

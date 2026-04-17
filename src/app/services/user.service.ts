@@ -27,7 +27,7 @@ export class UserService {
   } 
 
   getListRole(): Observable<any>{
-    return this.http.get(environment.BASE_URL + "user/role_all", {});
+    return this.http.get(environment.BASE_URL + "user/roles", {});
   } 
 
 

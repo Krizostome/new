@@ -106,14 +106,38 @@
 <!--Modal Type Véhicule-->
 <ng-template #typevehiculemodal let-modal>
   <div class="modal-header">
-    <h4>TEST MODAL</h4>
+    <h4 class="modal-title" id="modal-basic-title">Nouveau Type</h4>
   </div>
-
-  <div class="modal-body">
-    <p>Le modal fonctionne ✅</p>
-  </div>
-
-  <div class="modal-footer">
-    <button class="btn btn-danger" (click)="modal.close()">Fermer</button>
-  </div>
+  <form #typevehiculeform="ngForm">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-6 form-group">
+          <div class="text-left"><label for="libelle">Libellé<span class="text-danger">*</span></label></div>
+          <div>
+            <input class="form-control form-control-sm" id="libelle" name="libelle" type="text" required
+              [(ngModel)]="type_vehicule.libelle">
+          </div>
+        </div>
+        <div class="col-3 form-group">
+          <div class="text-left"><label for="statut">Statut</label></div>
+          <div>
+            <select class="form-control form-control-sm" name="statut" id="statut" [(ngModel)]="type_vehicule.statut">
+              <option value="1">ACTIF</option>
+              <option value="0">INACTIF</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-2 form-group">
+          <div class="text-left"><label for="date_mise_circulation"></label></div>
+          <div>
+            <button type="button" class="btn btn-success mt-2" (click)="saveTypeVehicule()"
+              [disabled]="typevehiculeform.invalid">Valider</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Fermer</button>
+    </div>
+  </form>
 </ng-template>

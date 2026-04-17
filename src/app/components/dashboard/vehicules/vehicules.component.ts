@@ -32,27 +32,37 @@ export class VehiculesComponent implements OnInit {
     this.getTypesVehicules();
   }
 
-  getListVehicules(): void {
-    this.ngxService.start();
-    this.vehiculesService.getListVehicules().subscribe({
-      next: value => {
-        if (value && value.data) {
-          this.listeVehicules = value.data;
-          this.dtTrigger.next(undefined);
-        } else {
-          this.listeVehicules = [];
+getListVehicules(): void {
+  this.ngxService.start();
+  this.vehiculesService.getListVehicules().subscribe({
+    next: value => {
+      if (value && value.data) {
+        this.listeVehicules = value.data;
+
+        // ✅ Détruire d'abord si déjà initialisé
+        if ($.fn.dataTable.isDataTable('#bootstrap-data-table')) {
+          $('#bootstrap-data-table').DataTable().destroy();
         }
-        this.ngxService.stop();
-      },
-      error: err => {
-        this.ngxService.stop();
-        this.utilsService.handleError(err);
-      },
-      complete: () => {
-        this.ngxService.stop();
+
+        // ✅ Laisser Angular re-rendre le @for avant de réinitialiser DataTable
+        setTimeout(() => {
+          this.dtTrigger.next(undefined);
+        }, 100);
+
+      } else {
+        this.listeVehicules = [];
       }
-    });
-  }
+      this.ngxService.stop();
+    },
+    error: err => {
+      this.ngxService.stop();
+      this.utilsService.handleError(err);
+    },
+    complete: () => {
+      this.ngxService.stop();
+    }
+  });
+}
 
   getTypesVehicules(): void {
     this.ngxService.start();
@@ -107,25 +117,22 @@ export class VehiculesComponent implements OnInit {
     });
   }
   
-  deleteVehicule(vehicule: Vehicule): void {
-    this.ngxService.start();    
-    this.vehicule.statut = false;
-    this.vehiculesService.saveVehicule(vehicule).subscribe({
-      next: value => {
-        this.utilsService.showSuccessMessage(value.message);
-        this.ngxService.stop();    
-        $('#bootstrap-data-table1').DataTable().ajax.reload();
-        this.ngOnInit();
-      },
-      error: err => {
-        this.ngxService.stop();
-        this.utilsService.handleError(err);
-      },
-      complete: () => {
-        this.ngxService.stop();
-      }
-    });
-  }
+ deleteVehicule(vehicule: Vehicule): void {
+  this.ngxService.start();
+
+  this.vehiculesService.deleteVehicule(vehicule.id).subscribe({
+    next: value => {
+      //this.utilsService.showSuccessMessage(value.message);
+      this.getListVehicules(); // ✅ refresh propre
+      this.ngxService.stop();
+    },
+    error: err => {
+      console.log(err); // 🔥 debug
+      this.ngxService.stop();
+      this.utilsService.handleError(err);
+    }
+  });
+}
 
   jumpToVehiculeEdit(vehiculeId: number) {
     this.router.navigate(['/vehicule/modifier/'+vehiculeId]);
